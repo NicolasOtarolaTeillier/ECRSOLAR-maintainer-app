@@ -187,7 +187,7 @@ dropzone
 flatpickr
 formik
 html-react-parser
-jsvectormap
+
 next-transpile-modules
 prop-types
 react-chartjs-2

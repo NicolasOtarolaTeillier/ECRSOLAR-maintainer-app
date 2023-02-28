@@ -30,41 +30,29 @@ import SalesTable from "/examples/Tables/SalesTable";
 // Data
 import salesTableData from "/pagesComponents/dashboards/analytics/components/SalesByCountry/data/salesTableData";
 
+
+
 function SalesByCountry() {
   useEffect(() => {
     const mapContainer = document.getElementById("map");
     const jsVectorMap = require("jsvectormap");
     require("jsvectormap/dist/maps/world-merc.js");
+    require("jsvectormap/dist/maps/south-america-merc");
 
     const createMap = () =>
       new jsVectorMap({
         selector: "#map",
-        map: "world_merc",
-        zoomOnScroll: false,
+        map: "south_america_merc",
+        zoomOnScroll: true,
         zoomButtons: false,
         selectedMarkers: [1, 3],
         markersSelectable: true,
         markers: [
           {
-            name: "USA",
-            coords: [40.71296415909766, -74.00437720027804],
+            name: "Chile",
+            coords: [-33.437778, -70.650278],
           },
-          {
-            name: "Germany",
-            coords: [51.17661451970939, 10.97947735117339],
-          },
-          {
-            name: "Brazil",
-            coords: [-7.596735421549542, -54.781694323779185],
-          },
-          {
-            name: "Russia",
-            coords: [62.318222797104276, 89.81564777631716],
-          },
-          {
-            name: "China",
-            coords: [22.320178999475512, 114.17161225541399],
-          },
+
         ],
         markerStyle: {
           initial: {
