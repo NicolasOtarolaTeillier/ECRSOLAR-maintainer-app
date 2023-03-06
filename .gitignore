@@ -35,5 +35,5 @@
 **/yarn.lock
 
 # serverless
-]**/.serverless
+**/.serverless
 **/dist
