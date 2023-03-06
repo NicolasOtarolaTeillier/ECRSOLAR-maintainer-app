@@ -1,0 +1,29 @@
+{
+  "name": "server-graphql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/server": "^4.4.0",
+    "@as-integrations/aws-lambda": "^2.0.0",
+    "graphql": "^16.6.0",
+    "graphql-scalars": "^1.20.1",
+    "graphql-tools": "^8.3.16",
+    "knex": "^2.4.2",
+    "pg": "^8.8.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.28.0"
+  },
+  "devDependencies": {
+    "serverless-plugin-typescript": "^2.1.4",
+    "typescript": "^4.9.5"
+  }
+}
