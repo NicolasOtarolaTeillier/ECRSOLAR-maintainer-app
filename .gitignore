@@ -33,3 +33,7 @@
 
 **/package-lock.json
 **/yarn.lock
+
+# serverless
+]**/.serverless
+**/dist
