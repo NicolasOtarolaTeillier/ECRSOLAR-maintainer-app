@@ -10,7 +10,12 @@ export const User = sequelize.define(
       allowNull: false,
       autoIncrement: true
     },
-    person_id: {
+    position: {
+      type: DataTypes.STRING,
+      foreingKey: true,
+      allowNull: false,
+    },
+    person: {
       type: DataTypes.INTEGER,
       foreingKey: true,
       allowNull: false,

@@ -5,12 +5,15 @@ import './src/models/Person.js'
 import './src/models/User.js'
 import './src/models/Role.js'
 import './src/models/ServiceType.js'
+import './src/models/Position.js'
 
 // data default
 import { Person } from './src/models/Person.js'
 import { User } from './src/models/User.js'
 import { Role } from './src/models/Role.js'
 import { ServiceType } from './src/models/ServiceType.js'
+import { Position } from './src/models/Position.js'
+
 
 // asocciations
 import './src/models/asocciations.js'
@@ -21,12 +24,12 @@ async function orm () {
     await sequelize.sync({ force: true })
     //await sequelize.sync()
     await Role.bulkCreate([
-      { role: 'admin' },
-      { role: 'operator' },
-      { role: 'supervisor' },
-      { role: 'client' },
-      { role: 'guest' },
-      { role: 'owner' }
+      { role: 'admin', name: 'Administrador' },
+      { role: 'operator',name: 'Operario' },
+      { role: 'supervisor',name: 'Supervisor' },
+      { role: 'client',name: 'Cliente' },
+      { role: 'guest', name: 'Invitado' },
+      { role: 'owner', name: 'Dueño' }
     ])
     await Person.bulkCreate([
       {
@@ -63,6 +66,17 @@ async function orm () {
       { name: 'Obras civiles',average_price_mw: 1000, status: true },
       { name: 'Termografía',average_price_mw: 1000, status: true }
     ])
+    await Position.bulkCreate([
+      {name: "Operario", key: 'operator'},
+      {name: "Operario sénior", key: 'operator_senior'},
+      {name: "Operario júnior", key: 'operator_junior'},
+      {name: "Supervisor", key: 'supervisor'},
+      {name: "Gerente de linea", key: 'line_manager'},
+      {name: "Desarrollador de negocios", key: 'developer_business'},
+      {name: "Programador", key: 'programmer'},
+    ])
+
+
     // await Contact.bulkCreate([
     //   {email: 'daniel@ienergiachile.com', firstName: 'Daniel', lastName: 'Friedman', phoneNumber: '', address: 'Av Américo Vespucio 2680 Of 111, Conchalí, Santiago', status: true }
     // ])

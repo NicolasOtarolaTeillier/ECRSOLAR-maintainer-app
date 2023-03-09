@@ -1,16 +1,16 @@
-// table roles
+// table users
 import { DataTypes } from 'sequelize'
 import { sequelize } from '../database/database.js'
 
-export const Role = sequelize.define(
-  'roles',
+export const Position = sequelize.define(
+  'positions',
   {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true
     },
-    role: {
+    key: {
       type: DataTypes.STRING,
       primaryKey: true,
       allowNull: false,
@@ -18,7 +18,8 @@ export const Role = sequelize.define(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-    }
+      unique: true,
+    },
   },
   {
     timestamps: true
