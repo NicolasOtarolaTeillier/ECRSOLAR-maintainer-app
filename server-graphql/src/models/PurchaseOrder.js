@@ -6,11 +6,13 @@ export const PurchaseOrder = sequelize.define('purchase_orders',{
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        autoIncrement: true
+        autoIncrement: true,
+        primaryKey: true,
     },
     name: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true,        
     },
     number: {
         type: DataTypes.INTEGER,
@@ -21,12 +23,13 @@ export const PurchaseOrder = sequelize.define('purchase_orders',{
         allowNull: false
     },
     client: {
-        type: DataTypes.STRING, // to-do: definir modelo
+        type: DataTypes.STRING,
         allowNull: false
     },
-    central: {
-        type: DataTypes.STRING, // to-do: definir modelo
-        allowNull: false
+
+    status: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
     }
 },
 {

@@ -1,29 +1,34 @@
-// table users
+// table clients
 import { DataTypes } from 'sequelize'
 import { sequelize } from '../database/database.js'
 
-export const User = sequelize.define(
-  'users',
+export const Customer = sequelize.define(
+  'customers',
   {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true,
       allowNull: false,
       autoIncrement: true
     },
-    person_id: {
-      type: DataTypes.INTEGER,
-      foreingKey: true,
-      allowNull: false,
-    },
-    password: {
+    name: {
+      primaryKey: true,
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: false
     },
-    role: {
+    fantasyName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    rut: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 'guest'
+      unique: true,
+      validate: {
+        is: {
+          args: /^(\d{1,3}(?:\.?\d{3}){2}-[\dkK])$/,
+          msg: 'Invalid RUT'
+        }
+      }
     },
     status: {
       type: DataTypes.BOOLEAN,
@@ -35,3 +40,4 @@ export const User = sequelize.define(
     timestamps: true
   }
 )
+

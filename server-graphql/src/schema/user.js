@@ -1,20 +1,15 @@
-import { GraphQLError } from 'graphql'
-import {knex} from '../knex/knex.js'
+import { User } from '../models/User.js'
+import { Person } from '../models/Person.js'
 
 // definitions graphql
 export const typeDefs = `#graphql
 
   type User {
-    id: Int!              # (ejemplo: 1)
-    email: String!        # (ejemplo: asd@asd)
-    password: String!     # (ejemplo: asd123)
-    name: String!         # (ejemplo: Nicolás)
-    role: String!         # (estados: admin, operator, supervisor, client)
-    status: Boolean!      # (estados: true,false)
-    last_name: String     # (ejemplo: Otárola)
-    rut:  String!         # (ejemplo: 18470642-3)
-    country: String       # (ejemplo: Chile)
-    
+    id: Int!
+    person_id: Person!
+    password: String!
+    role: String!
+    status: Boolean!
   }
 
   extend type Query {
@@ -23,49 +18,60 @@ export const typeDefs = `#graphql
     findUser(email: String!): User
   }
 
-  extend type Mutation {
-    addUser(
-        name: String!
-        last_name: String
-        email: String!
-        password: String!
-        role: String!
-        status: Boolean!
-    ): User
-  }
+ extend type Mutation {
+   addUser(
+       password: String!
+       role: String!
+       status: Boolean!
+   ): User
+ }
 `
 
 // resolvers graphql
 export const resolvers = {
   Query: {
     allUsers: async () => {
-      return knex('users')
-        .select()
-        .then(users => {
-          return users
-        })
+      return await User.findAll({order: [['id', 'ASC']],attributes: ['id', 'person_id', 'role','status']})
     },
-    usersCount: () => data_users.length,
-    findUser: (root, args) => {
-      const { email } = args
-      return data_users.find(user => user.email === email)
+    usersCount: async () => {
+      return await User.count()
+    },
+    findUser: async (root, { email }) => {
+      try {
+        const {id} = await Person.findOne({where: {email}})
+        const user = await User.findOne({ where: { id },attributes: ['id', 'person_id', 'role','status'] })
+        if (!user) {
+          throw new Error(`No user was found with the id: ${id}`)
+        }
+        return user
+      } catch (err) {
+        console.error(err)
+        throw err
+      }
     }
   },
   Mutation: {
-    addUser: (root, args) => {
-      if (data_users.find(u => u.email === args.email)) {
-        throw new GraphQLError('Invalid argument value', {
-          extensions: {
-            code: 'BAD_USER_INPUT',
-            exceptions: {
-              invalidArg: args.email
-            }
-          }
+    addUser: async (
+      root,
+      { person_id,password, role,status }
+    ) => {
+      const user = await User.findOne({ where: { person_id } })
+      if (user) {
+        throw new Error('User already exists')
+      } else {
+        const newUser = await User.create({
+          person_id,
+          password,
+          role,
+          status
         })
+        return newUser
       }
-      const user = { ...args }
-      data_users.push(user)
-      return user
+    }
+  },
+  User: {
+    person_id: async ({person_id}) =>{
+      return await Person.findOne({ where: { id: person_id}})
     }
   }
 }

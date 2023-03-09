@@ -3,11 +3,10 @@ import { DataTypes } from 'sequelize'
 import { sequelize } from '../database/database.js'
 
 export const User = sequelize.define(
-  'users',
+  'staff',
   {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true,
       allowNull: false,
       autoIncrement: true
     },
@@ -16,19 +15,17 @@ export const User = sequelize.define(
       foreingKey: true,
       allowNull: false,
     },
-    password: {
-      type: DataTypes.STRING,
+    admission_date :{
+      type: DataTypes.DATEONLY,
+      allowNull: true
+    },
+    completion_date :{
+      type: DataTypes.DATEONLY,
       allowNull: true
     },
     role: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: 'guest'
-    },
-    status: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
+        type: DataTypes.STRING,
+        allowNull: false,
     }
   },
   {

@@ -1,7 +1,6 @@
-//import {typeDefs as User, resolvers as UserResolvers} from './user.js'
-import {typeDefs as Report, resolvers as ReportResolvers} from './report.js'
-
-
+import { typeDefs as Person, resolvers as PersonResolvers } from './person.js'
+import { typeDefs as Role, resolvers as RoleResolvers } from './role.js'
+import { typeDefs as User, resolvers as UserResolvers } from './user.js'
 
 const rootTypeDefs = `#graphql
     type Query {
@@ -15,14 +14,21 @@ const rootTypeDefs = `#graphql
 `
 
 const rooResolvers = {
-    Query: {
-        hello: () => 'world',
-      },
+  Query: {
+    hello: () => 'Hello world!, Welcome to app ecrsolar'
+  }
 }
 
+export const resolvers = [
+  rooResolvers,
+  PersonResolvers,
+  RoleResolvers,
+  UserResolvers,
+]
 
-
-
-export const resolvers = [rooResolvers,ReportResolvers]
-
-export const typeDefs = [rootTypeDefs,Report]
+export const typeDefs = [
+    rootTypeDefs, 
+    Person,
+    Role,
+    User,
+]

@@ -1,19 +1,19 @@
-
-// table clients
+// table persons
 import { DataTypes } from 'sequelize'
 import { sequelize } from '../database/database.js'
 
-export const User = sequelize.define(
-  'clients',
+export const Person = sequelize.define(
+  'persons',
   {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      autoIncrement: true
+      autoIncrement: true,
+      primaryKey: true
     },
     email: {
       type: DataTypes.STRING,
-      primaryKey: true,
+      unique: true,
       allowNull: false,
       validate: {
         isEmail: {
@@ -22,23 +22,24 @@ export const User = sequelize.define(
         }
       }
     },
-    firstName: {
+    first_name: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    lastName: {
+    last_name: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    role: {
+    phone_number: {
       type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: 'guest'
-    },
-    status: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
+      allowNull: true,
+      unique: true,
+      validate: {
+        is: {
+          args: /^\+?\d{10,14}$/,
+          msg: 'Invalid phone number'
+        }
+      }
     },
     rut: {
       type: DataTypes.STRING,
@@ -51,22 +52,10 @@ export const User = sequelize.define(
         }
       }
     },
-    phoneNumber: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      validate: {
-        is: {
-          args: /^\+?\d{10,14}$/,
-          msg: 'Invalid phone number'
-        }
-      }
-    },
-    address: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-      validate: {
-        notEmpty: true
-      }
+    status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
     }
   },
   {

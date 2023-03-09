@@ -2,33 +2,33 @@
 import { DataTypes } from 'sequelize'
 import { sequelize } from '../database/database.js'
 
-export const User = sequelize.define(
-  'users',
+export const ServiceType = sequelize.define(
+  'service_types',
   {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true,
       allowNull: false,
       autoIncrement: true
     },
-    person_id: {
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      primaryKey: true,
+    },
+    average_price_mw: {
       type: DataTypes.INTEGER,
-      foreingKey: true,
       allowNull: false,
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    role: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: 'guest'
+      validate: {
+        min: {
+          args: [1],
+          msg: 'The average price per MW must be greater than zero'
+        }
+      }
     },
     status: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-      defaultValue: false
+      defaultValue: true
     }
   },
   {

@@ -9,7 +9,7 @@ functions:
     # Make sure your file path is correct!
     # (e.g., if your file is in the root folder use server.graphqlHandler )
     # The format is: <FILENAME>.<HANDLER>
-    handler: index.graphqlHandler 
+    handler: server.graphqlHandler 
     events:
       - httpApi:
           path: /
@@ -20,3 +20,24 @@ functions:
 # Omit the following lines if you aren't using TS!
 #plugins:
 #  - serverless-plugin-typescript
+
+plugins:
+  - serverless-offline
+  - serverless-offline-watcher
+
+custom:
+  serverless-offline:
+    httpPort: 4000
+    stageVariables:
+      foo: "bar"
+ #   skipCacheInvalidation: true
+
+  serverless-offline-watcher:
+    - path: src/server.js
+      command: echo "index.ts was modified!"
+    - path:
+        - src/schema/*.js
+      command: echo "schema folder was modified!"
+    - path:
+        - src/models/*.js
+      command: echo "models folder was modified!"
