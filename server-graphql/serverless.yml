@@ -1,9 +1,16 @@
 service: ecrsolar-apollo-server
+useDotenv: true
 provider:
   name: aws
   runtime: nodejs16.x
   httpApi:
     cors: true
+  environment:
+    DB_NAME: ${env:DB_NAME}
+    DB_USER: ${env:DB_USER}
+    DB_PASSWORD: ${env:DB_PASSWORD}
+    DB_HOST: ${env:DB_HOST}
+    DB_DIALECT: ${env:DB_DIALECT}
 functions:
   graphql:
     # Make sure your file path is correct!

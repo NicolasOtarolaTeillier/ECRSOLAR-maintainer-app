@@ -20,6 +20,7 @@ export const typeDefs = `#graphql
 
  extend type Mutation {
    addUser(
+       person_id: Int!
        password: String!
        role: String!
        status: Boolean!
@@ -53,8 +54,9 @@ export const resolvers = {
   Mutation: {
     addUser: async (
       root,
-      { person_id,password, role,status }
+      { person_id, password, role,status }
     ) => {
+
       const user = await User.findOne({ where: { person_id } })
       if (user) {
         throw new Error('User already exists')
