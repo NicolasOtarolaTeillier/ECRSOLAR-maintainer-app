@@ -74,7 +74,6 @@ function BasicInfo() {
                   </Grid>
                   <Grid item xs={12} sm={4}>
                     <Autocomplete
-                      defaultValue="1"
                       options={selectData.days}
                       renderInput={(params) => (
                         <FormField

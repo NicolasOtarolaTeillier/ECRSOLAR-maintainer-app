@@ -25,6 +25,7 @@
     "install:peer-deps": "npm install --legacy-peer-deps"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.10",
     "@asseinfo/react-kanban": "2.2.0",
     "@babel/preset-react": "7.14.5",
     "@emotion/cache": "11.7.1",
@@ -43,6 +44,7 @@
     "dropzone": "5.9.2",
     "flatpickr": "4.6.9",
     "formik": "2.2.9",
+    "graphql": "^16.6.0",
     "html-react-parser": "1.4.8",
     "jsvectormap": "1.5.1",
     "next": "12.1.0",

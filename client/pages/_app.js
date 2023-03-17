@@ -13,67 +13,71 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState, useEffect, useMemo } from "react";
+// apollo client
+import { ApolloProvider } from '@apollo/client'
+import client from '../apollo-client'
 
-import Head from "next/head";
-import { useRouter } from "next/router";
+import { useState, useEffect, useMemo } from 'react'
+
+import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 // @emotion
-import createCache from "@emotion/cache";
+import createCache from '@emotion/cache'
 
 // @emotion/react components
-import { CacheProvider } from "@emotion/react";
+import { CacheProvider } from '@emotion/react'
 
 // @mui material components
-import { ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import Icon from "@mui/material/Icon";
+import { ThemeProvider } from '@mui/material/styles'
+import CssBaseline from '@mui/material/CssBaseline'
+import Icon from '@mui/material/Icon'
 
 // @fullcalendar styles
-import "@fullcalendar/common/main.css";
-import "@fullcalendar/daygrid/main.css";
-import "@fullcalendar/timegrid/main.css";
+import '@fullcalendar/common/main.css'
+import '@fullcalendar/daygrid/main.css'
+import '@fullcalendar/timegrid/main.css'
 
 // NextJS Material Dashboard 2 PRO components
-import MDBox from "/components/MDBox";
+import MDBox from '/components/MDBox'
 
 // NextJS Material Dashboard 2 PRO examples
-import Sidenav from "/examples/Sidenav";
-import Configurator from "/examples/Configurator";
+import Sidenav from '/examples/Sidenav'
+import Configurator from '/examples/Configurator'
 
 // NextJS Material Dashboard 2 PRO themes
-import theme from "/assets/theme";
-import themeRTL from "/assets/theme/theme-rtl";
+import theme from '/assets/theme'
+import themeRTL from '/assets/theme/theme-rtl'
 
 // NextJS Material Dashboard 2 PRO Dark Mode themes
-import themeDark from "/assets/theme-dark";
-import themeDarkRTL from "/assets/theme-dark/theme-rtl";
+import themeDark from '/assets/theme-dark'
+import themeDarkRTL from '/assets/theme-dark/theme-rtl'
 
 // RTL plugins
-import rtlPlugin from "stylis-plugin-rtl";
+import rtlPlugin from 'stylis-plugin-rtl'
 
 // NextJS Material Dashboard 2 PRO routes
-import routes from "/routes";
+import routes from '/routes'
 
 // NextJS Material Dashboard 2 PRO Context Provider
 import {
   MaterialUIControllerProvider,
   useMaterialUIController,
   setMiniSidenav,
-  setOpenConfigurator,
-} from "/context";
+  setOpenConfigurator
+} from '/context'
 
 // Images
-import favicon from "/assets/images/favicon.png";
-import appleIcon from "/assets/images/apple-icon.png";
-import brandWhite from "/assets/images/logo-ct.png";
-import brandDark from "/assets/images/logo-ct-dark.png";
+import favicon from '/assets/images/favicon.png'
+import appleIcon from '/assets/images/apple-icon.png'
+import brandWhite from '/assets/images/logo-ct.png'
+import brandDark from '/assets/images/logo-ct-dark.png'
 
 // Client-side cache, shared for the whole session of the user in the browser.
-const clientSideEmotionCache = createCache({ key: "css", prepend: true });
+const clientSideEmotionCache = createCache({ key: 'css', prepend: true })
 
-function Main({ Component, pageProps }) {
-  const [controller, dispatch] = useMaterialUIController();
+function Main ({ Component, pageProps }) {
+  const [controller, dispatch] = useMaterialUIController()
   const {
     miniSidenav,
     direction,
@@ -82,91 +86,91 @@ function Main({ Component, pageProps }) {
     sidenavColor,
     transparentSidenav,
     whiteSidenav,
-    darkMode,
-  } = controller;
-  const [onMouseEnter, setOnMouseEnter] = useState(false);
-  const [rtlCache, setRtlCache] = useState(null);
-  const { pathname } = useRouter();
+    darkMode
+  } = controller
+  const [onMouseEnter, setOnMouseEnter] = useState(false)
+  const [rtlCache, setRtlCache] = useState(null)
+  const { pathname } = useRouter()
 
   // Cache for the rtl
   useMemo(() => {
     const cacheRtl = createCache({
-      key: "rtl",
-      stylisPlugins: [rtlPlugin],
-    });
+      key: 'rtl',
+      stylisPlugins: [rtlPlugin]
+    })
 
-    setRtlCache(cacheRtl);
-  }, []);
+    setRtlCache(cacheRtl)
+  }, [])
 
   // Open sidenav when mouse enter on mini sidenav
   const handleOnMouseEnter = () => {
     if (miniSidenav && !onMouseEnter) {
-      setMiniSidenav(dispatch, false);
-      setOnMouseEnter(true);
+      setMiniSidenav(dispatch, false)
+      setOnMouseEnter(true)
     }
-  };
+  }
 
   // Close sidenav when mouse leave mini sidenav
   const handleOnMouseLeave = () => {
     if (onMouseEnter) {
-      setMiniSidenav(dispatch, true);
-      setOnMouseEnter(false);
+      setMiniSidenav(dispatch, true)
+      setOnMouseEnter(false)
     }
-  };
+  }
 
   // Change the openConfigurator state
   const handleConfiguratorOpen = () =>
-    setOpenConfigurator(dispatch, !openConfigurator);
+    setOpenConfigurator(dispatch, !openConfigurator)
 
   // Setting the dir attribute for the body element
   useEffect(() => {
-    document.body.setAttribute("dir", direction);
-  }, [direction]);
+    document.body.setAttribute('dir', direction)
+  }, [direction])
 
   // Setting page scroll to 0 when changing the route
   useEffect(() => {
-    document.documentElement.scrollTop = 0;
-    document.scrollingElement.scrollTop = 0;
-  }, [pathname]);
+    document.documentElement.scrollTop = 0
+    document.scrollingElement.scrollTop = 0
+  }, [pathname])
 
   const brandIcon =
-    (transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite;
+    (transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite
 
   const configsButton = (
     <MDBox
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      width="3.25rem"
-      height="3.25rem"
-      bgColor="white"
-      shadow="sm"
-      borderRadius="50%"
-      position="fixed"
-      right="2rem"
-      bottom="2rem"
+      display='flex'
+      justifyContent='center'
+      alignItems='center'
+      width='3.25rem'
+      height='3.25rem'
+      bgColor='white'
+      shadow='sm'
+      borderRadius='50%'
+      position='fixed'
+      right='2rem'
+      bottom='2rem'
       zIndex={99}
-      color="dark"
-      sx={{ cursor: "pointer" }}
+      color='dark'
+      sx={{ cursor: 'pointer' }}
       onClick={handleConfiguratorOpen}
     >
-      <Icon fontSize="small" color="inherit">
+      <Icon fontSize='small' color='inherit'>
         settings
       </Icon>
     </MDBox>
-  );
+  )
 
-  return direction === "rtl" ? (
+  return direction === 'rtl' ? (
     <CacheProvider value={rtlCache}>
       <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
         <CssBaseline />
         <Component {...pageProps} />
-        {layout === "dashboard" && (
+        {layout === 'dashboard' && (
           <>
             <Sidenav
               color={sidenavColor}
               brand={brandIcon}
-              brandName="Material Dashboard PRO"
+              brandName='App ECRSOLAR'
               routes={routes}
               onMouseEnter={handleOnMouseEnter}
               onMouseLeave={handleOnMouseLeave}
@@ -175,19 +179,19 @@ function Main({ Component, pageProps }) {
             {configsButton}
           </>
         )}
-        {layout === "vr" && <Configurator />}
+        {layout === 'vr' && <Configurator />}
       </ThemeProvider>
     </CacheProvider>
   ) : (
     <ThemeProvider theme={darkMode ? themeDark : theme}>
       <CssBaseline />
       <Component {...pageProps} />
-      {layout === "dashboard" && (
+      {layout === 'dashboard' && (
         <>
           <Sidenav
             color={sidenavColor}
             brand={brandIcon}
-            brandName="Material Dashboard PRO"
+            brandName='App ECRSOLAR'
             routes={routes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
@@ -196,29 +200,34 @@ function Main({ Component, pageProps }) {
           {configsButton}
         </>
       )}
-      {layout === "vr" && <Configurator />}
+      {layout === 'vr' && <Configurator />}
     </ThemeProvider>
-  );
+  )
 }
 
-function MyApp({
+function MyApp ({
   Component,
   pageProps,
-  emotionCache = clientSideEmotionCache,
+  emotionCache = clientSideEmotionCache
 }) {
   return (
-    <MaterialUIControllerProvider>
-      <CacheProvider value={emotionCache}>
-        <Head>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <link rel="shortcut icon" href={favicon.src} />
-          <link rel="apple-touch-icon" sizes="76x76" href={appleIcon.src} />
-          <title>Next Material Dashboard 2 PRO</title>
-        </Head>
-        <Main Component={Component} pageProps={pageProps} />
-      </CacheProvider>
-    </MaterialUIControllerProvider>
-  );
+    <ApolloProvider client={client}>
+      <MaterialUIControllerProvider>
+        <CacheProvider value={emotionCache}>
+          <Head>
+            <meta
+              name='viewport'
+              content='width=device-width, initial-scale=1'
+            />
+            <link rel='shortcut icon' href={favicon.src} />
+            <link rel='apple-touch-icon' sizes='76x76' href={appleIcon.src} />
+            <title>App ECRSOLAR</title>
+          </Head>
+          <Main Component={Component} pageProps={pageProps} />
+        </CacheProvider>
+      </MaterialUIControllerProvider>
+    </ApolloProvider>
+  )
 }
 
-export default MyApp;
+export default MyApp

@@ -37,7 +37,7 @@ function SalesByCountry() {
     const mapContainer = document.getElementById("map");
     const jsVectorMap = require("jsvectormap");
     require("jsvectormap/dist/maps/world-merc.js");
-    require("jsvectormap/dist/maps/south-america-merc");
+    require("/maps/south-america-merc");
 
     const createMap = () =>
       new jsVectorMap({
