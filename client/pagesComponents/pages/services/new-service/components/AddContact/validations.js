@@ -5,7 +5,8 @@ import checkout from "/pagesComponents/pages/services/new-service/components/Add
 const {
   formField: {
     customer, // name cliente
-    person,  // id person (first_name, last_name, rut, phone_number, email)
+    first_name,
+    last_name,
     email,
     phone_number,
     address, 
@@ -15,9 +16,10 @@ const {
 
 const validations = 
   Yup.object().shape({
-    [customer.name]: Yup.string().required(customer.errorMsg),
+    [customer.name]: Yup.string(),
     [email.name]: Yup.string().required(email.errorMsg).email(),
-    [person.name]: Yup.number().required(person.errorMsg),
+    [first_name.name]: Yup.string().required(first_name.errorMsg),
+    [last_name.name]: Yup.string().required(last_name.errorMsg),
     [phone_number.name]: Yup.string().required(phone_number.errorMsg),
     [address.name]: Yup.string().required(address.errorMsg),
     [functional_area.name]: Yup.string().required(functional_area.errorMsg),

@@ -1,7 +1,6 @@
 import { gql } from '@apollo/client'
 const ADD_PHOTOVOLTAIC_POWER_STATION = gql`
   mutation AddPhotovoltaicPowerStation(
-    $purchaseOrder: Int!
     $name: String!
     $strings: Int!
     $modules: Int!
@@ -15,7 +14,7 @@ const ADD_PHOTOVOLTAIC_POWER_STATION = gql`
     $customer: String!
     $managerNumber: String!
   ) {
-    addService(
+    addPhotovoltaicPowerStation(
       name: $name
       strings: $strings
       modules: $modules

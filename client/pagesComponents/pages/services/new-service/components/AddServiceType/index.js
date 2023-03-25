@@ -78,7 +78,7 @@ function AddServiceType ({ formData }) {
           </Grid>
         </Grid>
       </MDBox>
-      <MDBox mt={5}>
+      {/* <MDBox mt={5}>
         <Grid container style={{ justifyContent: 'center' }}>
           <Grid sx={{ textAlign: 'right' }}>
             <MDButton variant='gradient' color='success'>
@@ -86,7 +86,7 @@ function AddServiceType ({ formData }) {
             </MDButton>
           </Grid>
         </Grid>
-      </MDBox>
+      </MDBox> */}
     </MDBox>
   )
 }

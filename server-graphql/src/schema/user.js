@@ -6,7 +6,7 @@ export const typeDefs = `#graphql
 
   type User {
     id: Int!
-    person_id: Person!
+    person: Person!
     password: String!
     role: String!
     status: Boolean!
@@ -20,7 +20,7 @@ export const typeDefs = `#graphql
 
  extend type Mutation {
    addUser(
-       person_id: Int!
+       person: Int!
        password: String!
        role: String!
        status: Boolean!
@@ -32,7 +32,7 @@ export const typeDefs = `#graphql
 export const resolvers = {
   Query: {
     allUsers: async () => {
-      return await User.findAll({order: [['id', 'ASC']],attributes: ['id', 'person_id', 'role','status']})
+      return await User.findAll({order: [['id', 'ASC']],attributes: ['id', 'person', 'role','status']})
     },
     usersCount: async () => {
       return await User.count()
@@ -40,7 +40,7 @@ export const resolvers = {
     findUser: async (root, { email }) => {
       try {
         const {id} = await Person.findOne({where: {email}})
-        const user = await User.findOne({ where: { id },attributes: ['id', 'person_id', 'role','status'] })
+        const user = await User.findOne({ where: { id },attributes: ['id', 'person', 'role','status'] })
         if (!user) {
           throw new Error(`No user was found with the id: ${id}`)
         }
@@ -54,15 +54,15 @@ export const resolvers = {
   Mutation: {
     addUser: async (
       root,
-      { person_id, password, role,status }
+      { person, password, role,status }
     ) => {
 
-      const user = await User.findOne({ where: { person_id } })
+      const user = await User.findOne({ where: { person } })
       if (user) {
         throw new Error('User already exists')
       } else {
         const newUser = await User.create({
-          person_id,
+          person,
           password,
           role,
           status
@@ -72,8 +72,8 @@ export const resolvers = {
     }
   },
   User: {
-    person_id: async ({person_id}) =>{
-      return await Person.findOne({ where: { id: person_id}})
+    person: async ({person}) =>{
+      return await Person.findOne({ where: { id: person}})
     }
   }
 }

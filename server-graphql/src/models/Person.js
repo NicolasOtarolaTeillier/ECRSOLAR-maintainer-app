@@ -33,7 +33,6 @@ export const Person = sequelize.define(
     phone_number: {
       type: DataTypes.STRING,
       allowNull: true,
-      unique: true,
       validate: {
         is: {
           args: /^\+?\d{10,14}$/,

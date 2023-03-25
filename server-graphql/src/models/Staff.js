@@ -1,36 +1,37 @@
-// table users
+// table staffs
 import { DataTypes } from 'sequelize'
 import { sequelize } from '../database/database.js'
 
-export const User = sequelize.define(
-  'staff',
+export const Staff = sequelize.define(
+  'staffs',
   {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      primaryKey: true,
       autoIncrement: true
-    },
-    position: {
-      type: DataTypes.STRING,
-      foreingKey: true,
-      allowNull: false,
     },
     person: {
       type: DataTypes.INTEGER,
-      foreingKey: true,
+      allowNull: false,
+    },
+    position: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
     admission_date :{
       type: DataTypes.DATEONLY,
-      allowNull: true
+      allowNull: false
     },
-    completion_date :{
+    dismissal_date :{
       type: DataTypes.DATEONLY,
       allowNull: true
     },
-    role: {
-        type: DataTypes.STRING,
-        allowNull: false,
+    status :{
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+      allowNull: false,
+      
     }
   },
   {

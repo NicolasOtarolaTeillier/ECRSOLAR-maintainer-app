@@ -6,11 +6,8 @@ const GET_ALL_CONTACTS = gql`
       customer {
         name
       }
-      person {
-        id
-        first_name
-        last_name
-      }
+      first_name
+      last_name
       email
       phone_number
       address

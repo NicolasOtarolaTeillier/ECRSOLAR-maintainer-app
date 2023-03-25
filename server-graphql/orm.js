@@ -1,94 +1,86 @@
 import { sequelize } from './src/database/database.js'
 
-// import orm
-import './src/models/Person.js'
-import './src/models/User.js'
-import './src/models/Role.js'
-import './src/models/ServiceType.js'
-import './src/models/Position.js'
-
-// data default
-import { Person } from './src/models/Person.js'
-import { User } from './src/models/User.js'
-import { Role } from './src/models/Role.js'
+ 
+// tables
 import { ServiceType } from './src/models/ServiceType.js'
+import { FunctionalArea } from  './src/models/FunctionalArea.js'
+import { ProviderType } from './src/models/ProviderType.js'
+import { Region } from './src/models/Region.js'
+import { Person } from './src/models/Person.js'
 import { Position } from './src/models/Position.js'
+import { PhotovoltaicPowerStation } from './src/models/PhotovoltaicPowerStation.js'
+import { Customer } from './src/models/Customer.js'
+import { Contact } from './src/models/Contact.js'
+import { Commune } from './src/models/Commune.js'
+import { Provider } from './src/models/Provider.js'
+import { Staff } from './src/models/Staff.js'
+import { Productivity } from './src/models/Productivity.js'
+import { ExtraHour } from './src/models/ExtraHour.js'
+import { EquipmentCategory } from './src/models/EquipmentCategory.js'
+import { ServiceXProvider } from './src/models/ServiceXProvider.js'
+import { ServiceXStaff } from './src/models/ServiceXStaff.js'
+import { ServiceTypeXPosition } from './src/models/ServiceTypeXPosition.js'
+import { Service } from './src/models/Service.js'
 
 
 // asocciations
 import './src/models/asocciations.js'
+
+// data default
+import { serviceType } from './src/data/serviceType.js'
+import { functionaArea } from './src/data/functionaArea.js'
+import { providerType } from './src/data/providerType.js'
+import { region } from './src/data/region.js'
+import { person } from './src/data/person.js'
+import { position } from './src/data/position.js'
+import { photovoltaicPowerStation } from './src/data/photovoltaicPowerStation.js'
+import { customer } from './src/data/customer.js'
+import { contact } from './src/data/contact.js'
+import { commune } from './src/data/commune.js'
+import { provider } from './src/data/provider.js'
+import { staff } from './src/data/staff.js'
+import { productivity } from './src/data/productivity.js'
+import { extraHour } from './src/data/extraHour.js'
+import { equipmentCategory } from './src/data/equipmentCategory.js'
+import { serviceXProvider } from './src/data/serviceXProvider.js'
+import { serviceXStaff } from './src/data/serviceXStaff.js'
+import { serviceTypeXPosition } from './src/data/serviceTypeXPosition.js'
+import { service } from './src/data/service.js'
 
 // ORM
 async function orm () {
   try {
     await sequelize.sync({ force: true })
     //await sequelize.sync()
-    await Role.bulkCreate([
-      { role: 'admin', name: 'Administrador' },
-      { role: 'operator',name: 'Operario' },
-      { role: 'supervisor',name: 'Supervisor' },
-      { role: 'client',name: 'Cliente' },
-      { role: 'guest', name: 'Invitado' },
-      { role: 'owner', name: 'Dueño' }
-    ])
-    await Person.bulkCreate([
-      {
-        email: 'admin@admin.cl',
-        first_name: 'admin',
-        last_name: 'admin',
-        //phone_number: '+56912312387',
-        //rut: '12.121.121.k',
-        status: true
-      },
-      {
-        email: 'admin@admi2n.cl',
-        first_name: 'admin',
-        last_name: 'admin',
-        //phone_number: '+56912312387',
-        //rut: '12.121.121.k',
-        status: true
-      }
-    ])
-    await User.bulkCreate([
-      {person_id: 1, password: 'admin', role: 'admin', status: true },
-      {person_id: 2, password: 'admin', role: 'admin', status: true },
-    ])
     
-    await ServiceType.bulkCreate([
-      //{ name: 'Contratos O&M', status: true },
-      { name: 'Correctivo complejo',average_price_mw: 1000, status: true },
-      { name: 'Correctivo simple',average_price_mw: 1000, status: true },
-      { name: 'Curva IV',average_price_mw: 1000, status: true },
-      { name: 'Demalezado',average_price_mw: 1000, status: true },
-      { name: 'Inspección técnica',average_price_mw: 1000, status: true },
-      { name: 'Limpieza con agua',average_price_mw: 1000, status: true },
-      { name: 'Limpieza en seco',average_price_mw: 1000, status: true },
-      { name: 'Obras civiles',average_price_mw: 1000, status: true },
-      { name: 'Termografía',average_price_mw: 1000, status: true }
-    ])
-    await Position.bulkCreate([
-      {name: "Operario", key: 'operator'},
-      {name: "Operario sénior", key: 'operator_senior'},
-      {name: "Operario júnior", key: 'operator_junior'},
-      {name: "Supervisor", key: 'supervisor'},
-      {name: "Gerente de linea", key: 'line_manager'},
-      {name: "Desarrollador de negocios", key: 'developer_business'},
-      {name: "Programador", key: 'programmer'},
-    ])
+    // tablas primarias
+    await ServiceType.bulkCreate(serviceType)
+    await FunctionalArea.bulkCreate(functionaArea)
+    await ProviderType.bulkCreate(providerType)
+    await Region.bulkCreate(region)
+    await Person.bulkCreate(person)
+    await Position.bulkCreate(position)
+    await EquipmentCategory.bulkCreate(equipmentCategory)
 
+    // tablas secundarias
+    await Customer.bulkCreate(customer)
+    await PhotovoltaicPowerStation.bulkCreate(photovoltaicPowerStation)
+    await Contact.bulkCreate(contact)
+    await Commune.bulkCreate(commune)
+    await Provider.bulkCreate(provider)
+    await Staff.bulkCreate(staff)
+    //await Productivity.bulkCreate(productivity)
+    //await ExtraHour.bulkCreate(extraHour)      
+    
 
-    // await Contact.bulkCreate([
-    //   {email: 'daniel@ienergiachile.com', firstName: 'Daniel', lastName: 'Friedman', phoneNumber: '', address: 'Av Américo Vespucio 2680 Of 111, Conchalí, Santiago', status: true }
-    // ])
+    // tablas maestra
+    await Service.bulkCreate(service)
 
-    // await Client.bulkCreate([
-    //   { email: 'daniel@ienergiachile.com', password: '123', firstName: 'Daniel', lastName: 'Friedman', role: 'client',phoneNumber: '+56966666451',address: 'Av Américo Vespucio 2680 Of 111, Conchalí, Santiago', status: true},
-    //   { email: 'daniel2@ienergiachile.com', password: '123', firstName: 'Daniel', lastName: 'Friedman', role: 'client',phoneNumber: '+56966666451',address: 'Av Américo Vespucio 2680 Of 111, Conchalí, Santiago', status: true},
-    // ])
+    // tablas intermedias
+    await ServiceXProvider.bulkCreate(serviceXProvider)
+    await ServiceXStaff.bulkCreate(serviceXStaff)
+    await ServiceTypeXPosition.bulkCreate(serviceTypeXPosition)
 
-    // await PurchaseOrder.bulkCreate([
-    //   { name: 'OC_20230303_ECRSolar_Santuario_Cruz.pdf' , number : 20230303, date: "2023-03-03",client: "daniel@ienergiachile.com", status: 0 }
-    // ])
 
     console.log('(sequelize) Connection has been established successfully.')
   } catch (error) {
@@ -97,3 +89,30 @@ async function orm () {
 }
 
 orm()
+
+
+
+    // await Role.bulkCreate([
+    //   { role: 'admin', name: 'Administrador' },
+    //   { role: 'operator',name: 'Operario' },
+    //   { role: 'supervisor',name: 'Supervisor' },
+    //   { role: 'client',name: 'Cliente' },
+    //   { role: 'guest', name: 'Invitado' },
+    //   { role: 'owner', name: 'Dueño' }
+    // ])
+
+    // await User.bulkCreate([
+    //   {person: 1, password: 'admin', role: 'admin', status: true },
+    //   {person: 2, password: 'admin', role: 'admin', status: true },
+    // ])
+    
+
+
+    // await Staff.bulkCreate([
+    //   {person: 3, position: "operator", admission_date: '02-02-2023', status: true} 
+    // ])
+    // await ProductType.bulkCreate([
+    //   {type: "tipo1", name: "Tipo1"},
+    //   {type: "tipo2", name: "Tipo2"},
+
+    // ])

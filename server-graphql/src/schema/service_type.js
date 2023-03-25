@@ -10,7 +10,7 @@ export const typeDefs = `#graphql
   }
 
   extend type Query {
-    allServiceTypes: [ServiceType]
+    allServiceTypes: [ServiceType!]
     serviceTypesCount: Int!
     findServiceType(name: String!): ServiceType
   }
@@ -53,7 +53,7 @@ export const resolvers = {
     ) => {
       const service_type = await ServiceType.findOne({ where: { name } })
       if (service_type) {
-        throw new Error('Service Type already exists')
+        throw new Error(`Service Type already exists whit the name: ${name}`)
       } else {
         return await ServiceType.create({name,average_price_mw})
       }

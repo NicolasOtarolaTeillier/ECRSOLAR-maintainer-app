@@ -15,13 +15,7 @@
     "user": "postgres",
     "password": "ECRS0L4R61254872",
     "database": "test",
-    "dialect": "postgres",
-    "pool": {
-      "max": 10,
-      "min": 0,
-      "acquire": 30000,
-      "idle": 10000
-    }
+    "dialect": "postgres"
   },
   "security": {
     "secretKey": "some-secret-key",

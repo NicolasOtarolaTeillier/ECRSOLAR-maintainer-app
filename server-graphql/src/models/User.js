@@ -11,19 +11,19 @@ export const User = sequelize.define(
       allowNull: false,
       autoIncrement: true
     },
-    person_id: {
+    person: {
       type: DataTypes.INTEGER,
       foreingKey: true,
       allowNull: false,
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: true
     },
     role: {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: 'guest'
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: true
     },
     status: {
       type: DataTypes.BOOLEAN,

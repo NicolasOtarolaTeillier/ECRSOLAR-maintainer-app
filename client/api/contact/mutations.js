@@ -2,7 +2,8 @@ import { gql, } from "@apollo/client";
 const ADD_CONTACT = gql`
   mutation AddContact(
     $customer: String!
-    $person: Int!
+    $firstName: String!
+    $lastName: String!
     $email: String!
     $phoneNumber: String!
     $address: String!
@@ -11,7 +12,8 @@ const ADD_CONTACT = gql`
   ) {
     addContact(
         customer: $customer
-        person: $person
+        first_name: $firstName
+        last_name: $lastName
         email: $email 
         phone_number: $phoneNumber 
         address: $address
@@ -20,7 +22,8 @@ const ADD_CONTACT = gql`
     ) {
         id
         customer
-        person
+        first_name
+        last_name
         email
         phone_number
         address

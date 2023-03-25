@@ -27,6 +27,7 @@ function AddContact ({ formData }) {
   const { formField, values, errors, touched } = formData
   const { contact } = formField
   const { contact: contactV } = values
+  const { customer: customerV } = values
 
   const CustomizedSelectForFormik = ({ children, form, field }) => {
     const { name, value } = field
@@ -71,11 +72,15 @@ function AddContact ({ formData }) {
                 >
                   {!loading && data
                     ? data.allContacts.map(st => {
-                        return (
-                          <MenuItem value={st.id}>
-                            {st.person.first_name + ' ' + st.person.last_name}
-                          </MenuItem>
-                        )
+                        if (st.customer.name === customerV) {
+                          return (
+                            <MenuItem value={st.id} key={st.id}>
+                              {st.functional_area.name+' - '+st.first_name + ' ' + st.last_name}
+                            </MenuItem>
+                          )
+                        } else {
+                          return null
+                        }
                       })
                     : null}
                 </Field>
@@ -84,7 +89,7 @@ function AddContact ({ formData }) {
           </Grid>
         </Grid>
       </MDBox>
-    <NewContact/>
+      <NewContact formData={formData} />
     </MDBox>
   )
 }

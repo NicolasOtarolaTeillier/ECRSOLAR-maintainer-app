@@ -12,6 +12,9 @@ import MDButton from '/components/MDButton'
 import { FormControl, Icon, InputLabel, MenuItem, Select } from '@mui/material'
 import { Field } from 'formik'
 
+// modal
+import NewCustomer from './newCustomer.js'
+
 //queries
 import GET_ALL_CUSTOMER from '../../../../../../api/customer/queries.js'
 import { useQuery } from '@apollo/client'
@@ -67,7 +70,7 @@ function AddCustomer ({ formData }) {
                 >
                   {!loading && data
                     ? data.allCustomers.map(st => {
-                        return <MenuItem value={st.name}>{st.name}</MenuItem>
+                        return <MenuItem value={st.name} key={st.name}>{st.name}</MenuItem>
                       })
                     : null}
                 </Field>
@@ -76,15 +79,7 @@ function AddCustomer ({ formData }) {
           </Grid>
         </Grid>
       </MDBox>
-      <MDBox mt={5}>
-        <Grid container style={{ justifyContent: 'center' }}>
-          <Grid sx={{ textAlign: 'right' }}>
-            <MDButton variant='gradient' color='success'>
-              <Icon>add</Icon>&nbsp; Nuevo Cliente
-            </MDButton>
-          </Grid>
-        </Grid>
-      </MDBox>
+      <NewCustomer/>
     </MDBox>
   )
 }

@@ -10,12 +10,13 @@ export const Customer = sequelize.define(
       allowNull: false,
       autoIncrement: true
     },
-    name: {
+    name: { // razon social
       primaryKey: true,
       type: DataTypes.STRING,
       allowNull: false
     },
-    fantasyName: {
+    fantasy_name: {
+      unique: true,
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -30,10 +31,18 @@ export const Customer = sequelize.define(
         }
       }
     },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    url: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     status: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-      defaultValue: false
+      defaultValue: true
     }
   },
   {

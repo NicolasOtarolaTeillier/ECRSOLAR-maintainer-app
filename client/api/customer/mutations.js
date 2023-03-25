@@ -24,4 +24,4 @@ const ADD_CUSTOMER = gql`
     }
   }
 `
-export default ADD_SERVICE
+export default ADD_CUSTOMER

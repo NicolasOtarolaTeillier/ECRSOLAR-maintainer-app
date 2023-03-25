@@ -8,12 +8,19 @@ const form = {
         errorMsg: 'El Cliente es requerido.',
         invalidMsg: 'No corresponde a un cliente valido.'
       },
-      person: {
-        name: 'person',
-        label: 'Persona',
-        type: 'number',
-        errorMsg: 'La persona es requerida.',
-        invalidMsg: 'No corresponde a un numero.'
+      first_name: {
+        name: 'first_name',
+        label: 'Nombre',
+        type: 'text',
+        errorMsg: 'El Nombre es requerido.',
+        invalidMsg: 'No corresponde a un texto válido.'
+      },
+      last_name: {
+        name: 'last_name',
+        label: 'Apellido',
+        type: 'text',
+        errorMsg: 'El Apellido es requerido.',
+        invalidMsg: 'No corresponde a un texto válido.'
       },
       email: {
         name: 'email',

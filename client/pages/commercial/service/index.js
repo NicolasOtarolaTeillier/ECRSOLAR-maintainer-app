@@ -92,11 +92,12 @@ function Service () {
   const [infoSB, setInfoSB] = useState(false)
   const [warningSB, setWarningSB] = useState(false)
   const [errorSB, setErrorSB] = useState(false)
+
   const openSuccessSB = () => setSuccessSB(true)
   const closeSuccessSB = () => setSuccessSB(false)
-  const openInfoSB = () => setInfoSB(true)
+  //const openInfoSB = () => setInfoSB(true)
   const closeInfoSB = () => setInfoSB(false)
-  const openWarningSB = () => setWarningSB(true)
+  //const openWarningSB = () => setWarningSB(true)
   const closeWarningSB = () => setWarningSB(false)
   const openErrorSB = () => setErrorSB(true)
   const closeErrorSB = () => setErrorSB(false)
@@ -140,7 +141,7 @@ function Service () {
   }
   const handleSubmit = (values, actions) => {
     if (isLastStep) {
-      //submitForm(values, actions)
+      submitForm(values, actions)
     } else {
       setActiveStep(activeStep + 1)
       actions.setTouched({})

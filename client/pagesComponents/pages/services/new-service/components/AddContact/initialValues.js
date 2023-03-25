@@ -4,7 +4,8 @@ import checkout from "/pagesComponents/pages/services/new-service/components/Add
 const {
   formField: {
     customer,
-    person,
+    first_name,
+    last_name,
     email,
     phone_number,
     address,
@@ -14,7 +15,8 @@ const {
 
 const initialValues = {
   [customer.name]: "",
-  [person.name]: "",
+  [first_name.name]: "",
+  [last_name.name]: "",
   [email.name]: "",
   [phone_number.name]: "",
   [address.name]: "",

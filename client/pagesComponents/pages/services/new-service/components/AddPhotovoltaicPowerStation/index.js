@@ -13,6 +13,8 @@ import MDButton from '/components/MDButton'
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import { Field } from 'formik'
 
+import NewPhotovoltaicPowerStation from './newPhotovoltaicPowerStation.js'
+
 //queries
 import GET_ALL_PHOTOVOLTAIC_POWER_STATIONS from '../../../../../../api/photovoltaic_power_station/queries.js'
 import { useQuery } from '@apollo/client'
@@ -24,6 +26,7 @@ function AddPhotovoltaicPowerStation ({ formData }) {
   const { formField, values, errors, touched } = formData
   const { photovoltaic_power_station } = formField
   const { photovoltaic_power_station: photovoltaic_power_stationV } = values
+  const { customer: getCustomer} = values
 
   const CustomizedSelectForFormik = ({ children, form, field }) => {
     const { name, value } = field
@@ -76,7 +79,16 @@ function AddPhotovoltaicPowerStation ({ formData }) {
                   >
                     {!loading && data
                       ? data.allPhotovoltaicPowerStations.map(pv => {
-                          return <MenuItem value={pv.name}>{pv.name}</MenuItem>
+                          if (pv.customer.name === getCustomer){
+                            //console.log('getCustomer',getCustomer)
+                            //console.log('pv.customer',pv.customer.name)
+                            return <MenuItem value={pv.name}>{pv.name}</MenuItem>
+                          }
+                          else{
+                            null
+                          }
+                            
+
                         })
                       : null}
                   </Field>
@@ -86,15 +98,8 @@ function AddPhotovoltaicPowerStation ({ formData }) {
           </Grid>
         </MDBox>
       </MDBox>
-      <MDBox mt={5}>
-        <Grid container style={{ justifyContent: 'center' }}>
-          <Grid sx={{ textAlign: 'right' }}>
-            <MDButton variant='gradient' color='success'>
-              <Icon>add</Icon>&nbsp; Nueva Planta
-            </MDButton>
-          </Grid>
-        </Grid>
-      </MDBox>
+
+        <NewPhotovoltaicPowerStation formData={formData}/>
     </>
   )
 }

@@ -17,13 +17,7 @@ export const ServiceType = sequelize.define(
     },
     average_price_mw: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        min: {
-          args: [1],
-          msg: 'The average price per MW must be greater than zero'
-        }
-      }
+      allowNull: false
     },
     status: {
       type: DataTypes.BOOLEAN,

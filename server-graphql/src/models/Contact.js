@@ -6,13 +6,25 @@ export const Contact = sequelize.define(
   'contacts',
   {
     id: {
+      primaryKey: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true
     },
+    customer: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    first_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    last_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     email: {
       type: DataTypes.STRING,
-      primaryKey: true,
       allowNull: false,
       validate: {
         isEmail: {
@@ -21,15 +33,7 @@ export const Contact = sequelize.define(
         }
       }
     },
-    firstName: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    lastName: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    phoneNumber: {
+    phone_number: {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
@@ -46,10 +50,10 @@ export const Contact = sequelize.define(
         notEmpty: true,
       }
     },
-    // to-do: create client ref
-    // client: {
-
-    // },
+    functional_area:{
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     status: {
       type: DataTypes.BOOLEAN,
       allowNull: true,

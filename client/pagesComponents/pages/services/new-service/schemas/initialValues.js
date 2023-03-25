@@ -27,7 +27,7 @@ const initialValues = {
   [price.name]: "",
   [proposed_execution_date.name]: nextWeek.toISOString().substring(0, 10),
   [finish_execution_date.name]: nextNextWeek.toISOString().substring(0, 10),
-  [service_type.name]: " ",
+  [service_type.name]: "Limpieza en seco",
   [customer.name]: " ",
   [photovoltaic_power_station.name]: " ",
   [contact.name]: 0,

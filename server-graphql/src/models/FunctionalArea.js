@@ -1,22 +1,20 @@
-// table users
+// table functional_area
 import { DataTypes } from 'sequelize'
 import { sequelize } from '../database/database.js'
 
-export const Service = sequelize.define(
-  'services',
+export const FunctionalArea = sequelize.define(
+  'functional_areas',
   {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      autoIncrement: true
-    },
-    hello: {
-      type: DataTypes.STRING,
+      unique: true,
+      autoIncrement: true,
     },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      primaryKey: true,
+      primaryKey: true
     },
     status: {
       type: DataTypes.BOOLEAN,

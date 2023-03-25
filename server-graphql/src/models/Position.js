@@ -1,4 +1,4 @@
-// table users
+// table positions
 import { DataTypes } from 'sequelize'
 import { sequelize } from '../database/database.js'
 
@@ -10,15 +10,10 @@ export const Position = sequelize.define(
       allowNull: false,
       autoIncrement: true
     },
-    key: {
+    name: {
       type: DataTypes.STRING,
       primaryKey: true,
       allowNull: false,
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
     },
   },
   {
