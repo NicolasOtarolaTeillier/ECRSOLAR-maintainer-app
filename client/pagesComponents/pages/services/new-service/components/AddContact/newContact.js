@@ -4,14 +4,16 @@ import Modal from '@mui/material/Modal'
 import MDBox from '/components/MDBox'
 import MDTypography from '/components/MDTypography'
 import MDButton from '/components/MDButton'
-import { Card, Grid, Icon } from '@mui/material'
+import { Card, FormControl, Grid, Icon, MenuItem, Select } from '@mui/material'
 
 // formik components
 import { Formik, Form, Field } from 'formik'
+
+// components
 import initialValues from './initialValues.js'
 import form from './form.js'
-
 import FormField from '/pagesComponents/pages/services/new-service/components/FormField'
+
 
 // prop-type is a library for typechecking of props
 import PropTypes from 'prop-types'
@@ -23,6 +25,10 @@ import { useMutation } from '@apollo/client'
 
 //query refetching
 import GET_ALL_CONTACTS from '../../../../../../api/contact/queries.js'
+import GET_ALL_FUNCTIONAL_AREA from '../../../../../../api/functional_area/queries.js'
+
+// apollo
+import { useQuery } from '@apollo/client'
 
 // notifications
 import MDSnackbar from '/components/MDSnackbar'
@@ -40,6 +46,8 @@ function NewContact ({ formData }) {
   const { customer: customerV } = valuesFormData
 
   // apollo
+  const { loadingAreas, error, data:areas } = useQuery(GET_ALL_FUNCTIONAL_AREA)
+  console.log(areas)
   const [addContact] = useMutation(ADD_CONTACT, {
     refetchQueries: [
       {
@@ -69,11 +77,18 @@ function NewContact ({ formData }) {
   const handleClose = () => setOpen(false)
 
   const { formId, formField } = form
-  const { email, customer, first_name, last_name, phone_number, address, functional_area } =
-    formField
+  const {
+    email,
+    customer,
+    first_name,
+    last_name,
+    phone_number,
+    address,
+    functional_area
+  } = formField
 
   const submitForm = async (values, actions) => {
-    console.log('hola')
+    console.log('hola', values)
     alert(JSON.stringify(values, null, 2))
     try {
       const result = await addContact({
@@ -210,7 +225,9 @@ function NewContact ({ formData }) {
                           value={values.first_name}
                           placeholder={first_name.placeholder}
                           error={errors.first_name && touched.first_name}
-                          success={values.first_name.length > 0 && !errors.first_name}
+                          success={
+                            values.first_name.length > 0 && !errors.first_name
+                          }
                         />
                       </Grid>
                       <Grid item xs={12} sm={4}>
@@ -221,7 +238,9 @@ function NewContact ({ formData }) {
                           value={values.last_name}
                           placeholder={last_name.placeholder}
                           error={errors.last_name && touched.last_name}
-                          success={values.last_name.length > 0 && !errors.last_name}
+                          success={
+                            values.last_name.length > 0 && !errors.last_name
+                          }
                         />
                       </Grid>
                       <Grid item xs={12} sm={4}>
@@ -264,6 +283,49 @@ function NewContact ({ formData }) {
                             !errors.functional_area
                           }
                         />
+                      </Grid>
+                      <Grid item xs={12} sm={4}>
+                        <FormControl fullWidth variant='standard'>
+                          <Field
+                            name={functional_area.name}
+                            component={({ children, form, field }) => {
+                              const { name, value } = field
+                              const { setFieldValue } = form
+
+                              return (
+                                <Select
+                                  name={name}
+                                  value={value}
+                                  onChange={e => {
+                                    setFieldValue(name, e.target.value)
+                                  }}
+                                >
+                                  {children}
+                                </Select>
+                              )
+                            }}
+                            label={functional_area.label}
+                            value={values.functional_area}
+                            error={
+                              errors.functional_area && touched.functional_area
+                            }
+                            success={
+                              !loadingAreas &&
+                              values.functional_area.length > 0 &&
+                              !errors.functional_area
+                            }
+                          >
+                            {!loadingAreas && areas
+                              ? areas.allFunctionalAreas.map(a => {
+                                  return (
+                                    <MenuItem value={a.name} key={a.id}>
+                                      {a.name}
+                                    </MenuItem>
+                                  )
+                                })
+                              : null}
+                          </Field>
+                        </FormControl>
                       </Grid>
                     </Grid>
                     <Grid container style={{ justifyContent: 'right' }}>

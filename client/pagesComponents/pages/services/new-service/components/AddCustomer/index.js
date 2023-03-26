@@ -70,7 +70,7 @@ function AddCustomer ({ formData }) {
                 >
                   {!loading && data
                     ? data.allCustomers.map(st => {
-                        return <MenuItem value={st.name} key={st.name}>{st.name}</MenuItem>
+                        return <MenuItem value={st.name} key={st.name}>{st.fantasy_name}</MenuItem>
                       })
                     : null}
                 </Field>

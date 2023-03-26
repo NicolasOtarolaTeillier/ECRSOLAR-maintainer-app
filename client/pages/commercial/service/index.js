@@ -42,6 +42,9 @@ import ClientOnly from '../../../components/ClientOnly'
 import ADD_SERVICE from '../../../api/Service/mutations.js'
 import { useMutation } from '@apollo/client'
 
+import GET_ALL_SERVICES from '../../../api/service/queries.js'
+import { useQuery } from '@apollo/client'
+
 
 function getSteps () {
   return [
@@ -77,6 +80,9 @@ import MDSnackbar from '/components/MDSnackbar'
 function Service () {
   // apollo
   const [addService] = useMutation(ADD_SERVICE)
+  const { data, loading, error } = useQuery(GET_ALL_SERVICES)
+  console.log(data)
+
 
   // message:
   const [message, setMessage] = useState('')
@@ -263,16 +269,16 @@ function Service () {
                               color='light'
                               onClick={handleBack}
                             >
-                              back
+                              atrás
                             </MDButton>
                           )}
                           <MDButton
                             disabled={isSubmitting}
                             type='submit'
                             variant='gradient'
-                            color='dark'
+                            color={isLastStep ? 'success': 'dark'}
                           >
-                            {isLastStep ? 'send' : 'next'}
+                            {isLastStep ? 'Guardar' : 'siguiente'}
                           </MDButton>
                         </MDBox>
                       </MDBox>

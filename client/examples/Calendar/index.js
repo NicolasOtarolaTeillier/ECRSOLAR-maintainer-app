@@ -21,6 +21,9 @@ import FullCalendar from "@fullcalendar/react";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import timelinePlugin from '@fullcalendar/timeline'
+import multiMonthPlugin from '@fullcalendar/multimonth'
+import esLocale from '@fullcalendar/core/locales/es';
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -87,12 +90,27 @@ function Calendar({ header, ...rest }) {
           {...rest}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           events={events}
+          locale={esLocale}
           height="100%"
+          // views= {{
+          //   dayGridFourWeek: {
+          //     type: 'dayGrid',
+          //     duration: { weeks: 12 }
+          //   }
+          // }}
+          // headerToolbar= {{
+          //   left: 'prev,next',
+          //   center: 'title',
+          //   right: 'dayGridMonth,dayGridWeek,dayGridDay' // user can switch between the two
+          // }}
+          
+
         />
       </CalendarRoot>
     </Card>
   );
 }
+
 
 // Setting default values for the props of Calendar
 Calendar.defaultProps = {

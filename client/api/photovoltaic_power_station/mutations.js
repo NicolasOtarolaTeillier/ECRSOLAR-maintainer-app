@@ -8,7 +8,7 @@ const ADD_PHOTOVOLTAIC_POWER_STATION = gql`
     $hectares: Int!
     $investorBrand: String!
     $moduleBrand: String!
-    $mw: Int!
+    $mw: Float!
     $owner: String!
     $managerName: String!
     $customer: String!

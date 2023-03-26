@@ -41,7 +41,7 @@ import MDAvatar from '/components/MDAvatar'
 import Icon from '@mui/material/Icon'
 
 // Images
-import profilePicture from '/assets/images/team-3.jpg'
+import profilePicture from '/assets/images/team-4.jpg'
 
 const routes = [
   {
@@ -71,7 +71,7 @@ const routes = [
   {
     type: 'collapse',
     name: 'Modulo Comercial',
-    key: 'dashboards',
+    key: 'commercial',
     icon: <Icon fontSize='medium'>dashboard</Icon>,
     collapse: [
       {
@@ -84,6 +84,19 @@ const routes = [
         key: 'sales',
         route: '/dashboards/sales'
       }
+    ]
+  },
+  {
+    type: 'collapse',
+    name: 'Modulo Operaciones',
+    key:  'operations',
+    icon: <Icon fontSize='medium'>dashboard</Icon>,
+    collapse: [
+      {
+        name: 'Planificar Servicio',
+        key: 'servicePlanning',
+        route: '/operations/servicePlanning'
+      },
     ]
   },
   { type: 'divider', key: 'divider-0' },

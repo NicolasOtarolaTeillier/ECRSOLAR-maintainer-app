@@ -25,6 +25,7 @@ function NewService ({ formData }) {
     finish_execution_date: finish_execution_dateV
   } = values
 
+
   return (
     <MDBox>
       <MDBox lineHeight={0}>
@@ -48,7 +49,6 @@ function NewService ({ formData }) {
           </Grid>
           <Grid item xs={12} sm={4}>
             <FormField
-              inputProps={{ onWheel: e => e.target.blur() }}
               type={price.type}
               label={price.label}
               name={price.name}
@@ -106,6 +106,7 @@ function NewService ({ formData }) {
               }
             />
           </Grid>
+          
         </Grid>
       </MDBox>
     </MDBox>
