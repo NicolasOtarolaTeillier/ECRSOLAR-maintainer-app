@@ -6,11 +6,18 @@ export const ServiceXStaff = sequelize.define(
   {
     service: {
       type: DataTypes.UUID,
-      allowNull: false
+      allowNull: false,
+      unique: 'service_x_staffs_unique',
     },
     staff: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      unique: 'service_x_staffs_unique',
+    },
+    leader: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
     },
     status: {
       type: DataTypes.BOOLEAN,

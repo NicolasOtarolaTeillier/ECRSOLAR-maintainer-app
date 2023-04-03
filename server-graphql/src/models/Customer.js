@@ -31,14 +31,14 @@ export const Customer = sequelize.define(
         }
       }
     },
-    address: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    url: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
+    // address: {
+    //   type: DataTypes.STRING,
+    //   allowNull: false
+    // },
+    // url: {
+    //   type: DataTypes.STRING,
+    //   allowNull: true
+    // },
     status: {
       type: DataTypes.BOOLEAN,
       allowNull: false,

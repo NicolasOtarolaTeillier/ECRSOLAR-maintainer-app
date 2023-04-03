@@ -27,20 +27,6 @@ export const photovoltaicPowerStation = [
     manager_number: '+56984109665',
     customer: 'Visibility SA'
   },
-  {
-    name: 'planta 3',
-    strings: 10,
-    modules: 93330,
-    module_size: '2v',
-    hectares: 100,
-    investor_brand: 'marca del inversor',
-    module_brand: 'marca del panel',
-    mw: 12.9,
-    owner: 'Nicolás Otárola',
-    manager_name: 'Rodolfo Suñiga',
-    manager_number: '+56984109665',
-    customer: 'Servicios Integrales para energías renovables'
-  }
 ]
 // SEGMENTO
 

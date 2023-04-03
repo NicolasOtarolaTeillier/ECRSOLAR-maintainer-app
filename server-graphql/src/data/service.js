@@ -1,4 +1,4 @@
 export const service =[
-    { id:'3fc94817-dd49-45ab-a333-02e9d3ba8bd6',purchase_order: 1, contract: false, price: '1500000', proposed_execution_date: '2023-01-01', finish_execution_date: '2023-01-10',service_type: 'Limpieza en seco', customer: 'Visibility SA',photovoltaic_power_station: 'Santuario',contact: 1, step: 0, status: true },
-    { id:'dd374ce0-370a-4c82-8c3b-5aea04fbf56e',purchase_order: 20230303, contract: false, price: '2106819', proposed_execution_date: '2023-01-11', finish_execution_date: '2023-01-20',service_type: 'Limpieza en seco', customer: 'Visibility SA',photovoltaic_power_station: 'Santuario',contact: 1, step: 0, status: true },
+    { id:'3fc94817-dd49-45ab-a333-02e9d3ba8bd6',purchase_order: 1, contract: false, price: '1500000', proposed_execution_date: '2023-03-20', finish_execution_date: '2023-03-26',service_type: 'Limpieza en seco', customer: 'Visibility SA',photovoltaic_power_station: 'Santuario',contact: 1, step: 0, status: true },
+    { id:'dd374ce0-370a-4c82-8c3b-5aea04fbf56e',purchase_order: 20230303, contract: false, price: '2106819', proposed_execution_date: '2023-03-25', finish_execution_date: '2023-03-29',service_type: 'Limpieza en seco', customer: 'Visibility SA',photovoltaic_power_station: 'Santuario',contact: 1, step: 0, status: true },
   ]

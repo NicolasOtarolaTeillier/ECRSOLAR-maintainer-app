@@ -13,8 +13,9 @@ import { Productivity } from './Productivity.js';
 import { Region } from './Region.js';
 import { Commune } from './Commune.js';
 import { ExtraHour } from './ExtraHour.js';
-
-
+import { EquipmentCategory } from './EquipmentCategory.js';
+import { Equipment } from './Equipment.js';
+import { Car } from './Car.js';
 
 ///////////////////////////// CONTACT ////////////////////////////////
 // 1-n
@@ -168,6 +169,48 @@ Staff.hasMany(ServiceXStaff, { foreignKey: 'staff' });
 ServiceXStaff.belongsTo(Staff, {foreignKey: 'staff', as: 'staff_id'});
 
 
+import { ServiceTypeXEquipmentCategory } from './ServiceTypeXEquipmentCategory.js'
+// 1-n
+// un Tipo de servicio tiene muchos Tipos equipamiento por tipos de servicios
+ServiceType.hasMany(ServiceTypeXEquipmentCategory, { foreignKey: 'service_type' });
+//  un Tipos equipamiento por tipos de servicios pertenece a un Tipos de servicio
+ServiceTypeXEquipmentCategory.belongsTo(ServiceType, {foreignKey: 'service_type', as: 'service_type_id'});
+
+// 1-n
+// un Tipo de equipamiento tiene muchos Tipos equipamiento por tipos de servicios
+EquipmentCategory.hasMany(ServiceTypeXEquipmentCategory, { foreignKey: 'equipment_category' });
+//  un Tipos equipamiento por tipos de servicios pertenece a un Tipo de equipamiento
+ServiceTypeXEquipmentCategory.belongsTo(EquipmentCategory, {foreignKey: 'equipment_category', as: 'equipment_category_id'});
+
+
+
+import { ServiceXEquipment } from './ServiceXEquipment.js'
+// 1-n
+// un servicio tiene muchos equipamiento por servicios
+Service.hasMany(ServiceXEquipment, { foreignKey: 'service' });
+//  un equipamiento por servicios pertenece a un  servicios
+ServiceXEquipment.belongsTo(Service, {foreignKey: 'service', as: 'service_id'});
+
+// 1-n
+// un equipamiento tiene muchos equipamiento por servicios
+Equipment.hasMany(ServiceXEquipment, { foreignKey: 'equipment' });
+//  un equipamiento por servicios pertenece a un  equipamiento
+ServiceXEquipment.belongsTo(Equipment, {foreignKey: 'equipment', as: 'equipment_id'});
+
+
+import { ServiceXCar } from './ServiceXCar.js'
+// 1-n
+// un servicio tiene muchos equipamiento por servicios
+Service.hasMany(ServiceXCar, { foreignKey: 'service' });
+//  un equipamiento por servicios pertenece a un  servicios
+ServiceXCar.belongsTo(Service, {foreignKey: 'service', as: 'service_id'});
+
+// 1-n
+// un equipamiento tiene muchos equipamiento por servicios
+Car.hasMany(ServiceXCar, { foreignKey: 'car' });
+//  un equipamiento por servicios pertenece a un  equipamiento
+ServiceXCar.belongsTo(Car, {foreignKey: 'car', as: 'car_id'});
+
 
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -195,6 +238,7 @@ ServiceXStaff.belongsTo(Staff, {foreignKey: 'staff', as: 'staff_id'});
 
 import { User } from './User.js'
 import { Role } from './Role.js';
+
 
 
 

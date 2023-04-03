@@ -7,21 +7,21 @@ export const Equipment = sequelize.define(
   {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    product: {
-      type: DataTypes.INTEGER,
+    equipment_category: {
+      type: DataTypes.STRING,
       allowNull: false
     },
     number: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    type: {
-      type: DataTypes.STRING,
-      allowNull: false
+    status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
     }
   },
   {

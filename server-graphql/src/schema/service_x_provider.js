@@ -1,4 +1,3 @@
-import { ProviderType } from '../models/ProviderType.js'
 import { Provider } from '../models/Provider.js'
 import { ServiceXProvider } from '../models/ServiceXProvider.js'
 import { Service } from '../models/Service.js'

@@ -21,5 +21,19 @@
     "secretKey": "some-secret-key",
     "expireIns": "7d"
   },
-  "serverPort": 4000
+  "serverPort": 4000,
+  "db_local": {
+    "host": "localhost",
+    "port": 5432,
+    "user": "postgres",
+    "password": "pallmall",
+    "database": "app_ecrsolar",
+    "dialect": "postgres",
+    "pool": {
+      "max": 10,
+      "min": 0,
+      "acquire": 30000,
+      "idle": 10000
+    }
+  }
 }

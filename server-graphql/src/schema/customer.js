@@ -8,8 +8,8 @@ export const typeDefs = `#graphql
     name: String!
     fantasy_name: String!
     rut: String!
-    address: String!
-    url: String
+    # address: String!
+    # url: String
     status: Boolean!
   }
   extend type Query {
@@ -23,8 +23,8 @@ export const typeDefs = `#graphql
     name: String!
     fantasy_name: String!
     rut: String!
-    address: String!
-    url: String
+    # address: String!
+    # url: String
     status: Boolean
    ): Customer
  }
@@ -60,8 +60,8 @@ export const resolvers = {
         name,
         fantasy_name,
         rut,
-        address,
-        url,
+        // address,
+        // url,
         status
       }
     ) => {
@@ -74,8 +74,8 @@ export const resolvers = {
           name,
           fantasy_name,
           rut,
-          address,
-          url,
+          // address,
+          // url,
           status
         })
       }
