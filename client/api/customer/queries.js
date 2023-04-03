@@ -6,8 +6,8 @@ const GET_ALL_CUSTOMERS = gql`
     name
     fantasy_name
     rut
-    address
-    url
+    #address
+    #url
     status
   }
 }

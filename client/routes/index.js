@@ -195,21 +195,21 @@ const routes = [
     key: 'applications',
     icon: <Icon fontSize='medium'>apps</Icon>,
     collapse: [
-      // {
-      //   name: 'Kanban',
-      //   key: 'kanban',
-      //   route: '/applications/kanban'
-      // },
-      // {
-      //   name: 'Wizard',
-      //   key: 'wizard',
-      //   route: '/applications/wizard'
-      // },
-      // {
-      //   name: 'Data Tables',
-      //   key: 'data-tables',
-      //   route: '/applications/data-tables'
-      // },
+       {
+         name: 'Kanban',
+         key: 'kanban',
+         route: '/applications/kanban'
+       },
+       //{
+       //  name: 'Wizard',
+       //  key: 'wizard',
+       //  route: '/applications/wizard'
+       //},
+       //{
+       //  name: 'Data Tables',
+       //  key: 'data-tables',
+       //  route: '/applications/data-tables'
+       //},
       {
         name: 'Calendar',
         key: 'calendar',

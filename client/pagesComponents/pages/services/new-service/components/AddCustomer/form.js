@@ -22,20 +22,20 @@ const form = {
         errorMsg: 'El reut es requerido',
         invalidMsg: 'No corresponde a un texto valido.'
       },
-      address: {
-        name: 'address',
-        label: 'Dirección',
-        type: 'text',
-        errorMsg: 'La Dirección es requerida.',
-        invalidMsg: 'No corresponde a texto valido.'
-      },
-      url: {
-        name: 'url',
-        label: 'Página web',
-        type: 'text',
-        errorMsg: 'La página web es requerido.',
-        invalidMsg: 'No corresponde a un texto valido.'
-      },
+      // address: {
+      //   name: 'address',
+      //   label: 'Dirección',
+      //   type: 'text',
+      //   errorMsg: 'La Dirección es requerida.',
+      //   invalidMsg: 'No corresponde a texto valido.'
+      // },
+      // url: {
+      //   name: 'url',
+      //   label: 'Página web',
+      //   type: 'text',
+      //   errorMsg: 'La página web es requerido.',
+      //   invalidMsg: 'No corresponde a un texto valido.'
+      // },
 
     }
   }

@@ -9,7 +9,6 @@ import Card from '@mui/material/Card'
 import Stepper from '@mui/material/Stepper'
 import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
-import Icon from "@mui/material/Icon";
 
 // NextJS Material Dashboard 2 PRO components
 import MDBox from '/components/MDBox'
@@ -18,7 +17,6 @@ import MDButton from '/components/MDButton'
 // NextJS Material Dashboard 2 PRO examples
 import DashboardLayout from '/examples/LayoutContainers/DashboardLayout'
 import DashboardNavbar from '/examples/Navbars/DashboardNavbar'
-import Footer from '/examples/Footer'
 
 // NewService page components
 import NewService from '/pagesComponents/pages/services/new-service/components/NewService'
@@ -290,7 +288,6 @@ function Service () {
           </Grid>
         </Grid>
       </MDBox>
-      <Footer />
     </DashboardLayout>
   )
 }

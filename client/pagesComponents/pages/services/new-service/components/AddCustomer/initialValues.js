@@ -5,9 +5,9 @@ const {
   formField: {
     name,
     fantasy_name,
-    rut,
-    address,
-    url ,
+     rut,
+    // address,
+    // url ,
   },
 } = checkout;
 
@@ -15,8 +15,8 @@ const initialValues = {
   [name.name]: "",
   [fantasy_name.name]: "",
   [rut.name]: "",
-  [address.name]: "",
-  [url.name]: "",
+  // [address.name]: "",
+  // [url.name]: "",
 };
 
 export default initialValues;

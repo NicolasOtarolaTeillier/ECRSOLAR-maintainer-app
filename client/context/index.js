@@ -62,6 +62,9 @@ function reducer(state, action) {
     case "DARKMODE": {
       return { ...state, darkMode: action.value };
     }
+    case "SELECT_SERVICE": {
+      return { ...state, service: action.value };
+    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
@@ -81,6 +84,7 @@ function MaterialUIControllerProvider({ children }) {
     direction: "ltr",
     layout: "dashboard",
     darkMode: false,
+    service: "",
   };
 
   const [controller, dispatch] = useReducer(reducer, initialState);
@@ -127,6 +131,7 @@ const setDirection = (dispatch, value) =>
   dispatch({ type: "DIRECTION", value });
 const setLayout = (dispatch, value) => dispatch({ type: "LAYOUT", value });
 const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
+const setSelectService = (dispatch, value) => dispatch({ type: "SELECT_SERVICE", value });
 
 export {
   MaterialUIControllerProvider,
@@ -141,4 +146,5 @@ export {
   setDirection,
   setLayout,
   setDarkMode,
+  setSelectService
 };

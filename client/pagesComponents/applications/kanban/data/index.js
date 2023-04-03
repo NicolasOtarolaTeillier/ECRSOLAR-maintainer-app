@@ -33,7 +33,7 @@ const boards = {
   columns: [
     {
       id: uuidv4(),
-      title: "Backlog",
+      title: "Equipamiento",
       cards: [
         {
           id: uuidv4(),
@@ -59,7 +59,7 @@ const boards = {
     },
     {
       id: uuidv4(),
-      title: "In progress",
+      title: "Servicio",
       cards: [
         {
           id: uuidv4(),
@@ -97,75 +97,7 @@ const boards = {
         },
       ],
     },
-    {
-      id: uuidv4(),
-      title: "In review",
-      cards: [
-        {
-          id: uuidv4(),
-          template: (
-            <Card
-              badge={{ color: "warning", label: "in testing" }}
-              content="Responsive Changes"
-              attachedFiles={11}
-              members={[team3, team2]}
-            />
-          ),
-        },
-        {
-          id: uuidv4(),
-          template: (
-            <Card
-              badge={{ color: "success", label: "in review" }}
-              content="Change images dimension"
-              progress={80}
-              members={[team3]}
-            />
-          ),
-        },
-        {
-          id: uuidv4(),
-          template: (
-            <Card
-              badge={{ color: "info", label: "in review" }}
-              content="Update links"
-              progress={60}
-              attachedFiles={6}
-              members={[team5, team1]}
-            />
-          ),
-        },
-      ],
-    },
-    {
-      id: uuidv4(),
-      title: "Done",
-      cards: [
-        {
-          id: uuidv4(),
-          template: (
-            <Card
-              image={homeDecore}
-              badge={{ color: "success", label: "done" }}
-              content="Redesign for the home page"
-              attachedFiles={8}
-              members={[team5, team1, team4]}
-            />
-          ),
-        },
-        {
-          id: uuidv4(),
-          template: (
-            <Card
-              badge={{ color: "success", label: "done" }}
-              content="Schedule winter campaign"
-              attachedFiles={2}
-              members={[team1, team4]}
-            />
-          ),
-        },
-      ],
-    },
+
   ],
 };
 

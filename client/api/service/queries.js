@@ -19,8 +19,8 @@ query AllServices {
       name
       fantasy_name
       rut
-      address
-      url
+     # address
+     # url
       status
     }
     contact {
@@ -30,8 +30,8 @@ query AllServices {
         name
         fantasy_name
         rut
-        address
-        url
+#        address
+ #       url
         status
       }
       first_name
@@ -63,8 +63,8 @@ query AllServices {
         name
         fantasy_name
         rut
-        address
-        url
+ #       address
+ #       url
         status
       }
       manager_number

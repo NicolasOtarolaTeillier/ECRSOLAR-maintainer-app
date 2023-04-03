@@ -68,7 +68,7 @@ function NewCustomer () {
   const handleClose = () => setOpen(false)
 
   const { formId, formField } = form
-  const { name, fantasy_name, rut, address, url } =
+  const { name, fantasy_name, rut } =
     formField
 
   const submitForm = async (values, actions) => {
@@ -79,8 +79,8 @@ function NewCustomer () {
           name: values['name'],
           fantasyName: values['fantasy_name'],
           rut: values['rut'],
-          address: values['address'],
-          url: values['url'],
+          // address: values['address'],
+          // url: values['url'],
         }
       })
       const { data } = result
@@ -224,7 +224,7 @@ function NewCustomer () {
                           success={values.fantasy_name.length > 0 && !errors.fantasy_name}
                         />
                       </Grid>
-                      <Grid item xs={12} sm={12}>
+                      {/* <Grid item xs={12} sm={12}>
                         <FormField
                           type={url.type}
                           label={url.label}
@@ -248,7 +248,7 @@ function NewCustomer () {
                           error={errors.address && touched.address}
                           success={values.address.length > 0 && !errors.address}
                         />
-                      </Grid>
+                      </Grid> */}
                     </Grid>
                     <Grid container style={{ justifyContent: 'right' }}>
                       <MDTypography mt={2}>

@@ -7,8 +7,8 @@ const {
     name,
     fantasy_name,
     rut,
-    address,
-    url ,
+    // address,
+    // url ,
   },
 } = checkout;
 
@@ -17,8 +17,8 @@ const validations =
     [name.name]: Yup.string().required(name.errorMsg),
     [fantasy_name.name]: Yup.string().required(fantasy_name.errorMsg),
     [rut.name]: Yup.string().required(rut.errorMsg),
-    [address.name]: Yup.string().required(address.errorMsg),
-    [url.name]: Yup.string().required(url.errorMsg),
+    // [address.name]: Yup.string().required(address.errorMsg),
+    // [url.name]: Yup.string().required(url.errorMsg),
   })
 ;
 
