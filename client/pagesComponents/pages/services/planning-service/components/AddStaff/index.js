@@ -15,6 +15,9 @@ import MDButton from '/components/MDButton'
 import { FormControl, Icon, InputLabel, MenuItem, Select } from '@mui/material'
 import { Field } from 'formik'
 
+// context
+import { useMaterialUIController, setSelectStaffs, setSelectLeader } from '/context'
+
 //queries
 import GET_ALL_STAFF from '../../../../../../api/staff/queries.js'
 import { useQuery } from '@apollo/client'
@@ -24,9 +27,26 @@ import { useMemo } from 'react'
 
 function AddStaff ({ formData }) {
   const { loading, error, data } = useQuery(GET_ALL_STAFF)
+
+  const [controller, dispatch] = useMaterialUIController()
+  const { staffs,leader } = controller
+
   const [selectedStaff, setSelectedStaff] = useState([])
   const [selectedIDLeader, setSelectedIDLeader] = useState(null)
-  useEffect(() => {}, [selectedStaff])
+  useEffect(() => {
+    const ids = selectedStaff
+    .map(item => item.id)
+    .reduce((accumulator, current) => {
+      return accumulator.concat(current)
+    }, [])
+    setSelectStaffs(dispatch, ids)
+
+      console.log(ids)
+  }, [selectedStaff])
+
+  useEffect(() => {
+    setSelectLeader(dispatch, selectedIDLeader)
+}, [selectedIDLeader])
 
   if (loading) {
     return <p>Cargando...</p>

@@ -15,40 +15,65 @@ import MDButton from '/components/MDButton'
 import { FormControl, Icon, InputLabel, MenuItem, Select } from '@mui/material'
 import { Field } from 'formik'
 
+// context
+import { useMaterialUIController, setSelectEquipments } from '/context'
+
+
 //queries
-import GET_ALL_STAFF from '../../../../../../api/staff/queries.js'
+import GET_ALL_EQUIPMENT from '../../../../../../api/equipment/queries.js'
+import GET_ALL_EQUIPMENT_CATEGORY from '../../../../../../api/equipment_caregory/queries.js'
+
 import { useQuery } from '@apollo/client'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { useMemo } from 'react'
 
-function AddStaff ({ formData }) {
-  const { loading, error, data } = useQuery(GET_ALL_STAFF)
-  const [selectedStaff, setSelectedStaff] = useState([])
-  const [selectedIDLeader, setSelectedIDLeader] = useState(null)
-  useEffect(() => {}, [selectedStaff])
+function AddEquipment ({ formData }) {
+  const { loading, error, data } = useQuery(GET_ALL_EQUIPMENT_CATEGORY)
+  const [controller, dispatch] = useMaterialUIController()
+  const { equipments } = controller
+  const {
+    loading: loadingEquipment,
+    error: errorEquipment,
+    data: dataEquipment
+  } = useQuery(GET_ALL_EQUIPMENT)
+  const [selectedEquipment_, setselectedEquipment_] = useState([])
+  const [selected, setSelected] = useState([])
+  useEffect(() => {
+    if (selectedEquipment_.length > 0) {
+      const labels_id = selectedEquipment_
+        .map(item => {
+          const key = Object.keys(item)[0]
+          return item[key][0].map(i => i.id)
+        })
+        .reduce((accumulator, current) => {
+          return accumulator.concat(current)
+        }, [])
 
-  if (loading) {
+      setSelected(labels_id.sort((a,b)=>a-b))
+      setSelectEquipments(dispatch,labels_id)
+
+    }
+  }, [selectedEquipment_])
+
+
+  if (loading || loadingEquipment) {
     return <p>Cargando...</p>
   }
 
   if (error) {
     return <p>Error: {error.message}</p>
   }
+  if (errorEquipment) {
+    return <p>Error: {errorEquipment.message}</p>
+  }
 
-  const options = data.allStaffs
-    .map(s => ({
-      id: s.id,
-      label:
-        s.person.first_name +
-        ' ' +
-        s.person.last_name +
-        ' (' +
-        s.position.name +
-        ')',
-      person: s.id
-    }))
-    .sort((a, b) => a.label.localeCompare(b.label))
+  const optionsEquipments = dataEquipment.allEquipments.map(e => ({
+    id: e.id,
+    label: '#' + e.number + ' - ' + e.equipment_category.name,
+    equipment_category: e.equipment_category.name
+  })).sort((a,b)=>a.id-b.id)
+
   return (
     <MDBox>
       <MDTypography variant='h5' fontWeight='bold'>
@@ -61,30 +86,43 @@ function AddStaff ({ formData }) {
               <MDBox p={3}>
                 <MDBox mt={1}>
                   <Grid container spacing={3}>
-                    <Grid item xs={6}>
-                      <MDBox my={2} display='inline-block'>
-                        <MDTypography
-                          component='label'
-                          variant='button'
-                          fontWeight='regular'
-                          color='text'
-                        >
-                          Dron
-                        </MDTypography>
-                      </MDBox>
-                      <Autocomplete
-                        options={options.filter(o => !selectedStaff.map(s => s.person).includes(o.person))}
-                        onChange={(e, values) => {
-                          setSelectedStaff(values)
-                          console.log(values)
-                        }}
-                        multiple
-                        //getOptionLabel={option => option.label}
-                        renderInput={params => {
-                          return <MDInput {...params} variant='outlined' />
-                        }}
-                      />
-                    </Grid>
+                    {data?.allEquipmentCategories?.map(ec => {
+                      return (
+                        <Grid item xs={6}>
+                          <MDBox my={2} display='inline-block'>
+                            <MDTypography
+                              component='label'
+                              variant='button'
+                              fontWeight='regular'
+                              color='text'
+                            >
+                              {ec.name}
+                            </MDTypography>
+                          </MDBox>
+                          <Autocomplete
+                            options={optionsEquipments.filter(
+                              e => e.equipment_category === ec.name && !selected.some(selec => selec === e.id)
+                            )}
+                            onChange={(e, values) => {
+                              setselectedEquipment_([
+                                ...selectedEquipment_.filter(se => !se[ec.name]),
+                                { [ec.name]: [values] }
+                              ])
+                              console.log('values', values)
+                              console.log([
+                                ...selectedEquipment_.filter(se => !se[ec.name])
+                              ])
+                              //console.log([{[ec.name]: [values]}])
+                            }}
+                            multiple
+                            //getOptionLabel={option => option.label}
+                            renderInput={params => {
+                              return <MDInput {...params} variant='outlined' />
+                            }}
+                          />
+                        </Grid>
+                      )
+                    })}
                   </Grid>
                 </MDBox>
               </MDBox>
@@ -97,8 +135,8 @@ function AddStaff ({ formData }) {
 }
 
 // typechecking props for Profile
-AddStaff.propTypes = {
+AddEquipment.propTypes = {
   formData: PropTypes.oneOfType([PropTypes.object, PropTypes.func]).isRequired
 }
 
-export default AddStaff
+export default AddEquipment

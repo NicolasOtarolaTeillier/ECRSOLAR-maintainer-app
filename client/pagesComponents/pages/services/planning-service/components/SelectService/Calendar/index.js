@@ -11,6 +11,7 @@ import DashboardLayout from '/examples/LayoutContainers/DashboardLayout'
 
 import EventCalendar from '/examples/Calendar'
 
+// context
 import { useMaterialUIController, setSelectService } from '/context'
 
 // query
@@ -28,11 +29,29 @@ function Calendar ({ formData }) {
   useEffect(() => {
     setDataService(
       data?.allServices?.map(service => {
-        const name = service.step == 0 ? 'error' : 'warning'
-         
+        let name;
+        switch (service.step) {
+          case 0:
+            name = 'error'
+            break
+          case 1:
+            name = 'error'
+            break
+          case 2:
+            name = 'warning'
+            break
+          case 3:
+            name = 'info'
+            break
+          case 4:
+            name = 'success'
+            break
+          default:
+            name = 'error'
+        }
+
         const start = new Date(service.proposed_execution_date)
         const end = new Date(service.finish_execution_date)
-        console.log(start,end)
         return {
           title:
             service.service_type.name +
@@ -43,12 +62,11 @@ function Calendar ({ formData }) {
           end: !isNaN(end) ? end : null,
           start: !isNaN(start) ? start : null,
           id: service.id,
-          className: service.step == 2 ? 'success' : name
+          className: name,
         }
       })
     )
   }, [data])
-
 
   return (
     <MDBox pt={5}>
@@ -63,17 +81,19 @@ function Calendar ({ formData }) {
                 events={dataService}
                 selectable
                 editable
-                 dateClick={a => {
-                   console.log(a)
-                 }}
-                 eventClick={info => {
-                   //                    console.log(info.event.start)
-                   //                  console.log(info.event.end)
-                   console.log(info.event.id)
-                   const id = info.event.id
-                   setSelectService(dispatch, id)
-                   setActiveStep(activeStep+1)
-                 }}
+                dateClick={a => {
+                  console.log(a)
+                }}
+                eventClick={info => {
+                  const value_className = dataService.filter(ds => ds.id === info.event.id)[0].className
+                  if(value_className != 'error'){
+                    return
+                  }
+                  console.log(info.event.id)
+                  const id = info.event.id
+                  setSelectService(dispatch, id)
+                  setActiveStep(activeStep + 1)
+                }}
               />
             ),
             // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -65,6 +65,18 @@ function reducer(state, action) {
     case "SELECT_SERVICE": {
       return { ...state, service: action.value };
     }
+    case "SELECT_LEADER": {
+      return { ...state, leader: action.value };
+    }
+    case "SELECT_CARS": {
+      return { ...state, cars: action.value };
+    }
+    case "SELECT_EQUIPMENTS": {
+      return { ...state, equipments: action.value };
+    }
+    case "SELECT_STAFFS": {
+      return { ...state, staffs: action.value };
+    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
@@ -85,6 +97,10 @@ function MaterialUIControllerProvider({ children }) {
     layout: "dashboard",
     darkMode: false,
     service: "",
+    leader: null,
+    cars: [],
+    equipments: [],
+    staffs: [],
   };
 
   const [controller, dispatch] = useReducer(reducer, initialState);
@@ -132,6 +148,10 @@ const setDirection = (dispatch, value) =>
 const setLayout = (dispatch, value) => dispatch({ type: "LAYOUT", value });
 const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
 const setSelectService = (dispatch, value) => dispatch({ type: "SELECT_SERVICE", value });
+const setSelectLeader = (dispatch, value) => dispatch({ type: "SELECT_LEADER", value });
+const setSelectCars = (dispatch, value) => dispatch({ type: "SELECT_CARS", value });
+const setSelectEquipments = (dispatch, value) => dispatch({ type: "SELECT_EQUIPMENTS", value });
+const setSelectStaffs = (dispatch, value) => dispatch({ type: "SELECT_STAFFS", value });
 
 export {
   MaterialUIControllerProvider,
@@ -146,5 +166,9 @@ export {
   setDirection,
   setLayout,
   setDarkMode,
-  setSelectService
+  setSelectService,
+  setSelectLeader,
+  setSelectCars,
+  setSelectEquipments,
+  setSelectStaffs,
 };

@@ -23,6 +23,7 @@ import Footer from '/examples/Footer'
 import SelectService from '../../../pagesComponents/pages/services/planning-service/components/SelectService'
 import AddStaff from '../../../pagesComponents/pages/services/planning-service/components/AddStaff'
 import AddEquipment from '../../../pagesComponents/pages/services/planning-service/components/AddEquipment'
+import AddCar from '../../../pagesComponents/pages/services/planning-service/components/AddCar'
 
 // Planning Service  layout schemas for form and form feilds
 import validations from '/pagesComponents/pages/services/planning-service/schemas/validations'
@@ -33,14 +34,11 @@ import initialValues from '/pagesComponents/pages/services/planning-service/sche
 import { useMutation } from '@apollo/client'
 import { useQuery } from '@apollo/client'
 
-// queries
-//import GET_ALL_SERVICES from '../../../../../../../api/service/queries.js'
+// context
+import { useMaterialUIController, setSelectService, setSelectLeader,setSelectCars,setSelectEquipments,setSelectStaffs } from '/context'
 
-// mutations
-//import ADD_SERVICE_X_STAFF from '../../../api/ServiceXStaff/mutations.js'
-//import ADD_SERVICE_X_EQUIPMENT from '../../../api/ServiceXEquipment/mutations.js'
-//import ADD_SERVICE_X_CAR from '../../../api/ServiceXSCar/mutations.js'
-
+// mutation
+import SERVICE_PLANNING from '../../../api/transactions/mutations.js'
 
 //notifications
 import ApiNotification from '../../../components/ApiNotification'
@@ -62,21 +60,23 @@ function getStepContent (stepIndex, formData) {
       return <AddStaff formData={formData} />
     case 2:
       return <AddEquipment formData={formData} />
+    case 3:
+      return <AddCar formData={formData} />
     default:
       return null
   }
 }
 
 function Service () {
+  // context
+  const [controller, dispatch] = useMaterialUIController()
+  const { service,leader,cars,equipments,staffs } = controller
 
-  //notification
+  // notification
   const [notification,setNotification] = useState({})
 
   // apollo
-  //const { data: servicesData, loading: servicesLoading, error: servicesError } = useQuery(GET_ALL_SERVICES)
-  //const [addServiceXStaff] = useMutation(ADD_SERVICE_X_STAFF)
-  //const [addServiceXEquipment] = useMutation(ADD_SERVICE_X_EQUIPMENT)
-  //const [addServiceXCar] = useMutation(ADD_SERVICE_X_CAR)
+  const [servicePlanning] = useMutation(SERVICE_PLANNING)
 
   // steps
   const [activeStep, setActiveStep] = useState(0)
@@ -100,11 +100,26 @@ function Service () {
   }
   const submitForm = async (values, actions) => {
     alert(JSON.stringify(values, null, 2))
-    // to-do: 
-    // add Staff x service
-    setNotification({message:'hola', code:'success',title:'tittle'})
-    // add equipment x service
-    // add car x service
+    // to-do:  SERVICE_PLANNING
+    try {
+      const result = await servicePlanning({
+        variables:{
+          service: service,
+          leader: leader,
+          staffs: staffs,
+          equipments: equipments,
+          cars: cars,
+          step: 2
+        }
+      })
+    setNotification({message:result, code:'success',title:'Exito al hacer la transaccion'})
+
+    }
+    catch (err) {
+      setNotification({message:err, code:'error',title:'Exito al hacer la transacción'})
+
+    }
+
 
     actions.setSubmitting(false)
   }

@@ -59,7 +59,7 @@ function AddCustomer ({ formData }) {
         <Grid container spacing={3}>
           <Grid item xs={12} sm={12}>
             <MDBox mt={1.5}>
-              <FormControl fullWidth variant='standard'>
+              <FormControl fullWidth variant='outlined'>
                 <Field
                   name={customer.name}
                   component={CustomizedSelectForFormik}

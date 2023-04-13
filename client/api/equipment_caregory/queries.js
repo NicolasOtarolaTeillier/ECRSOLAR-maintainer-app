@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client'
-const GETT_ALL_EQUIPMENT_CAREGORY = gql`
+const GET_ALL_EQUIPMENT_CAREGORY = gql`
   query AllEquipmentCategories {
     allEquipmentCategories {
         name
@@ -7,4 +7,4 @@ const GETT_ALL_EQUIPMENT_CAREGORY = gql`
     }
   }
 `
-export default GETT_ALL_EQUIPMENT_CAREGORY
+export default GET_ALL_EQUIPMENT_CAREGORY
