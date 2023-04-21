@@ -7,7 +7,7 @@ type Car {
     color: String
     make: String
     model: String
-    licence_plate: String!
+    license_plate: String!
     status: Boolean
 }
 
@@ -20,7 +20,7 @@ extend type Mutation {
         color: String
         make: String
         model: String
-        licence_plate: String!
+        license_plate: String!
     ): Car!
 }
 `
@@ -32,12 +32,12 @@ export const resolvers = {
     }
   },
   Mutation: {
-    addCar: async (root, { color, make, model, licence_plate }) => {
+    addCar: async (root, { color, make, model, license_plate }) => {
       return await Car.create({
         color,
         make,
         model,
-        licence_plate
+        license_plate
       })
     }
   }

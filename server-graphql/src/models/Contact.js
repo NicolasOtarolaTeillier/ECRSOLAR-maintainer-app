@@ -23,9 +23,13 @@ export const Contact = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    position: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     email: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       validate: {
         isEmail: {
           args: true,
@@ -43,13 +47,13 @@ export const Contact = sequelize.define(
         }
       }
     },
-    address: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-      validate: {
-        notEmpty: true,
-      }
-    },
+    // address: {
+    //   type: DataTypes.TEXT,
+    //   allowNull: true,
+    //   validate: {
+    //     notEmpty: true,
+    //   }
+    // },
     functional_area:{
       type: DataTypes.STRING,
       allowNull: false,

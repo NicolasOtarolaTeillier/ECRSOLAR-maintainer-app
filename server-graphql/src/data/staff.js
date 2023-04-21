@@ -1,7 +1,7 @@
     
     export const staff = [
         {person: 1, position: "Programador",admission_date: "2023-09-22"},
-        {person: 2, position: "Analista Comercial",admission_date: "2021-12-01"},
+        {person: 2, position: "KAM",admission_date: "2021-12-01"},
         {person: 3, position: "Gerente General",admission_date: "2021-12-01"},
         {person: 4, position: "Gerente de Operaciones",admission_date: "2021-12-01"},
         {person: 5, position: "Especialista Eléctrico",admission_date: "2022-05-01"},
@@ -28,5 +28,7 @@
         {person: 26, position: "Operario",admission_date: "2022-05-01"},
         {person: 27, position: "Operario",admission_date: "2022-05-01"},
         {person: 28, position: "Operaria Administrativa",admission_date: "2022-05-01"},
+        {person: 29, position: "Operario",admission_date: "2022-05-01"},
+        {person: 30, position: "Operario",admission_date: "2022-05-01"},
     ]
     

@@ -10,10 +10,10 @@ export const typeDefs = `#graphql
         customer: String!
         first_name: String!
         last_name: String!
-        email: String!
-        phone_number: String!
-        address: String!
+        phone_number: String
+        email: String
         functional_area: String!
+        position: String
         status: Boolean!
     }
 
@@ -22,10 +22,10 @@ export const typeDefs = `#graphql
         customer: Customer!
         first_name: String!
         last_name: String!
-        email: String!
-        phone_number: String!
-        address: String!
+        email: String
+        phone_number: String
         functional_area: FunctionalArea!
+        position: String
         status: Boolean!
     }
 
@@ -38,9 +38,9 @@ export const typeDefs = `#graphql
         customer: String!
         first_name: String!
         last_name: String!
-        email: String!
-        phone_number: String!
-        address: String!
+        email: String
+        phone_number: String
+        position: String
         functional_area: String!
     ): NewContact!
  }
@@ -56,10 +56,10 @@ export const resolvers = {
   Mutation: {
     addContact: async (
       root,
-      { customer, first_name, last_name, email, phone_number, address, functional_area }
+      { customer, first_name, last_name, email, phone_number, functional_area }
     ) => {
       const duplicateContact = await Contact.findOne({
-        where: { customer, first_name, last_name, email, functional_area }
+        where: { customer, first_name, last_name, email, position, functional_area }
       })
       if (duplicateContact) {
         throw new Error(
@@ -69,10 +69,10 @@ export const resolvers = {
         return await Contact.create({
           customer,
           first_name,
-          last_name,
+          last_name,  
           email,
           phone_number,
-          address,
+          position,
           functional_area
         })
       }

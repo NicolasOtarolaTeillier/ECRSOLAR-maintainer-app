@@ -15,45 +15,53 @@ export const PhotovoltaicPowerStation = sequelize.define(
       allowNull: false,
       primaryKey: true
     },
-    strings: {
+    strings: { // cantidad de filas
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: true
     },
-    modules: {
+    modules: { // cantidad de paneles
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: true
     },
-    module_size: {
+    module_size: { // estructura
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
-    hectares: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+    hectares: { // tamaño de terreno
+      type: DataTypes.DECIMAL,
+      allowNull: true
     },
     investor_brand: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     module_brand: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
-    mw: {
+    mw_ac: {  // ac output
       type: DataTypes.DECIMAL,
-      allowNull: false
+      allowNull: true
+    },
+    mw_dc: {  // dc / mwpick / capacidad instalada 
+      type: DataTypes.DECIMAL,
+      allowNull: true
     },
     owner: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     manager_name: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     customer: {
       type: DataTypes.STRING,
-      allowNull: false  
+      allowNull: true  
+    },
+    commune: {
+      type: DataTypes.STRING,
+      allowNull: true  
     },
     manager_number: {
         type: DataTypes.STRING,

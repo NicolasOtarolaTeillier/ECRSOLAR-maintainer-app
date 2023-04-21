@@ -1,20 +1,18 @@
 export const equipmentCategory = [
     {name: 'Dron'},
-    {name: 'Trazador de curvas'},
-    {name: 'Cámara termográfica'},
+    {name: 'Trazador de Curvas'},
+    {name: 'Cámara Termográfica'},
     {name: 'Multímetro Hioki 1500 VDC'},
     {name: 'Telurómetro'},
-    {name: 'Cepillo eléctrico'},
+    {name: 'Pertiga'},
+    {name: 'Cabezal'},
     {name: 'Cepillo con aspersor'},
     {name: 'Manguera'},
     {name: 'Batería'},
     {name: 'Fuente de poder'},
     {name: 'Carro de lavado'},
     {name: 'Ablandador'},
+    {name: 'Generador'},
     {name: 'Sistema de presión'},
     {name: 'Kit media tensión'},
 ]
-
-// generador (1,2,3)
-// pertiga 15
-// cabezal 15

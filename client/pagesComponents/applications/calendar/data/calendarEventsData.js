@@ -16,15 +16,15 @@ Coded by www.creative-tim.com
 const calendarEventsData = [
   {
     title: "All day conference",
-    start: "2023-03-22",
-    end: "2023-03-25",
+    start: "2023-04-10",
+    end: "2023-04-25",
     className: "success",
   },
 
   {
     title: "Meeting with Mary",
-    start: "2023-03-24",
-    end: "2023-03-25",
+    start: "2023-04-26",
+    end: "2023-04-29",
     className: "info",
   },
 

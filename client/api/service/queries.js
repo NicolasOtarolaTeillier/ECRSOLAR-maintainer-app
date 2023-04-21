@@ -19,8 +19,6 @@ query AllServices {
       name
       fantasy_name
       rut
-     # address
-     # url
       status
     }
     contact {
@@ -30,15 +28,12 @@ query AllServices {
         name
         fantasy_name
         rut
-#        address
- #       url
         status
       }
       first_name
       last_name
       email
       phone_number
-      address
       functional_area {
         id
         name
@@ -55,7 +50,8 @@ query AllServices {
       hectares
       investor_brand
       module_brand
-      mw
+      mw_ac
+      mw_dc
       owner
       manager_name
       customer {
@@ -63,9 +59,11 @@ query AllServices {
         name
         fantasy_name
         rut
- #       address
- #       url
         status
+      }
+      commune{
+        name
+        region
       }
       manager_number
       status

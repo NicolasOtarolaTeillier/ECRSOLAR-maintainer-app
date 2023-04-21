@@ -34,15 +34,15 @@ export const Service = sequelize.define(
     },
     service_type:{
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     customer: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     contact: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
     },
     photovoltaic_power_station: {
       type: DataTypes.STRING,

@@ -79,28 +79,26 @@ function NewContact ({ formData }) {
   const { formId, formField } = form
   const {
     email,
-    customer,
     first_name,
     last_name,
     phone_number,
-    address,
     functional_area
   } = formField
 
   const submitForm = async (values, actions) => {
-    console.log('hola', values)
-    alert(JSON.stringify(values, null, 2))
+
+    const variables ={
+      customer: customerV,
+      firstName: values['first_name'],
+      lastName: values['last_name'],
+      email: values['email'],
+      phoneNumber: values['phone_number'],
+      functionalArea: values['functional_area']
+    }
+    alert(JSON.stringify(variables, null, 2))
     try {
       const result = await addContact({
-        variables: {
-          customer: customerV,
-          firstName: values['first_name'],
-          lastName: values['last_name'],
-          email: values['email'],
-          phoneNumber: values['phone_number'],
-          address: values['address'],
-          functionalArea: values['functional_area']
-        }
+        variables: variables
       })
       console.log('result', result)
       const { data } = result
@@ -160,7 +158,7 @@ function NewContact ({ formData }) {
     <MDSnackbar
       color='error'
       icon='warning'
-      title='Error al crear Cliente'
+      title='Error al crear Contacto'
       content={`${message}`}
       dateTime='0 mins ago'
       open={errorSB}
@@ -255,17 +253,6 @@ function NewContact ({ formData }) {
                             values.phone_number.length > 0 &&
                             !errors.phone_number
                           }
-                        />
-                      </Grid>
-                      <Grid item xs={12} sm={4}>
-                        <FormField
-                          type={address.type}
-                          label={address.label}
-                          name={address.name}
-                          value={values.address}
-                          placeholder={address.placeholder}
-                          error={errors.address && touched.address}
-                          success={values.address.length > 0 && !errors.address}
                         />
                       </Grid>
                       <Grid item xs={12} sm={4}>

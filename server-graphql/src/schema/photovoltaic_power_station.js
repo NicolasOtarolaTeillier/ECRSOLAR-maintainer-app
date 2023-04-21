@@ -1,39 +1,44 @@
 import { PhotovoltaicPowerStation } from '../models/PhotovoltaicPowerStation.js'
 import { Customer } from '../models/Customer.js'
+import { Commune } from '../models/Commune.js'
 
 // definitions graphql
 export const typeDefs = `#graphql
   type NewPhotovoltaicPowerStation {
     id: Int!
     name: String!
-    strings: Int!
-    modules: Int!
-    module_size: String!
-    hectares: Int!
-    investor_brand: String!
-    module_brand: String!
-    mw: Float!
-    owner: String!
-    manager_name: String!
-    customer: String!
-    manager_number: String!
+    strings: Int
+    modules: Int
+    module_size: String
+    hectares: Int
+    investor_brand: String
+    module_brand: String
+    mw_ac: Float
+    mw_dc: Float
+    owner: String
+    manager_name: String
+    customer: String
+    commune: String
+    manager_number: String
     status: Boolean
   }
 
   type PhotovoltaicPowerStation {
     id: Int!
     name: String!
-    strings: Int!
-    modules: Int!
-    module_size: String!
-    hectares: Int!
-    investor_brand: String!
-    module_brand: String!
-    mw: Float!
-    owner: String!
-    manager_name: String!
-    customer: Customer!
-    manager_number: String!
+    strings: Int
+    modules: Int
+    module_size: String
+    hectares: Int
+    investor_brand: String
+    module_brand: String
+    mw_ac: Float
+    mw_dc: Float
+    owner: String
+    manager_name: String
+    customer: Customer
+    commune: Commune
+    manager_number: String
     status: Boolean!
   }
 
@@ -44,17 +49,19 @@ export const typeDefs = `#graphql
   extend type Mutation {
     addPhotovoltaicPowerStation(
        name: String!
-       strings: Int!
-       modules: Int!
-       module_size: String!
-       hectares: Int!
-       investor_brand: String!
-       module_brand: String!
-       mw: Float!
-       owner: String!
-       manager_name: String!
-       customer: String!
-       manager_number: String!
+       strings: Int
+       modules: Int
+       module_size: String
+       hectares: Int
+       investor_brand: String
+       module_brand: String
+       mw_ac: Float
+       mw_dc: Float
+       owner: String
+       manager_name: String
+       customer: String
+       manager_number: String
+       commune: String
        status: Boolean
    ): NewPhotovoltaicPowerStation
  }
@@ -79,10 +86,12 @@ export const resolvers = {
         hectares,
         investor_brand,
         module_brand,
-        mw,
+        mw_ac,
+        mw_dc,
         owner,
         manager_name,
         customer,
+        commune,
         manager_number,
         status
       }
@@ -103,10 +112,12 @@ export const resolvers = {
           hectares,
           investor_brand,
           module_brand,
-          mw,
+          mw_ac,
+          mw_dc,
           owner,
           manager_name,
           customer,
+          commune,
           manager_number,
           status
         })
@@ -116,6 +127,9 @@ export const resolvers = {
   PhotovoltaicPowerStation: {
     customer: async ({ customer }) => {
       return await Customer.findOne({ where: { name: customer } })
+    },
+    commune: async ({ commune }) => {
+      return await Commune.findOne({ where: { name: commune } })
     }
   }
 }

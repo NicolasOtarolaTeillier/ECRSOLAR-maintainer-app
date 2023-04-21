@@ -30,13 +30,15 @@ extend type Mutation {
         leader: Boolean!
     ): NewServiceXStaff!
 }
+
+
 `
 
 export const resolvers = {
   Query: {
     allServiceXStaffs: async () => {
       return await ServiceXStaff.findAll()
-    }
+    },
   },
   Mutation: {
     addServiceXStaff: async (root, { service, staff, leader }) => {
@@ -47,18 +49,17 @@ export const resolvers = {
       })
     }
   },
-  ServiceXStaff :{
+  ServiceXStaff: {
     staff: async ({ staff }) => {
-        return await Staff.findOne({
-          where: { id: staff }
-        })
-      },
+      return await Staff.findOne({
+        where: { id: staff }
+      })
+    },
 
     service: async ({ service }) => {
-        return await Service.findOne({
-          where: { id: service }
-        })
-    }
-
+      return await Service.findOne({
+        where: { id: service }
+      })
+    },
   }
 }

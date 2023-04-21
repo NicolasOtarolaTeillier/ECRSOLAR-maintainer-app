@@ -4,7 +4,7 @@ import Modal from '@mui/material/Modal'
 import MDBox from '/components/MDBox'
 import MDTypography from '/components/MDTypography'
 import MDButton from '/components/MDButton'
-import { Card, Grid, Icon } from '@mui/material'
+import {  FormControl, MenuItem, Select, Grid, Icon } from '@mui/material'
 
 // formik components
 import { Formik, Form, Field } from 'formik'
@@ -23,9 +23,15 @@ import { useMutation } from '@apollo/client'
 
 //query refetching
 import GET_ALL_PHOTOVOLTAIC_POWER_STATIONS from '../../../../../../api/photovoltaic_power_station/queries.js'
+import GET_ALL_COMMUNES from '../../../../../../api/commune/queries.js'
 
 // notifications
 import MDSnackbar from '/components/MDSnackbar'
+
+
+// apollo
+import { useQuery } from '@apollo/client'
+
 
 
 const style = {
@@ -36,10 +42,11 @@ const style = {
   mr: '20%'
 }
 
-function NewPhotovoltaicPowerStation ({ formData }) {
+function NewPhotovoltaicPowerStation({ formData }) {
   const { values: valuesFormData } = formData
   const { customer: customerV } = valuesFormData
   // apollo
+  const { loading, error, data } = useQuery(GET_ALL_COMMUNES)
   const [addPhotovoltaicPowerStation] = useMutation(
     ADD_PHOTOVOLTAIC_POWER_STATION,
     {
@@ -52,6 +59,29 @@ function NewPhotovoltaicPowerStation ({ formData }) {
   )
   // message:
   const [message, setMessage] = useState('')
+
+
+  const CustomizedSelectForFormik = ({ children, form, field }) => {
+    const { name, value } = field
+    const { setFieldValue } = form
+
+    return (
+      <>
+      <div>
+        Seleccionar comuna
+      </div>
+      <Select
+        name={name}
+        value={value}
+        onChange={e => {
+          setFieldValue(name, e.target.value)
+        }}
+        >
+        {children}
+      </Select>
+        </>
+    )
+  }
 
   //notifications
   const [successSB, setSuccessSB] = useState(false)
@@ -79,31 +109,36 @@ function NewPhotovoltaicPowerStation ({ formData }) {
     hectares,
     investor_brand,
     module_brand,
-    mw,
+    mw_ac,
+    mw_dc,
     owner,
     manager_name,
     customer,
+    commune,
     manager_number
   } = formField
 
   const submitForm = async (values, actions) => {
-    alert(JSON.stringify(values, null, 2))
+    const variables = {
+      name: values['name'],
+      strings: values['strings'],
+      modules: values['modules'],
+      moduleSize: values['module_size'],
+      hectares: values['hectares'],
+      investorBrand: values['investor_brand'],
+      moduleBrand: values['module_brand'],
+      mwAc: values['mw_ac'],
+      mwDc: values['mw_dc'],
+      commune: values['commune'],
+      owner: values['owner'],
+      managerName: values['manager_name'],
+      customer: customerV,
+      managerNumber: values['manager_number']
+    }
+    alert(JSON.stringify(variables, null, 2))
     try {
       const result = await addPhotovoltaicPowerStation({
-        variables: {
-          name: values['name'],
-          strings: values['strings'],
-          modules: values['modules'],
-          moduleSize: values['module_size'],
-          hectares: values['hectares'],
-          investorBrand: values['investor_brand'],
-          moduleBrand: values['module_brand'],
-          mw: values['mw'],
-          owner: values['owner'],
-          managerName: values['manager_name'],
-          customer: customerV,
-          managerNumber: values['manager_number']
-        }
+        variables: variables
       })
       console.log('result', result)
       const { data } = result
@@ -123,7 +158,7 @@ function NewPhotovoltaicPowerStation ({ formData }) {
     <MDSnackbar
       color='success'
       icon='check'
-      title='Exito al crear el Cliente'
+      title='Exito al crear la Planta'
       content={`${message}`}
       dateTime='0 mins ago'
       open={successSB}
@@ -302,15 +337,47 @@ function NewPhotovoltaicPowerStation ({ formData }) {
                       </Grid>
                       <Grid item xs={12} sm={4}>
                         <FormField
-                          type={mw.type}
-                          label={mw.label}
-                          name={mw.name}
-                          value={values.mw}
-                          placeholder={mw.placeholder}
-                          error={errors.mw && touched.mw}
-                          success={values.mw.length > 0 && !errors.mw}
+                          type={mw_ac.type}
+                          label={mw_ac.label}
+                          name={mw_ac.name}
+                          value={values.mw_ac}
+                          placeholder={mw_ac.placeholder}
+                          error={errors.mw_ac && touched.mw_ac}
+                          success={values.mw_ac.length > 0 && !errors.mw_ac}
                         />
                       </Grid>
+                      <Grid item xs={12} sm={4}>
+                        <FormField
+                          type={mw_dc.type}
+                          label={mw_dc.label}
+                          name={mw_dc.name}
+                          value={values.mw_dc}
+                          placeholder={mw_dc.placeholder}
+                          error={errors.mw_dc && touched.mw_dc}
+                          success={values.mw_dc.length > 0 && !errors.mw_dc}
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={4}>
+
+                      <FormControl fullWidth variant='outlined'>
+                        <Field
+                          name={commune.name}
+                          component={CustomizedSelectForFormik}
+                          label={commune.label}
+                          value={commune}
+                          error={errors.commune && touched.commune}
+                          success={
+                            !loading && commune.length > 0 && !errors.commune
+                          }
+                          >
+                          {!loading && data
+                            ? data.allCommunes.map(st => {
+                              return <MenuItem value={st.name}>{st.name}</MenuItem>
+                            })
+                            : null}
+                        </Field>
+                      </FormControl>
+                            </Grid>
                       <Grid item xs={12} sm={4}>
                         <FormField
                           type={owner.type}

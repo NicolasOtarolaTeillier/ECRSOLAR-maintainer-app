@@ -39,6 +39,12 @@ Customer.hasMany(PhotovoltaicPowerStation, { foreignKey: 'customer' })
 // una Planta pertenece a un cliente
 PhotovoltaicPowerStation.belongsTo(Customer, { foreignKey: 'customer', as: 'customer_id' });
 
+// 1-n
+// una Comuna tiene muchas plantas
+Commune.hasMany(PhotovoltaicPowerStation, { foreignKey: 'commune' })
+// una Planta pertenece a una comuna
+PhotovoltaicPowerStation.belongsTo(Commune, { foreignKey: 'commune', as: 'commune_id' });
+
 
 
 ///////////////////////////// PROVIDER ////////////////////////////////
@@ -95,6 +101,14 @@ ExtraHour.belongsTo(Staff, { foreignKey: 'staff', as: 'staff_id' });
 Region.hasMany(Commune, { foreignKey: 'region' })
 // una Comuna pertenece a una unica region
 Commune.belongsTo(Region, { foreignKey: 'region', as: 'region_id' });
+
+///////////////////////////// EQUIPMENT  ////////////////////////////////
+// 1-n
+// una Categoria de equipamiento tiene muchos equipamientos asociadas
+EquipmentCategory.hasMany(Equipment, { foreignKey: 'equipment_category' })
+// un Equipamiento pertenece a una unica categoria de equipamiento
+Equipment.belongsTo(EquipmentCategory, { foreignKey: 'equipment_category', as: 'equipment_category_id' });
+
 
 
 

@@ -10,7 +10,6 @@ const GET_ALL_CONTACTS = gql`
       last_name
       email
       phone_number
-      address
       functional_area {
         id
         name

@@ -31,7 +31,9 @@ extend type Mutation {
 export const resolvers = {
   Query: {
     allCommunes: async () => {
-      return await Commune.findAll()
+      return await Commune.findAll({
+        order: [['name', 'ASC']]
+      })
     }
   },
   Mutation: {

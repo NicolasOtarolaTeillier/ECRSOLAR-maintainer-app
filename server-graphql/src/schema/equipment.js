@@ -33,7 +33,7 @@ extend type Mutation {
 export const resolvers = {
   Query: {
     allEquipments: async () => {
-      return await Equipment.findAll()
+      return await Equipment.findAll({ order: [['equipment_category', 'ASC']] })
     }
   },
   Mutation: {

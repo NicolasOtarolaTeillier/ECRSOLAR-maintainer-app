@@ -10,10 +10,14 @@ const GET_ALL_PHOTOVOLTAIC_POWER_STATIONS = gql`
       hectares
       investor_brand
       module_brand
-      mw
+      mw_ac
+      mw_dc
       owner
       manager_name
       customer {
+        name
+      }
+      commune {
         name
       }
       manager_number

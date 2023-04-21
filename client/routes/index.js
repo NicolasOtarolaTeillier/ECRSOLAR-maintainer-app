@@ -93,9 +93,14 @@ const routes = [
     icon: <Icon fontSize='medium'>dashboard</Icon>,
     collapse: [
       {
-        name: 'Planificar Servicio',
-        key: 'servicePlanning',
-        route: '/operations/servicePlanning'
+        name: 'Planificar Servicios',
+        key: 'servicesPlanning',
+        route: '/operations/servicesPlanning'
+      },
+      {
+        name: 'Resumen de Servicios',
+        key: 'servicesSummary',
+        route: '/operations/servicesSummary'
       },
     ]
   },

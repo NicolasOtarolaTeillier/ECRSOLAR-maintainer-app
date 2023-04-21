@@ -37,13 +37,6 @@ const form = {
         errorMsg: 'El número de telefono es requerido.',
         invalidMsg: 'No corresponde a un texto válido.'
       },
-      address: {
-        name: 'address',
-        label: 'Dirección',
-        type: 'text',
-        errorMsg: 'La Dirección es requerida.',
-        invalidMsg: 'No corresponde a texto valido.'
-      },
       functional_area: {
         name: 'functional_area',
         label: 'Área Funcional',

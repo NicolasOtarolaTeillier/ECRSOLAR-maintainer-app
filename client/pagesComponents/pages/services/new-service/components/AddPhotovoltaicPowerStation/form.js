@@ -50,9 +50,16 @@ const form = {
         errorMsg: 'La Marca es requerida.',
         invalidMsg: 'No corresponde a un texto valido.'
       },
-      mw: {
-        name: 'mw',
-        label: 'Mw',
+      mw_ac: {
+        name: 'mw_ac',
+        label: 'Mw AC',
+        type: 'number',
+        errorMsg: 'Mw es requerido.',
+        invalidMsg: 'No corresponde a un número valido.'
+      },
+      mw_dc: {
+        name: 'mw_dc',
+        label: 'Mw DC',
         type: 'number',
         errorMsg: 'Mw es requerido.',
         invalidMsg: 'No corresponde a un número valido.'
@@ -76,6 +83,13 @@ const form = {
         label: 'Cliente',
         type: 'text',
         errorMsg: 'El nombre es requerido.',
+        invalidMsg: 'No corresponde a un texto valido.'
+      },
+      commune: {
+        name: 'commune',
+        label: 'Comuna',
+        type: 'text',
+        errorMsg: 'La comuna es requerido.',
         invalidMsg: 'No corresponde a un texto valido.'
       },
       manager_number: {

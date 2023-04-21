@@ -24,12 +24,12 @@ function Calendar ({ formData }) {
   const { service } = controller
 
   const { data, loading, error } = useQuery(GET_ALL_SERVICES)
-  const [dataService, setDataService] = useState(null)
+  const [dataService, setDataService] = useState([])
 
   useEffect(() => {
     setDataService(
       data?.allServices?.map(service => {
-        let name;
+        let name
         switch (service.step) {
           case 0:
             name = 'error'
@@ -49,20 +49,20 @@ function Calendar ({ formData }) {
           default:
             name = 'error'
         }
-
-        const start = new Date(service.proposed_execution_date)
-        const end = new Date(service.finish_execution_date)
         return {
           title:
             service.service_type.name +
             ' - ' +
-            service.photovoltaic_power_station.name +
+            service.photovoltaic_power_station.name.replace(
+              /(PFV|PMGD|PMG)/g,
+              ''
+            ) +
             ' - ' +
             service.customer.fantasy_name,
-          end: !isNaN(end) ? end : null,
-          start: !isNaN(start) ? start : null,
+          end: diaSiguiente(service.finish_execution_date, 2),
+          start: service.proposed_execution_date,
           id: service.id,
-          className: name,
+          className: name
         }
       })
     )
@@ -77,16 +77,14 @@ function Calendar ({ formData }) {
               <EventCalendar
                 initialView='dayGridMonth'
                 initialDate={new Date()}
-                //initialDate={new Date(2023, 2, 4)}
                 events={dataService}
                 selectable
                 editable
-                dateClick={a => {
-                  console.log(a)
-                }}
                 eventClick={info => {
-                  const value_className = dataService.filter(ds => ds.id === info.event.id)[0].className
-                  if(value_className != 'error'){
+                  const value_className = dataService.filter(
+                    ds => ds.id === info.event.id
+                  )[0].className
+                  if (value_className != 'error') {
                     return
                   }
                   console.log(info.event.id)
@@ -113,3 +111,12 @@ export default Calendar
 // "warning",
 // "error",
 // "dark",
+function diaSiguiente (fecha, dias) {
+  const fechaObj = new Date(fecha)
+  console.log(fechaObj)
+  fechaObj.setDate(fechaObj.getDate() + dias)
+  const year = fechaObj.getFullYear()
+  const month = String(fechaObj.getMonth() + 1).padStart(2, '0')
+  const day = String(fechaObj.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}

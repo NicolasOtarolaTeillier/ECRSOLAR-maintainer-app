@@ -8,7 +8,6 @@ const {
     last_name,
     email,
     phone_number,
-    address,
     functional_area,
   },
 } = checkout;
@@ -19,7 +18,6 @@ const initialValues = {
   [last_name.name]: "",
   [email.name]: "",
   [phone_number.name]: "",
-  [address.name]: "",
   [functional_area.name]: "",
 };
 

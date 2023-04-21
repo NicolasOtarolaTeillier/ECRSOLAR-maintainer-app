@@ -10,4 +10,5 @@
         {name: "Gerente de Operaciones" },
         {name: "Trabajadora Especialista" },
         {name: "Operaria Administrativa" },
+        {name: "KAM" },
     ]

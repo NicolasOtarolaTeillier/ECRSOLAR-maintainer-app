@@ -3,6 +3,10 @@ import { ServiceType } from '../models/ServiceType.js'
 import { Customer } from '../models/Customer.js'
 import { PhotovoltaicPowerStation } from '../models/PhotovoltaicPowerStation.js'
 import { Contact } from '../models/Contact.js'
+import { ServiceXStaff } from '../models/ServiceXStaff.js'
+import { ServiceXCar } from '../models/ServiceXCar.js'
+import { Staff } from '../models/Staff.js'
+import { Car } from '../models/Car.js'
 
 // definitions graphql
 export const typeDefs = `#graphql
@@ -35,6 +39,9 @@ export const typeDefs = `#graphql
     photovoltaic_power_station: PhotovoltaicPowerStation!
     step: Int!
     status: Boolean!
+    leader: Staff
+    car: [Car!]
+    staff: [Staff!]
   }
 
   extend type Query {
@@ -64,7 +71,10 @@ export const typeDefs = `#graphql
 export const resolvers = {
   Query: {
     allServices: async () => {
-      return await Service.findAll({ order: [['createdAt', 'ASC']] })
+      return await Service.findAll({
+        where: { status: true },
+        order: [['createdAt', 'ASC']]
+      })
     },
     servicesCount: async () => {
       return await Service.count()
@@ -79,7 +89,7 @@ export const resolvers = {
       } catch (err) {
         console.error(err)
         throw err
-      } 
+      }
     }
   },
   Mutation: {
@@ -94,35 +104,50 @@ export const resolvers = {
         service_type,
         customer,
         photovoltaic_power_station,
-        contact,
+        contact
       }
     ) => {
-
       const existContact = await Contact.findOne({ where: { id: contact } })
-      if(!existContact){
+      if (!existContact) {
         throw new Error(`Contact no exists.`)
       }
 
-      const existPhotovoltaicPowerStation = await PhotovoltaicPowerStation.findOne({ where: { name: photovoltaic_power_station } })
-      if(!existPhotovoltaicPowerStation){
+      const existPhotovoltaicPowerStation =
+        await PhotovoltaicPowerStation.findOne({
+          where: { name: photovoltaic_power_station }
+        })
+      if (!existPhotovoltaicPowerStation) {
         throw new Error(`Photovoltaic Power Station no exists.`)
       }
 
-      const existCustomer = await Customer.findOne({ where: { name: customer } })
-      if(!existCustomer){
+      const existCustomer = await Customer.findOne({
+        where: { name: customer }
+      })
+      if (!existCustomer) {
         throw new Error(`Customer no exists.`)
       }
 
-      const existServiceType = await ServiceType.findOne({ where: { name: service_type } })
-      if(!existServiceType){
+      const existServiceType = await ServiceType.findOne({
+        where: { name: service_type }
+      })
+      if (!existServiceType) {
         throw new Error(`Service Type no exists.`)
       }
 
-      const duplicateService = await Service.findOne({ where: { purchase_order, contract, price, proposed_execution_date,service_type } })
+      const duplicateService = await Service.findOne({
+        where: {
+          purchase_order,
+          contract,
+          price,
+          proposed_execution_date,
+          service_type
+        }
+      })
       if (duplicateService) {
-        throw new Error(`Service already exists, with id: ${duplicateService.id}`)
-      }
-      else{
+        throw new Error(
+          `Service already exists, with id: ${duplicateService.id}`
+        )
+      } else {
         return await Service.create({
           purchase_order,
           contract,
@@ -135,21 +160,53 @@ export const resolvers = {
           contact
         })
       }
-      
     }
   },
   Service: {
-    customer: async ({customer}) =>{
-      return await Customer.findOne({ where: { name: customer}})
+    customer: async ({ customer }) => {
+      return await Customer.findOne({ where: { name: customer } })
     },
-    photovoltaic_power_station: async({photovoltaic_power_station}) =>{
-      return await PhotovoltaicPowerStation.findOne({ where: { name: photovoltaic_power_station}})
+    photovoltaic_power_station: async ({ photovoltaic_power_station }) => {
+      return await PhotovoltaicPowerStation.findOne({
+        where: { name: photovoltaic_power_station }
+      })
     },
-    service_type: async({service_type}) =>{
-      return await ServiceType.findOne({ where: { name: service_type}})
+    service_type: async ({ service_type }) => {
+      return await ServiceType.findOne({ where: { name: service_type } })
     },
-    contact: async({contact}) =>{
-      return await Contact.findOne({ where: { id: contact}})
+    contact: async ({ contact }) => {
+      return await Contact.findOne({ where: { id: contact } })
     },
+    leader: async ({ id }) => {
+      // buscar el id del staff que en leader === true dado que viene del serviceXStaff que contiene el service == id
+      const staffIds = await ServiceXStaff.findAll({
+        where: { service: id, leader: true }
+      })
+      // return staff
+      return await Staff.findOne({
+        where: { id: staffIds.map(({ staff }) => staff) }
+      })
+    },
+    car: async ({ id }) => {
+      const carIds = await ServiceXCar.findAll({
+        where: { service: id }
+      })
+      return await Car.findAll({
+        where: { license_plate: carIds.map(({ car }) => car) }
+      })
+    },
+    staff: async ({ id }) => {
+      const staffIds = await ServiceXStaff.findAll({
+        where: { service: id }
+      })
+      console.log(
+        await Staff.findAll({
+          where: { id: staffIds.map(({ staff }) => staff) }
+        })
+      )
+      return await Staff.findAll({
+        where: { id: staffIds.map(({ staff }) => staff) }
+      })
+    }
   }
 }

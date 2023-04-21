@@ -28,6 +28,7 @@ function AddPhotovoltaicPowerStation ({ formData }) {
   const { photovoltaic_power_station: photovoltaic_power_stationV } = values
   const { customer: getCustomer} = values
 
+  console.log(data)
   const CustomizedSelectForFormik = ({ children, form, field }) => {
     const { name, value } = field
     const { setFieldValue } = form
@@ -79,7 +80,7 @@ function AddPhotovoltaicPowerStation ({ formData }) {
                   >
                     {!loading && data
                       ? data.allPhotovoltaicPowerStations.map(pv => {
-                          if (pv.customer.name === getCustomer){
+                          if (pv.customer?.name === getCustomer){
                             //console.log('getCustomer',getCustomer)
                             //console.log('pv.customer',pv.customer.name)
                             return <MenuItem value={pv.name}>{pv.name}</MenuItem>

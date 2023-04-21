@@ -6,7 +6,6 @@ const ADD_CONTACT = gql`
     $lastName: String!
     $email: String!
     $phoneNumber: String!
-    $address: String!
     $functionalArea: String!
 
   ) {
@@ -16,7 +15,6 @@ const ADD_CONTACT = gql`
         last_name: $lastName
         email: $email 
         phone_number: $phoneNumber 
-        address: $address
         functional_area: $functionalArea
 
     ) {
@@ -26,7 +24,6 @@ const ADD_CONTACT = gql`
         last_name
         email
         phone_number
-        address
         functional_area
         status
     }

@@ -8,10 +8,12 @@ const ADD_PHOTOVOLTAIC_POWER_STATION = gql`
     $hectares: Int!
     $investorBrand: String!
     $moduleBrand: String!
-    $mw: Float!
+    $mwAc: Float!
+    $mwDc: Float!
     $owner: String!
     $managerName: String!
     $customer: String!
+    $commune: String!
     $managerNumber: String!
   ) {
     addPhotovoltaicPowerStation(
@@ -22,10 +24,12 @@ const ADD_PHOTOVOLTAIC_POWER_STATION = gql`
       hectares: $hectares
       investor_brand: $investorBrand
       module_brand: $moduleBrand
-      mw: $mw
+      mw_ac: $mwAc
+      mw_dc: $mwDc
       owner: $owner
       manager_name: $managerName
       customer: $customer
+      commune: $commune
       manager_number: $managerNumber
     ) {
       id
@@ -36,10 +40,12 @@ const ADD_PHOTOVOLTAIC_POWER_STATION = gql`
       hectares
       investor_brand
       module_brand
-      mw
+      mw_ac
+      mw_dc
       owner
       manager_name
       customer
+      commune
       manager_number
       status
     }

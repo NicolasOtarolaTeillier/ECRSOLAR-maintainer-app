@@ -9,7 +9,6 @@ const {
     last_name,
     email,
     phone_number,
-    address, 
     functional_area, // name of the area
   },
 } = checkout;
@@ -21,7 +20,6 @@ const validations =
     [first_name.name]: Yup.string().required(first_name.errorMsg),
     [last_name.name]: Yup.string().required(last_name.errorMsg),
     [phone_number.name]: Yup.string().required(phone_number.errorMsg),
-    [address.name]: Yup.string().required(address.errorMsg),
     [functional_area.name]: Yup.string().required(functional_area.errorMsg),
   })
 ;

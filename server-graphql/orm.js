@@ -74,10 +74,10 @@ async function orm () {
     await Car.bulkCreate(car)
 
     // tablas secundarias
+    await Commune.bulkCreate(commune)
     await Customer.bulkCreate(customer)
     await PhotovoltaicPowerStation.bulkCreate(photovoltaicPowerStation)
     await Contact.bulkCreate(contact)
-    await Commune.bulkCreate(commune)
     await Provider.bulkCreate(provider)
     await Staff.bulkCreate(staff)
     await Equipment.bulkCreate(equipment)

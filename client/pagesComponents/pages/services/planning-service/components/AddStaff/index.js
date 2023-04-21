@@ -17,19 +17,20 @@ import { Field } from 'formik'
 
 // context
 import { useMaterialUIController, setSelectStaffs, setSelectLeader } from '/context'
-
 //queries
-import GET_ALL_STAFF from '../../../../../../api/staff/queries.js'
+import GET_ALL_STAFF, {GET_ALL_STAFF_AVAILABLE} from '../../../../../../api/staff/queries.js'
 import { useQuery } from '@apollo/client'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { useMemo } from 'react'
 
 function AddStaff ({ formData }) {
-  const { loading, error, data } = useQuery(GET_ALL_STAFF)
-
   const [controller, dispatch] = useMaterialUIController()
-  const { staffs,leader } = controller
+  const { service } = controller
+  const { loading, error, data } = useQuery(GET_ALL_STAFF_AVAILABLE,{
+    variables: { service: service },
+  })
+
 
   const [selectedStaff, setSelectedStaff] = useState([])
   const [selectedIDLeader, setSelectedIDLeader] = useState(null)
@@ -56,7 +57,7 @@ function AddStaff ({ formData }) {
     return <p>Error: {error.message}</p>
   }
 
-  const options = data.allStaffs
+  const options = data.allStaffsAvailable
     .map(s => ({
       id: s.id,
       label:

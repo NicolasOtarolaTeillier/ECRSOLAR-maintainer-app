@@ -11,10 +11,12 @@ const {
     hectares ,
     investor_brand,
     module_brand,
-    mw,
+    mw_ac,
+    mw_dc,
     owner,
     manager_name,
     customer,
+    commune,
     manager_number,
   },
 } = checkout;
@@ -22,17 +24,19 @@ const {
 const validations = 
   Yup.object().shape({
     [name.name]: Yup.string().required(name.errorMsg),
-    [strings.name]: Yup.number().required(strings.errorMsg),
-    [modules.name]: Yup.number().required(modules.errorMsg),
-    [module_size.name]: Yup.string().required(module_size.errorMsg),
-    [hectares.name]: Yup.number().required(hectares.errorMsg),
-    [investor_brand.name]: Yup.string().required(investor_brand.errorMsg),
-    [module_brand.name]: Yup.string().required(module_brand.errorMsg),
-    [mw.name]: Yup.number().required(mw.errorMsg),
-    [owner.name]: Yup.string().required(owner.errorMsg),
-    [manager_name.name]: Yup.string().required(manager_name.errorMsg),
+    [strings.name]: Yup.number(),
+    [modules.name]: Yup.number(),
+    [module_size.name]: Yup.string(),
+    [hectares.name]: Yup.number(),
+    [investor_brand.name]: Yup.string(),
+    [module_brand.name]: Yup.string(),
+    [mw_ac.name]: Yup.number(),
+    [mw_dc.name]: Yup.number(),
+    [owner.name]: Yup.string(),
+    [manager_name.name]: Yup.string(),
+    [commune.name]: Yup.string(),
     [customer.name]: Yup.string(),
-    [manager_number.name]: Yup.string().required(manager_number.errorMsg),
+    [manager_number.name]: Yup.string(),
   })
 ;
 

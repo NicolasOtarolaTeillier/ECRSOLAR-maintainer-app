@@ -33,6 +33,7 @@
     "@emotion/server": "11.4.0",
     "@emotion/styled": "11.8.1",
     "@fullcalendar/common": "5.9.0",
+    "@fullcalendar/core": "^6.1.5",
     "@fullcalendar/daygrid": "5.9.0",
     "@fullcalendar/interaction": "5.9.0",
     "@fullcalendar/multimonth": ">=5.9.5",

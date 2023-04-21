@@ -235,6 +235,22 @@ export const person = [
     rut: '28.004.054-1',
     status: true
   },
+  {
+    id: 29,
+    email: 'scontreras@ecrsolar.cl',
+    first_name: 'Sergio',
+    last_name: 'Contreras',
+    rut: '13.290.250-k',
+    status: true
+  },
+  {
+    id: 30,
+    email: 'sgonzalez@ecrsolar.cl',
+    first_name: 'Sebastian',
+    last_name: 'Gonzalez',
+    rut: '20.201.191-8',
+    status: true
+  },
 
 ]
 

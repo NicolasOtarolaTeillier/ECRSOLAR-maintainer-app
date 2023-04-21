@@ -3,6 +3,7 @@ import { sequelize } from '../../database/database.js'
 import { ServiceXEquipment } from '../../models/ServiceXEquipment.js'
 import { ServiceXStaff } from '../../models/ServiceXStaff.js'
 import { ServiceXCar } from '../../models/ServiceXCar.js'
+import { Service } from '../../models/Service.js'
 
 
 // definitions graphql
@@ -15,6 +16,7 @@ extend type Mutation {
       leader: Int!
       equipments: [Int!]
       cars: [String!]
+      step: Int!
     ): String!
   }
 `
@@ -23,7 +25,7 @@ export const resolvers = {
   Mutation: {
     servicePlanning: async (
       _,
-      { service, staffs, leader, equipments, cars }
+      { service, staffs, leader, equipments, cars,step }
     ) => {
       // Inicia una transacción
       return sequelize.transaction(async t => {
@@ -39,6 +41,18 @@ export const resolvers = {
           // servcice x car
           const carRecords = cars.map(c => ({ service: service, car: c }))
           await ServiceXCar.bulkCreate(carRecords, { transaction: t })
+
+          // servcice 
+          const updatedService = await Service.update(
+            { step: step },
+            {
+              where: { id: service },
+              transaction: t,
+            }
+          );
+          if (updatedService[0] === 0) {
+            throw new Error('No se pudo actualizar el registro de Service');
+          }
 
           return 'Success'
         } catch (error) {

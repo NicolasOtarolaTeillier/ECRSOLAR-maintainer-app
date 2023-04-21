@@ -21,6 +21,8 @@ import FullCalendar from "@fullcalendar/react";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import esLocale from '@fullcalendar/core/locales/es';
+
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -61,33 +63,19 @@ function Calendar({ header, ...rest }) {
 
   return (
     <Card sx={{ height: "100%" }}>
-      <MDBox pt={header.title || header.date ? 2 : 0} px={2} lineHeight={1}>
-        {header.title ? (
-          <MDTypography
-            variant="h6"
-            fontWeight="medium"
-            textTransform="capitalize"
-          >
-            {header.title}
-          </MDTypography>
-        ) : null}
-        {header.date ? (
-          <MDTypography
-            component="p"
-            variant="button"
-            color="text"
-            fontWeight="regular"
-          >
-            {header.date}
-          </MDTypography>
-        ) : null}
-      </MDBox>
       <CalendarRoot p={2} ownerState={{ darkMode }}>
         <FullCalendar
           {...rest}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           events={events}
+          locale={esLocale}
+
           height="100%"
+          headerToolbar= {{
+            left: 'prev,next',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay,today' // user can switch between the two
+          }}
         />
       </CalendarRoot>
     </Card>
