@@ -167,6 +167,7 @@ function UserCellComponent ({
           date: formatDate(date)
         }
       })
+      setOpen(false)
     } catch (e) {
       console.log(e)
     }
