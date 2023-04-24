@@ -26,6 +26,7 @@ import { ServiceTypeXEquipmentCategory } from './src/models/ServiceTypeXEquipmen
 import { ServiceXEquipment } from './src/models/ServiceXEquipment.js'
 import { ServiceXCar} from './src/models/ServiceXCar.js'
 import { Service } from './src/models/Service.js'
+import { Milestone } from './src/models/Milestone.js'
 
 
 // asocciations
@@ -56,12 +57,13 @@ import { serviceTypeXEquipmentCategory } from './src/data/serviceTypeXEquipmentC
 import { serviceXEquipment } from './src/data/serviceXEquipment.js'
 import { serviceXCar } from './src/data/serviceXCar.js'
 import { service } from './src/data/service.js'
+import { milestone } from './src/data/milestone.js'
 
 // ORM
 async function orm () {
   try {
     await sequelize.sync({ force: true })
-    //await sequelize.sync()
+    // await sequelize.sync()
     
     // tablas primarias
     await ServiceType.bulkCreate(serviceType)
@@ -72,6 +74,7 @@ async function orm () {
     await Position.bulkCreate(position)
     await EquipmentCategory.bulkCreate(equipmentCategory)
     await Car.bulkCreate(car)
+  
 
     // tablas secundarias
     await Commune.bulkCreate(commune)
@@ -81,8 +84,9 @@ async function orm () {
     await Provider.bulkCreate(provider)
     await Staff.bulkCreate(staff)
     await Equipment.bulkCreate(equipment)
-    //await Productivity.bulkCreate(productivity)
-    //await ExtraHour.bulkCreate(extraHour)      
+    // await Productivity.bulkCreate(productivity)
+    // await ExtraHour.bulkCreate(extraHour) 
+    await Milestone.bulkCreate(milestone)     
     
 
     // tablas maestra

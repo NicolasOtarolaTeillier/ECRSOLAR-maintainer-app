@@ -8,13 +8,10 @@ export const ServiceXCar = sequelize.define(
     service: {
       type: DataTypes.UUID,
       allowNull: false,
-      unique: 'service_x_cars_unique',
     },
     car: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: 'service_x_cars_unique',
-
     },
     status: {
       type: DataTypes.BOOLEAN,
@@ -23,6 +20,12 @@ export const ServiceXCar = sequelize.define(
     }
   },
   {
-    timestamps: true
+    timestamps: true,
+    indexes: [
+      {
+        unique: true,
+        fields: ['service', 'car']
+      }
+    ]
   }
 )

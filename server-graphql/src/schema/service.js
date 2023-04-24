@@ -7,6 +7,7 @@ import { ServiceXStaff } from '../models/ServiceXStaff.js'
 import { ServiceXCar } from '../models/ServiceXCar.js'
 import { Staff } from '../models/Staff.js'
 import { Car } from '../models/Car.js'
+import { Op } from 'sequelize'
 
 // definitions graphql
 export const typeDefs = `#graphql
@@ -48,6 +49,7 @@ export const typeDefs = `#graphql
     allServices: [Service!]
     servicesCount: Int!
     findService(id: ID!): Service
+    findServices(ids: [ID!]!): [Service!]
   }
 
  extend type Mutation {
@@ -90,7 +92,17 @@ export const resolvers = {
         console.error(err)
         throw err
       }
-    }
+    },
+    findServices: async (root, { ids }) => {
+      // Utiliza el operador de Sequelize 'in' para buscar registros que tengan un id en el array de ids
+      return await Service.findAll({
+        where: {
+          id: {
+            [Op.in]: ids,
+          },
+        },
+      });
+    },
   },
   Mutation: {
     addService: async (
@@ -107,6 +119,7 @@ export const resolvers = {
         contact
       }
     ) => {
+      
       const existContact = await Contact.findOne({ where: { id: contact } })
       if (!existContact) {
         throw new Error(`Contact no exists.`)

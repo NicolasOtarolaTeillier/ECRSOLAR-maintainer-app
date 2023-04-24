@@ -20,11 +20,13 @@ import { typeDefs as EquipmentCategory, resolvers as EquipmentCategoryResolvers 
 import { typeDefs as ServiceXStaff, resolvers as ServiceXStaffResolvers } from './service_x_staff.js'
 import { typeDefs as Car, resolvers as CarResolvers } from './car.js'
 import { typeDefs as ServiceXCar, resolvers as ServiceXCarResolvers } from './service_x_car.js'
+import { typeDefs as Milestone, resolvers as MilestoneResolvers } from './milestone.js'
 
 // transaccions, mutations
 import { typeDefs as ServicePlanning, resolvers as ServicePlanningResolver } from './transactions/servicePlanning.js'
-const Transaccions = [ServicePlanning]
-const TransaccionResolvers = [ServicePlanningResolver]
+import { typeDefs as ChangeServiceXStaff, resolvers as ChangeServiceXStaffResolver } from './transactions/changeServiceXStaff.js'
+const Transaccions = [ServicePlanning,ChangeServiceXStaff]
+const TransaccionResolvers = [ServicePlanningResolver,ChangeServiceXStaffResolver]
 
 const rootTypeDefs = `#graphql
     type Query {
@@ -43,6 +45,9 @@ const rooResolvers = {
   }
 }
 
+
+
+// resolvers
 export const resolvers = [
   ...TransaccionResolvers,
   rooResolvers,
@@ -65,7 +70,8 @@ export const resolvers = [
   EquipmentCategoryResolvers,
   ServiceXStaffResolvers,
   CarResolvers,
-  ServiceXCarResolvers
+  ServiceXCarResolvers,
+  MilestoneResolvers
 ]
 
 export const typeDefs = [
@@ -90,5 +96,8 @@ export const typeDefs = [
   EquipmentCategory,
   ServiceXStaff,
   Car,
-  ServiceXCar
+  ServiceXCar,
+  Milestone
 ]
+
+

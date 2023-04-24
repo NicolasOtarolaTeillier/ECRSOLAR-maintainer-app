@@ -3,6 +3,8 @@ import { Position } from '../models/Position.js'
 import { Person } from '../models/Person.js'
 import { Service } from '../models/Service.js'
 import { ServiceXStaff } from '../models/ServiceXStaff.js'
+import { Milestone } from '../models/Milestone.js'
+
 import { Op, or } from 'sequelize'
 
 // definitions graphql
@@ -25,6 +27,7 @@ export const typeDefs = `#graphql
     dismissal_date: String
     status: Boolean!
     services: [Service!]
+    milestones: [Milestone!]
   }
 
 
@@ -121,14 +124,14 @@ export const resolvers = {
   },
   Staff: {
     person: async ({ person }) => {
-      return await Person.findOne({ where: { id: person } })
+      return await Person.findOne({ where: { id: person} })
     },
     position: async ({ position }) => {
       return await Position.findOne({ where: { name: position } })
     },
     services: async ({ id }) => {
       const servicesIds = await ServiceXStaff.findAll({
-        where: { staff: id }
+        where: { staff: id, status: true }
       })
       return await Service.findAll({
         where: {
@@ -136,6 +139,9 @@ export const resolvers = {
           status: true
         }
       })
+    },
+    milestones: async ({id}) =>{ 
+      return await Milestone.findAll({where:{ staff: id, status: true}})
     }
   }
 }

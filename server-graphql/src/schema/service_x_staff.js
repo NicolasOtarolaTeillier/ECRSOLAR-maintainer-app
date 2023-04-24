@@ -26,27 +26,55 @@ extend type Query {
 extend type Mutation {
     addServiceXStaff(
         service: ID!
-        Staff: Int!
+        staff: Int!
         leader: Boolean!
     ): NewServiceXStaff!
+    deleteServiceXStaff(
+      service: ID!,
+      staff: Int!
+    ): ServiceXStaff!
 }
-
-
 `
 
 export const resolvers = {
   Query: {
     allServiceXStaffs: async () => {
-      return await ServiceXStaff.findAll()
+      return await ServiceXStaff.findAll({where: {status: true}})
     },
   },
   Mutation: {
     addServiceXStaff: async (root, { service, staff, leader }) => {
-      return await ServiceXStaff.create({
-        service,
-        staff,
-        leader
-      })
+      const duplicate = await ServiceXStaff.findOne({ where: { service: service, staff: staff } })
+      if (duplicate) {
+        const { dataValues: record } = duplicate
+        await ServiceXStaff.update(
+          { status: true },
+          { where: { id: record.id } }
+        );
+        // Retorna el registro actualizado
+        return {
+          service: record.service,
+          staff: record.staff,
+          leader: record.leader,
+          status: true,
+        };
+      }
+      else {
+        return await ServiceXStaff.create({
+          service,
+          staff,
+          leader
+        })
+      }
+    },
+    deleteServiceXStaff: async (root, { service, staff }) => {
+      const service_id = await ServiceXStaff.findOne({ where: { service: service, staff: staff } })
+      console.log(service_id)
+      const result = await ServiceXStaff.update(
+        { status: false },
+        { where: { id: service_id.dataValues.id } }
+      );
+      return await ServiceXStaff.findOne({ where: { service: service, staff: staff }})
     }
   },
   ServiceXStaff: {

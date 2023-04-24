@@ -16,6 +16,7 @@ import { ExtraHour } from './ExtraHour.js';
 import { EquipmentCategory } from './EquipmentCategory.js';
 import { Equipment } from './Equipment.js';
 import { Car } from './Car.js';
+import { Milestone } from './Milestone.js'
 
 ///////////////////////////// CONTACT ////////////////////////////////
 // 1-n
@@ -93,6 +94,14 @@ Staff.hasMany(ExtraHour, { foreignKey: 'staff' })
 // una Hora extra pertenece a un unico personal
 ExtraHour.belongsTo(Staff, { foreignKey: 'staff', as: 'staff_id' });
 
+
+
+///////////////////////////// MILESTONE ////////////////////////////////
+// 1-n
+// un personal tiene muchas milestone asociados
+Staff.hasMany(Milestone, { foreignKey: 'staff' })
+// una milestone pertenece a un unico personal
+Milestone.belongsTo(Staff, { foreignKey: 'staff', as: 'staff_id' });
 
 
 ///////////////////////////// COMMUNE  ////////////////////////////////
