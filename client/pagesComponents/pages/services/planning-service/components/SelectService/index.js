@@ -14,9 +14,6 @@ function SelectService ({formData}) {
   return (
     <MDBox>
       <MDBox lineHeight={0}>
-      <MDTypography variant='h5' fontWeight='bold'>
-        Seleccionar Servicio
-      </MDTypography>
       </MDBox>
       <MDBox >
           <Calendar formData={formData}/>

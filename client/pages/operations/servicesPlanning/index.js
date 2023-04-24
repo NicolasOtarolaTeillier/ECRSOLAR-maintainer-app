@@ -126,13 +126,12 @@ function Service () {
 
   return (
     <DashboardLayout>
-      <DashboardNavbar />
-      <MDBox py={3} mb={20} height='65vh'>
+      <MDBox py={0} mb={10} height='65vh'>
         <Grid
           container
           justifyContent='center'
           alignItems='center'
-          sx={{ height: '100%', mt: 8 }}
+          sx={{ height: '100%', mt: 1 }}
         >
           <ApiNotification data={notification}/>
           <Grid item xs={12} lg={8}>
@@ -144,7 +143,7 @@ function Service () {
               {({ values, errors, touched, isSubmitting }) => (
                 <Form id={formId} autoComplete='off'>
                   <Card sx={{ height: '100%' }}>
-                    <MDBox mx={2} mt={-3}>
+                    <MDBox mx={2} mt={-2}>
                       <Stepper activeStep={activeStep} alternativeLabel>
                         {steps.map(label => (
                           <Step key={label}>

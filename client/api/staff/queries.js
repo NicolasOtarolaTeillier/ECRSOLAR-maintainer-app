@@ -1,89 +1,81 @@
 import { gql } from '@apollo/client'
 const GET_ALL_STAFF = gql`
-query AllStaffs {
-  allStaffs  {
-    id
-    person {
+  query AllStaffs {
+    allStaffs {
       id
-      email
-      first_name
-      last_name
-      phone_number
-      rut
-      status
-    }
-    services {
-      id
-      proposed_execution_date
-      finish_execution_date
-      photovoltaic_power_station {
+      person {
+        id
+        email
+        first_name
+        last_name
+        phone_number
+        rut
+        status
+      }
+      services {
+        id
+        proposed_execution_date
+        finish_execution_date
+        photovoltaic_power_station {
+          id
+          name
+        }
+        leader {
+          id
+        }
+      }
+      milestones {
+        name
+        date
+      }
+      position {
         id
         name
+        status
       }
-      leader {
-        id
-    }
-  }
-    position {
-      id
-      name
+      admission_date
+      dismissal_date
       status
     }
-    admission_date
-    dismissal_date
-    status
-    
   }
-  
-}
 `
 export default GET_ALL_STAFF
 
-
 export const GET_ALL_STAFF_AVAILABLE = gql`
-query AllStaffsAvailable (
-  $service: ID!
-)
-{
-  allStaffsAvailable (
-    service: $service
-  )
-  {
-    id
-    person {
+  query AllStaffsAvailable($service: ID!) {
+    allStaffsAvailable(service: $service) {
       id
-      email
-      first_name
-      last_name
-      phone_number
-      rut
-      status
-    }
-    services {
-      id
-      proposed_execution_date
-      finish_execution_date
-      photovoltaic_power_station {
+      person {
+        id
+        email
+        first_name
+        last_name
+        phone_number
+        rut
+        status
+      }
+      services {
+        id
+        proposed_execution_date
+        finish_execution_date
+        photovoltaic_power_station {
+          id
+          name
+        }
+        leader {
+          id
+        }
+      }
+      position {
         id
         name
+        status
       }
-      leader {
-        id
-    }
-  }
-    position {
-      id
-      name
+      admission_date
+      dismissal_date
       status
     }
-    admission_date
-    dismissal_date
-    status
-    
   }
-
-  
-}
 `
 
 // "3fc94817-dd49-45ab-a333-02e9d3ba8bd6"	0	false	2366774	"2023-04-17"	"2023-04-19"	"Limpieza con agua"	"Grenergy Opex SPA"	1	"PMGD PFV CHIMBARONGO"

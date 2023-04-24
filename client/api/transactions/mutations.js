@@ -19,3 +19,32 @@ const SERVICE_PLANNING = gql`
   }
 `
 export default SERVICE_PLANNING
+
+export const CHANGE_SERVICES_X_XSTAFF = gql`
+  mutation ChangeServiceXStaff(
+    $serviceOld: ID!
+    $serviceNew: ID!
+    $staff: Int!
+
+  ) {
+    changeServiceXStaff(
+      service_old: $serviceOld
+      service_new: $serviceNew
+      staff: $staff
+    )
+  }
+`
+
+export const CHANGE_LEADER_OF_SERVICE = gql`
+  mutation ChangeLeaderOfService(
+    $staff_leader: Int!
+    $staff: Int!
+    $service: ID!
+  ) {
+    changeLeaderOfService(
+      staff_leader: $staffLeader
+      staff: $staff
+      service: $service
+    )
+  }
+`

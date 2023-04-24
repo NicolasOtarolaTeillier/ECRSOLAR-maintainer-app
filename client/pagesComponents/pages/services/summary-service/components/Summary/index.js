@@ -15,28 +15,31 @@ import {
 import GET_ALL_STAFF from '../../../../../../api/staff/queries.js'
 import { useQuery } from '@apollo/client'
 import CellUserComponent from './Cell'
+import { useEffect } from 'react'
+import { FIND_SERVICES } from '../../../../../../api/service/queries.js'
+
 
 function MyTable () {
   const { loading, error, data } = useQuery(GET_ALL_STAFF)
-  console.log(data)
+
   const currentDate = new Date()
   const startOfCurrentWeek = getStartOfWeek(currentDate)
   const initialOffset =
-    Math.floor((currentDate - startOfCurrentWeek) / (7 * 24 * 60 * 60 * 1000)) *
-    7
+    Math.floor((currentDate - startOfCurrentWeek) / (7 * 24 * 60 * 60 * 1000)) * 7
 
-  //console.log('currentDate', currentDate)
-  // Calcula la fecha de inicio del año
-  const startOfYear = getStartOfYear()
   // Calcula el desplazamiento inicial en función de la diferencia entre la fecha actual y la fecha de inicio del año
   const [offset, setOffset] = useState(initialOffset)
-
+  const [servicesId, setServicesId] = useState([])
+  
   const handlePrevious = () => {
+    setServicesId([])
     const newOffset = offset - 7
     setOffset(newOffset)
+
   }
 
   const handleNext = () => {
+    setServicesId([])
     setOffset(offset + 7)
   }
 
@@ -52,7 +55,6 @@ function MyTable () {
   const startDate = new Date(
     startOfCurrentWeek.setDate(startOfCurrentWeek.getDate() + offset)
   )
-  console.log('startDate', startDate)
 
   const arrayOfDays = daysOfWeek.map(
     (_, i) => new Date(startDate.getTime() + i * 24 * 60 * 60 * 1000)
@@ -65,6 +67,43 @@ function MyTable () {
     return `${daysOfWeek[date.getDay() - 1]} ${date.getDate()}/${
       date.getMonth() + 1
     }`
+  }
+
+  const { loading: loadingS, error: errorS, data: dataS } = useQuery(FIND_SERVICES, {
+    variables: {
+      ids: servicesId
+    }
+  })
+  const [servicesNames, setServicesNames] = useState([])
+
+  useEffect(() => {
+    if (!loading && dataS) {
+      const values = dataS?.findServices?.map((service) => {
+        return {
+          id: service.id,
+          name: service.photovoltaic_power_station.name.replace(/(PFV|PMGD|PMG)/g, "").trim(),
+          finish_execution_date:service.finish_execution_date,
+          proposed_execution_date:service.proposed_execution_date
+        };
+      });
+      setServicesNames(values);
+    }
+  }, [dataS]);
+
+  if (loading) {
+    return <>Loading</>;
+  }
+
+  if (error) {
+    return <>Error</>;
+  }
+
+  if (loadingS) {
+    return <>Loading</>;
+  }
+
+  if (errorS) {
+    return <>Error: +{error}</>;
   }
 
   return (
@@ -85,7 +124,7 @@ function MyTable () {
             <Table style={{ display: 'flex', justifyContent: 'center' }}>
               <TableHead>
                 <TableRow>
-                  <TableCell align='center' style={{ width: '20%' }}>
+                  <TableCell align='center' style={{ width: 'auto' }}>
                     PERSONAL
                   </TableCell>
                   {arrayOfDays.map((date, index) => {
@@ -128,11 +167,6 @@ function MyTable () {
                     .map((staff, userIndex) => {
                       let isLeader = false
                       const idStaff = staff?.id
-                      // dia 1 de la semana
-                      // utlimo dia de la semana
-                      if (staff?.id === 27) {
-                        console.log(staff)
-                      }
                       const servicesDays = staff.services
                         .filter(servicio => {
                           const fecha_inicio_semana = arrayOfDays[0]
@@ -150,16 +184,6 @@ function MyTable () {
                           const fecha_fin_semana_obj = new Date(
                             fecha_fin_semana
                           )
-                          if (servicio.leader?.id === idStaff ? true : false) {
-                            console.log(
-                              servicio.photovoltaic_power_station.name
-                            )
-                            console.log(servicio.leader?.id)
-                            console.log(fecha_inicio_semana)
-                            console.log(fecha_fin_semana)
-                            console.log(fecha_inicio_servicio)
-                            console.log(fecha_fin_servicio)
-                          }
                           return (
                             (fecha_inicio_servicio <= fecha_inicio_semana_obj && //1
                               fecha_fin_servicio >= fecha_fin_semana_obj) ||
@@ -174,23 +198,17 @@ function MyTable () {
                           )
                         })
                         .map(
-                          ({
-                            id,
-                            leader,
-                            photovoltaic_power_station,
-                            finish_execution_date,
-                            proposed_execution_date
-                          }) => {
-                            console.log(leader?.id)
-                            if (leader?.id === idStaff) {
+                          (service) => {
+                            if (service.leader?.id === idStaff) {
                               isLeader = true
                             }
                             return {
-                              service: photovoltaic_power_station?.name,
+                              service: service.photovoltaic_power_station?.name,
                               days: generateDateArray(
-                                proposed_execution_date,
-                                finish_execution_date
-                              )
+                                service.proposed_execution_date,
+                                service.finish_execution_date
+                              ),
+                              data: service
                             }
                           }
                         )
@@ -223,11 +241,35 @@ function MyTable () {
                                 return value?.length > 0 ? service : ''
                               }
                             )
+                             // Comprobar si el elemento ya existe en el arreglo
+                             servicesDays?.map(({data})=>{
+                              if (!servicesId.includes(data.id)) {
+                                // Si no existe, agregar el elemento al arreglo
+                                setServicesId([...servicesId,data.id])
+                              }
+  
+                            })
+                           
+                            
                             const nameService = values?.service
                               ? values?.service
                                   .replace(/(PFV|PMGD|PMG)/g, '')
                                   .trim()
                               : ''
+
+                            const milestone = staff?.milestones.filter((mil) => {
+                              const milestone_date = new Date(mil.date)
+                              milestone_date.setUTCHours(23, 59, 59, 999)
+                              if (
+                                  milestone_date.getDate() === date.getDate() &&
+                                  milestone_date.getMonth() === date.getMonth() &&
+                                  milestone_date.getFullYear() === date.getFullYear()
+                              ) {
+                                return true
+                              }
+                              return false
+              
+                          })
 
                             return (
                               <CellUserComponent
@@ -235,6 +277,15 @@ function MyTable () {
                                 dateIndex={dateIndex}
                                 date={date}
                                 staff={staff}
+                                servicesDays={servicesDays}
+                                servicesId={servicesId}
+                                servicesNames={servicesNames}
+                                formatDateWithDay={formatDateWithDay}
+                                formatDate={formatDate}
+                                leader={values?.data.leader.id === staff.id ? true : false}
+                                serviceId={values?.data.id}
+                                milestone={milestone}
+
                               />
                             )
                           })}
