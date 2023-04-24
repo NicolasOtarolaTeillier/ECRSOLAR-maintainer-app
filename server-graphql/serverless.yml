@@ -1,0 +1,50 @@
+service: ecrsolar-apollo-server
+useDotenv: true
+provider:
+  name: aws
+  runtime: nodejs16.x
+  httpApi:
+    cors: true
+  environment:
+    DB_NAME: ${env:DB_NAME}
+    DB_USER: ${env:DB_USER}
+    DB_PASSWORD: ${env:DB_PASSWORD}
+    DB_HOST: ${env:DB_HOST}
+    DB_DIALECT: ${env:DB_DIALECT}
+functions:
+  graphql:
+    # Make sure your file path is correct!
+    # (e.g., if your file is in the root folder use server.graphqlHandler )
+    # The format is: <FILENAME>.<HANDLER>
+    handler: server.graphqlHandler 
+    events:
+      - httpApi:
+          path: /
+          method: POST
+      - httpApi:
+          path: /
+          method: GET
+# Omit the following lines if you aren't using TS!
+#plugins:
+#  - serverless-plugin-typescript
+
+plugins:
+  - serverless-offline
+  - serverless-offline-watcher
+
+custom:
+  serverless-offline:
+    httpPort: 4000
+    stageVariables:
+      foo: "bar"
+ #   skipCacheInvalidation: true
+
+  serverless-offline-watcher:
+    - path: src/server.js
+      command: echo "index.ts was modified!"
+    - path:
+        - src/schema/*.js
+      command: echo "schema folder was modified!"
+    - path:
+        - src/models/*.js
+      command: echo "models folder was modified!"

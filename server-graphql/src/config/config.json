@@ -1,0 +1,39 @@
+{
+  "db_knex": {
+    "client": "pg",
+    "connection": {
+      "host": "db-ecrsolar-v3.cb5omus9e06e.us-east-1.rds.amazonaws.com",
+      "port": 5432,
+      "user": "postgres",
+      "password": "ECRS0L4R61254872",
+      "database": "ecrsolar"
+    }
+  },
+  "db_sequelize": {
+    "host": "db-ecrsolar-v3.cb5omus9e06e.us-east-1.rds.amazonaws.com",
+    "port": 5432,
+    "user": "postgres",
+    "password": "ECRS0L4R61254872",
+    "database": "test",
+    "dialect": "postgres"
+  },
+  "security": {
+    "secretKey": "some-secret-key",
+    "expireIns": "7d"
+  },
+  "serverPort": 4000,
+  "db_local": {
+    "host": "localhost",
+    "port": 5432,
+    "user": "postgres",
+    "password": "pallmall",
+    "database": "app_ecrsolar",
+    "dialect": "postgres",
+    "pool": {
+      "max": 10,
+      "min": 0,
+      "acquire": 30000,
+      "idle": 10000
+    }
+  }
+}
