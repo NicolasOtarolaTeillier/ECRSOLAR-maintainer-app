@@ -41,7 +41,9 @@ const color = nameService => {
   if (nameService === 'GR SANTA ROSA') {
     return '#d6b4a1'
   }
-
+  if (nameService === 'DARLIN SOLAR') {
+    return 'orange'
+  }
   return 'white'
 }
 import { useMutation } from '@apollo/client'
@@ -267,7 +269,7 @@ function UserCellComponent ({
           </MDBox>
           <MDBox my={1} mx={1} display='auto'>
             <Autocomplete
-              options={['Ausente', 'Licencia ST', 'Permiso']}
+              options={['Faltó', 'Licencia IST','Licencia Med', 'Permiso','Oficina/Bodega', 'Licencia Conducir','Fin Contrato']}
               onChange={(e, values) => {
                 console.log(values)
                 setMilestoneNew(values)
