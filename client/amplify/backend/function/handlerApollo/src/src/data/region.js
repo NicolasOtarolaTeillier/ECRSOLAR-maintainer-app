@@ -1,0 +1,18 @@
+export const region = [
+    {number: 1,name: 'Región de Tarapacá'},
+    {number: 2,name: 'Región de Antofagasta'},
+    {number: 3,name: 'Región de Atacama'},
+    {number: 4,name: 'Región de Coquimbo'},
+    {number: 5,name: 'Región de Valparaíso'},
+    {number: 6,name: 'Región del Libertador Gral. Bernardo O’Higgins'},
+    {number: 7,name: 'Región del Maule'},
+    {number: 8,name: 'Región del Biobío'},
+    {number: 9,name: 'Región de La Araucanía'},
+    {number: 10,name: 'Región de Los Lagos'},
+    {number: 11,name: 'Región Aisén del Gral. Carlos Ibáñez del Campo'},
+    {number: 12,name: 'Región de Magallanes y de la Antártica Chilena'},
+    {number: 13,name: 'Región Metropolitana de Santiago'},
+    {number: 14,name: 'Región de Los Ríos'},
+    {number: 15,name: 'Región de Arica y Parinacota'},
+    {number: 16,name: 'Región de Ñuble'},
+  ]

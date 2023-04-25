@@ -1,0 +1,43 @@
+{
+  "api": {
+    "apolloserver": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "handlerApollo"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
+  "function": {
+    "handlerApollo": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_handlerApollo_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "handlerApollo"
+        }
+      ]
+    },
+    "AMPLIFY_function_handlerApollo_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "handlerApollo"
+        }
+      ]
+    }
+  }
+}
