@@ -1,0 +1,26 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-appecrsolar-dev-20307-authRole",
+      "UnauthRoleArn": "arn:aws:iam::475077861986:role/amplify-appecrsolar-dev-20307-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::475077861986:role/amplify-appecrsolar-dev-20307-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-appecrsolar-dev-20307-deployment",
+      "UnauthRoleName": "amplify-appecrsolar-dev-20307-unauthRole",
+      "StackName": "amplify-appecrsolar-dev-20307",
+      "StackId": "arn:aws:cloudformation:us-east-1:475077861986:stack/amplify-appecrsolar-dev-20307/da154060-e32e-11ed-b177-0e77847d7ffb",
+      "AmplifyAppId": "d31vjbdwk3erry"
+    },
+    "categories": {
+      "function": {
+        "handlerApollo": {
+          "deploymentBucketName": "amplify-appecrsolar-dev-20307-deployment",
+          "s3Key": "amplify-builds/handlerApollo-692b6474376b7833652f-build.zip"
+        }
+      },
+      "api": {
+        "apolloserver": {}
+      }
+    }
+  }
+}
