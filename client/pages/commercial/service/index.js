@@ -37,7 +37,7 @@ import ClientOnly from '../../../components/ClientOnly'
 //import AllServices from '../../../maintainer/AllServices'
 
 // mutation
-import ADD_SERVICE from '../../../api/Service/mutations.js'
+import ADD_SERVICE from '/api/Service'
 import { useMutation } from '@apollo/client'
 
 import GET_ALL_SERVICES from '../../../api/service/queries.js'
