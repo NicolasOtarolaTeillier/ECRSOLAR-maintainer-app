@@ -20,7 +20,7 @@ import Summary from '../../../pagesComponents/pages/services/summary-service/com
 
 
 
-function Service() {
+function ServiceSummary () {
   return (
     <DashboardLayout>
      
@@ -46,4 +46,4 @@ function Service() {
 
 
 
-export default Service
+export default ServiceSummary
