@@ -67,7 +67,7 @@ function getStepContent (stepIndex, formData) {
   }
 }
 
-function Service () {
+function ServicePlanning () {
   // context
   const [controller, dispatch] = useMaterialUIController()
   const { service,leader,cars,equipments,staffs } = controller
@@ -205,4 +205,4 @@ function Service () {
 
 
 
-export default Service
+export default ServicePlanning
