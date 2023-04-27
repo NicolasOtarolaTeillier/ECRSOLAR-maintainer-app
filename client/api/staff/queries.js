@@ -5,11 +5,8 @@ const GET_ALL_STAFF = gql`
       id
       person {
         id
-        email
         first_name
         last_name
-        phone_number
-        rut
         status
       }
       services {
@@ -69,7 +66,6 @@ export const GET_ALL_STAFF_AVAILABLE = gql`
       position {
         id
         name
-        status
       }
       admission_date
       dismissal_date

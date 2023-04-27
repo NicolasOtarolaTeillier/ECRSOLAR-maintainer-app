@@ -19,7 +19,7 @@ import { useEffect } from 'react'
 import { FIND_SERVICES } from '../../../../../../api/service/queries.js'
 
 
-function MyTable () {
+function MyTable() {
   const { loading, error, data } = useQuery(GET_ALL_STAFF)
 
   const currentDate = new Date()
@@ -30,7 +30,7 @@ function MyTable () {
   // Calcula el desplazamiento inicial en función de la diferencia entre la fecha actual y la fecha de inicio del año
   const [offset, setOffset] = useState(initialOffset)
   const [servicesId, setServicesId] = useState([])
-  
+
   const handlePrevious = () => {
     setServicesId([])
     const newOffset = offset - 7
@@ -64,9 +64,8 @@ function MyTable () {
     if (date.getDay() === 0) {
       return `${daysOfWeek[6]} ${date.getDate()}/${date.getMonth() + 1}`
     }
-    return `${daysOfWeek[date.getDay() - 1]} ${date.getDate()}/${
-      date.getMonth() + 1
-    }`
+    return `${daysOfWeek[date.getDay() - 1]} ${date.getDate()}/${date.getMonth() + 1
+      }`
   }
 
   const { loading: loadingS, error: errorS, data: dataS } = useQuery(FIND_SERVICES, {
@@ -82,35 +81,17 @@ function MyTable () {
         return {
           id: service.id,
           name: service.photovoltaic_power_station.name.replace(/(PFV|PMGD|PMG)/g, "").trim(),
-          finish_execution_date:service.finish_execution_date,
-          proposed_execution_date:service.proposed_execution_date
+          finish_execution_date: service.finish_execution_date,
+          proposed_execution_date: service.proposed_execution_date
         };
       });
       setServicesNames(values);
     }
   }, [dataS]);
 
-  if (loading) {
-    return <>Loading</>;
-  }
-
-  if (error) {
-    return <>Error</>;
-  }
-
-  if (loadingS) {
-    return <>Loading</>;
-  }
-
-  if (errorS) {
-    return <>Error: +{error}</>;
-  }
-
   return (
     <>
-      {loading ? (
-        <div>Cargando ...</div>
-      ) : (
+      {
         <>
           <MDBox style={{ display: 'flex', justifyContent: 'center' }}>
             <Button onClick={handlePrevious}>Retroceder</Button>
@@ -124,16 +105,25 @@ function MyTable () {
             <Table style={{ display: 'flex', justifyContent: 'center' }}>
               <TableHead>
                 <TableRow>
-                  <TableCell align='center' style={{ width: 'auto' }}>
-                    PERSONAL
-                  </TableCell>
-                  {arrayOfDays.map((date, index) => {
-                    return (
-                      <TableCell key={index} align='center'>
-                        {formatDateWithDay(date)}
+
+                  {loading ? (
+                    <div>Cargando ...</div>
+                  ) : (
+                    <>
+                      <TableCell align='center' style={{ width: 'auto' }}>
+                        PERSONAL
                       </TableCell>
-                    )
-                  })}
+                      {arrayOfDays.map((date, index) => {
+                        return (
+                          <TableCell key={index} align='center'>
+                            {formatDateWithDay(date)}
+                          </TableCell>
+                        )
+                      })}
+
+                    </>
+                  )
+                  }
                 </TableRow>
                 <TableBody>
                   {data?.allStaffs // traer todos los miembros del equipo ecrsolar
@@ -241,35 +231,35 @@ function MyTable () {
                                 return value?.length > 0 ? service : ''
                               }
                             )
-                             // Comprobar si el elemento ya existe en el arreglo
-                             servicesDays?.map(({data})=>{
+                            // Comprobar si el elemento ya existe en el arreglo
+                            servicesDays?.map(({ data }) => {
                               if (!servicesId.includes(data.id)) {
                                 // Si no existe, agregar el elemento al arreglo
-                                setServicesId([...servicesId,data.id])
+                                setServicesId([...servicesId, data.id])
                               }
-  
+
                             })
-                           
-                            
+
+
                             const nameService = values?.service
                               ? values?.service
-                                  .replace(/(PFV|PMGD|PMG)/g, '')
-                                  .trim()
+                                .replace(/(PFV|PMGD|PMG)/g, '')
+                                .trim()
                               : ''
 
                             const milestone = staff?.milestones.filter((mil) => {
                               const milestone_date = new Date(mil.date)
                               milestone_date.setUTCHours(23, 59, 59, 999)
                               if (
-                                  milestone_date.getDate() === date.getDate() &&
-                                  milestone_date.getMonth() === date.getMonth() &&
-                                  milestone_date.getFullYear() === date.getFullYear()
+                                milestone_date.getDate() === date.getDate() &&
+                                milestone_date.getMonth() === date.getMonth() &&
+                                milestone_date.getFullYear() === date.getFullYear()
                               ) {
                                 return true
                               }
                               return false
-              
-                          })
+
+                            })
 
                             return (
                               <CellUserComponent
@@ -297,14 +287,14 @@ function MyTable () {
             </Table>
           </TableContainer>
         </>
-      )}
+      }
     </>
   )
 }
 
 export default MyTable
 
-function generateDateArray (startDate, endDate) {
+function generateDateArray(startDate, endDate) {
   const start = new Date(startDate)
   const end = new Date(endDate)
   const dateArray = []
@@ -317,7 +307,7 @@ function generateDateArray (startDate, endDate) {
   return dateArray
 }
 
-function formatDate (date) {
+function formatDate(date) {
   const year = date.getFullYear()
   const month = String(date.getMonth() + 1).padStart(2, '0')
   const day = String(date.getDate()).padStart(2, '0')
@@ -339,13 +329,13 @@ const getServiceForDate = (user, date) => {
   return serviceDay ? serviceDay.photovoltaic_power_station.name : ''
 }
 // Agrega esta función al principio del archivo
-function getStartOfYear () {
+function getStartOfYear() {
   const today = new Date()
   const startOfYear = new Date(today.getFullYear(), 0, 1)
   return startOfYear
 }
 
-function getStartOfWeek (date) {
+function getStartOfWeek(date) {
   const day = date.getDay()
   const diff = date.getDate() - day + (day === 0 ? -6 : 1)
   return new Date(date.getFullYear(), date.getMonth(), diff)
