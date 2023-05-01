@@ -1,5 +1,5 @@
+// sequelize
 import { sequelize } from './src/database/database.js'
-
  
 // tables
 import { ServiceType } from './src/models/ServiceType.js'
@@ -27,7 +27,6 @@ import { ServiceXEquipment } from './src/models/ServiceXEquipment.js'
 import { ServiceXCar} from './src/models/ServiceXCar.js'
 import { Service } from './src/models/Service.js'
 import { Milestone } from './src/models/Milestone.js'
-
 
 // asocciations
 import './src/models/asocciations.js'
@@ -108,30 +107,3 @@ async function orm () {
 }
 
 orm()
-
-
-
-    // await Role.bulkCreate([
-    //   { role: 'admin', name: 'Administrador' },
-    //   { role: 'operator',name: 'Operario' },
-    //   { role: 'supervisor',name: 'Supervisor' },
-    //   { role: 'client',name: 'Cliente' },
-    //   { role: 'guest', name: 'Invitado' },
-    //   { role: 'owner', name: 'Dueño' }
-    // ])
-
-    // await User.bulkCreate([
-    //   {person: 1, password: 'admin', role: 'admin', status: true },
-    //   {person: 2, password: 'admin', role: 'admin', status: true },
-    // ])
-    
-
-
-    // await Staff.bulkCreate([
-    //   {person: 3, position: "operator", admission_date: '02-02-2023', status: true} 
-    // ])
-    // await ProductType.bulkCreate([
-    //   {type: "tipo1", name: "Tipo1"},
-    //   {type: "tipo2", name: "Tipo2"},
-
-    // ])

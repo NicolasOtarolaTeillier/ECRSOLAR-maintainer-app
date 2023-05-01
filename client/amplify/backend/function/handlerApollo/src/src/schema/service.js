@@ -212,11 +212,6 @@ export const resolvers = {
       const staffIds = await ServiceXStaff.findAll({
         where: { service: id }
       })
-      console.log(
-        await Staff.findAll({
-          where: { id: staffIds.map(({ staff }) => staff) }
-        })
-      )
       return await Staff.findAll({
         where: { id: staffIds.map(({ staff }) => staff) }
       })

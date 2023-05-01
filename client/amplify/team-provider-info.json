@@ -15,7 +15,7 @@
       "function": {
         "handlerApollo": {
           "deploymentBucketName": "amplify-appecrsolar-dev-20307-deployment",
-          "s3Key": "amplify-builds/handlerApollo-692b6474376b7833652f-build.zip"
+          "s3Key": "amplify-builds/handlerApollo-4571514d71465370462f-build.zip"
         }
       },
       "api": {

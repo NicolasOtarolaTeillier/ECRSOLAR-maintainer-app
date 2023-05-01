@@ -69,7 +69,6 @@ export const resolvers = {
     },
     deleteServiceXStaff: async (root, { service, staff }) => {
       const service_id = await ServiceXStaff.findOne({ where: { service: service, staff: staff } })
-      console.log(service_id)
       const result = await ServiceXStaff.update(
         { status: false },
         { where: { id: service_id.dataValues.id } }

@@ -52,7 +52,7 @@ export const resolvers = {
     allStaffs: async (root, args) => {
       return await Staff.findAll({
         order: [['id', 'ASC']],
-        where: args
+        where: {status: true}
       })
     },
     allStaffsAvailable: async (root, { service }) => {
@@ -97,7 +97,6 @@ export const resolvers = {
       const staff = await ServiceXStaff.findAll({where :{ service: servicesIds.map(({id})=>id)}})
       const staffIds = staff.map(({dataValues})=>dataValues)
       // traer staff disponible
-      console.log('staffIds',staffIds)
       return await Staff.findAll({
         where: {
           status: true,

@@ -11,12 +11,13 @@
     "create-db": "node orm.js"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.92"
+    "@types/aws-lambda": "^8.10.92",
+    "dotenv": "^16.0.3"
   },
   "dependencies": {
+    "@apollo/server": "^4.4.0",
     "apollo-server-lambda": "^3.12.0",
     "graphql": "^16.6.0",
-    "@apollo/server": "^4.4.0",
     "graphql-scalars": "^1.20.1",
     "graphql-tools": "^8.3.16",
     "pg": "^8.8.0",

@@ -60,7 +60,7 @@ function Cover() {
           </MDTypography>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
-          <MDBox component="form" role="form">
+          <MDBox component="form" role="form"  >
             <MDBox mb={2}>
               <MDInput
                 type="email"
@@ -69,6 +69,9 @@ function Cover() {
                 fullWidth
                 placeholder="john@example.com"
                 InputLabelProps={{ shrink: true }}
+                onChange={(e)=>{
+                  console.log('cambió', e.target.value);
+                }}
               />
             </MDBox>
             <MDBox mb={2}>
@@ -79,9 +82,12 @@ function Cover() {
                 fullWidth
                 placeholder="************"
                 InputLabelProps={{ shrink: true }}
+                onChange={(e)=>{
+                  console.log('cambió la password', e.target.value);
+                }}
               />
             </MDBox>
-            <MDBox display="flex" alignItems="center" ml={-1}>
+            {/* <MDBox display="flex" alignItems="center" ml={-1}>
               <Switch checked={rememberMe} onChange={handleSetRememberMe} />
               <MDTypography
                 variant="button"
@@ -92,13 +98,15 @@ function Cover() {
               >
                 &nbsp;&nbsp;Remember me
               </MDTypography>
-            </MDBox>
+            </MDBox> */}
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="dark" fullWidth>
+              <MDButton variant="gradient" color="dark" fullWidth onClick={()=>{
+                console.log("hola")}
+                }>
                 sign in
               </MDButton>
             </MDBox>
-            <MDBox mt={3} mb={1} textAlign="center">
+            {/* <MDBox mt={3} mb={1} textAlign="center">
               <MDTypography variant="button" color="text">
                 Don&apos;t have an account?{" "}
                 <Link href="/authentication/sign-up/cover">
@@ -114,7 +122,7 @@ function Cover() {
                   </a>
                 </Link>
               </MDTypography>
-            </MDBox>
+            </MDBox> */}
           </MDBox>
         </MDBox>
       </Card>

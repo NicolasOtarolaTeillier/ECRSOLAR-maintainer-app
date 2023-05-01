@@ -1,36 +1,42 @@
 import Sequelize from 'sequelize'
+import dotenv from 'dotenv';
 
+dotenv.config({ silent: true });
 // ORM
-export const sequelize = new Sequelize("app-ecrsolar", "postgres", "ECRS0L4R61254872", {
-    host: "db-ecrsolar-v3.cb5omus9e06e.us-east-1.rds.amazonaws.com",
-    dialect: "postgres",
+
+export const sequelize = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
+  {
+    host: process.env.DB_HOST,
+    dialect: process.env.DB_DIALECT,
     pool: {
-      max: 10,
-      min: 0,
-      acquire: 30000,
-      idle: 10000
+      max: 20,
+      min: 5,
+      acquire: 15000,
+      idle: 5000
     }
-})
-
-
-  // import { Sequelize } from "sequelize";
-  // import { $DB_SEQUELIZE } from "../../db";
-  // const {host,port,user,password,database,dialect,operatorsAliases,pool} = $DB_SEQUELIZE()
-  // const sequelize = new Sequelize(database, user, password, {
-  //     host: host,
-  //     dialect: dialect,
-  //     operatorsAliases: operatorsAliases,
-  //     pool: pool
-  //   })
+  }
+);
   
-  
-    
 
-// "graphql": "^16.6.0",
-// "graphql-scalars": "^1.20.1",
-// "graphql-tools": "^8.3.16",
-// "knex": "^2.4.2",
-// "pg": "^8.8.0",
-// "pg-hstore": "^2.3.4",
-// "sequelize": "^6.28.0",
-// "serverless": "^3.28.1"
+// import Sequelize from 'sequelize'
+// // ORM
+
+// export const sequelize = new Sequelize(
+//   "app-ecrsolar",
+//   "postgres",
+//   "ECRS0L4R61254872",
+//   {
+//     host: "db-ecrsolar-v3.cb5omus9e06e.us-east-1.rds.amazonaws.com",
+//     dialect: "postgres",
+//     pool: {
+//       max: 20,
+//       min: 5,
+//       acquire: 15000,
+//       idle: 5000
+//     }
+//   }
+// );
+  
