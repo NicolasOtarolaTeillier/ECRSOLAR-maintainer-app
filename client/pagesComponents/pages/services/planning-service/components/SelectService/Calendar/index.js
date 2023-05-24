@@ -21,7 +21,7 @@ import { useMaterialUIController, setSelectService } from "/context";
 // query
 import GET_ALL_SERVICES from "../../../../../../../api/service/queries.js";
 import { useQuery } from "@apollo/client";
-import { Box } from "@mui/material";
+import { Box,Typography  } from "@mui/material";
 
 function Calendar({ formData }) {
   const [open, setOpen] = useState(false);
@@ -161,59 +161,74 @@ function Calendar({ formData }) {
                 }`;
                 return (
                   <>
-                    <Box>
+                  <br></br>
+                  <Box mb={2}>
+                    <Typography variant="h6" gutterBottom>
                       {inicio} {fin}
-                    </Box>
-                    <Box>Ejecucion:</Box>
-                    <Box>
+                    </Typography>
+                  </Box>
+                  <Box mb={2}>
+                    <Typography variant="h6" gutterBottom>
                       Producción diaria:
-                      <Box pl={2}>Lunes: 10 %</Box>
-                      <Box pl={2}>Martes: 30%</Box>
-                      <Box pl={2}>Miércoles: 55%</Box>
-                      <Box pl={2}>Jueves: 80%</Box>
-                      <Box pl={2}>Viernes: 100%</Box>
-                    </Box>
-                    <Box>
+                    </Typography > 
+                    <Box pl={2}>Lunes: 10 %</Box>
+                    <Box pl={2}>Martes: 30%</Box>
+                    <Box pl={2}>Miércoles: 55%</Box>
+                    <Box pl={2}>Jueves: 80%</Box>
+                    <Box pl={2}>Viernes: 100%</Box>
+                  </Box>
+                  <Box mb={2}>
+                    <Typography variant="h6" gutterBottom>
                       Hallasgos:
-                      <Box>
-
-                      <Image
-                        src={IMAGEN1}
-                        alt="My Cool Image"
-                        width={500}
-                        height={300}
-                        />
-                      <Image
-                        src={IMAGEN2}
-                        alt="My Cool Image"
-                        width={500}
-                        height={300}
-                        />
-                      <Image
-                        src={IMAGEN3}
-                        alt="My Cool Image"
-                        width={500}
-                        height={300}
-                        />
-                        </Box>
+                    </Typography>
+                    <Box display="flex" justifyContent="space-between">
+                      <Box border={1} borderColor="grey.500" borderRadius={1} overflow="hidden" width={250} height={250}>
+                        <Image src={IMAGEN1} alt="Panel roto" objectFit="cover" />
+                      </Box>
+                      <Box border={1} borderColor="grey.500" borderRadius={1} overflow="hidden" width={250} height={250}>
+                        <Image src={IMAGEN2} alt="Panel quemado" objectFit="cover" />
+                      </Box>
+                      <Box border={1} borderColor="grey.500" borderRadius={1} overflow="hidden" width={250} height={250}>
+                        <Image src={IMAGEN3} alt="Panel con malesa" objectFit="cover" />
+                      </Box>
                     </Box>
-                    <Box>
+                  </Box>
+                  <Box mb={2}>
+                    <Typography variant="h6" gutterBottom>
                       Proveedores:
-                      <Box pl={2}>
+                    </Typography>
+                    <Box pl={2}>
+                      <Typography variant="body1" gutterBottom>
                         Empresa:
-                        <Box pl={2}>
+                      </Typography>
+                      <Box pl={2}>
+                        <Typography variant="body1" gutterBottom>
                           Dartel:
-                          <Box pl={2}>
+                        </Typography>
+                        <Box pl={2}>
+                          <Typography variant="body1" gutterBottom>
                             - 2000 metros cable solar, negro 2000 metros
-                          </Box>
-                          <Box pl={2}>- cable solar rojo 500 pares mc4</Box>
+                          </Typography>
+                        </Box>
+                        <Box pl={2}>
+                          <Typography variant="body1" gutterBottom>
+                            - cable solar rojo 500 pares mc4
+                          </Typography>
+                        </Box>
+                        <Typography variant="body1" gutterBottom>
                           Monto neto:
-                          <Box pl={2}> $ 2.276.000 clp</Box>
+                        </Typography>
+                        <Box pl={2}>
+                          <Typography variant="body1" gutterBottom>
+                            $ 2.276.000 clp
+                          </Typography>
                         </Box>
                       </Box>
                     </Box>
-                    <div></div>
-                  </>
+                  </Box>
+                  <div></div>
+                </>
+            
                 );
               })()
             : null}
