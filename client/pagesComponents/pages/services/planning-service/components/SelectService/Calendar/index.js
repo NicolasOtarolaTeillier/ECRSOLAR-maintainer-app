@@ -51,14 +51,13 @@ function Calendar ({ formData }) {
         }
         return {
           title:
-            service.service_type.name +
-            ' - ' +
-            service.photovoltaic_power_station.name.replace(
-              /(PFV|PMGD|PMG)/g,
-              ''
-            ) +
-            ' - ' +
-            service.customer.fantasy_name,
+            service.service_type.name ,
+            // + ' - ' +service.photovoltaic_power_station.name.replace(
+            //   /(PFV|PMGD|PMG)/g,
+            //   ''
+            // ) +
+            // ' - ' +
+            // service.customer.fantasy_name,
           end: diaSiguiente(service.finish_execution_date, 2),
           start: service.proposed_execution_date,
           id: service.id,
