@@ -1,22 +1,8 @@
-/**
-=========================================================
-* NextJS Material Dashboard 2 PRO - v2.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/nextjs-material-dashboard-pro
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
 
 import { useState, useEffect } from "react";
 
 import Link from "next/link";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 
 // prop-types is a library for typechecking of props.
 import PropTypes from "prop-types";
@@ -54,6 +40,8 @@ import {
   setMiniSidenav,
   setOpenConfigurator,
 } from "/context";
+import { async } from "regenerator-runtime";
+import axios from "axios";
 
 function DashboardNavbar({ absolute, light, isMini }) {
   const [navbarType, setNavbarType] = useState();
@@ -144,6 +132,26 @@ function DashboardNavbar({ absolute, light, isMini }) {
     },
   });
 
+  const handlerLogout = async () => {
+    try {
+      await logout()
+    }
+    catch (err) {
+      console.log(err)
+    }
+    finally{
+      alert('Cerrando sessión')
+      Router.push("/authentication/sign-in/cover")
+    }
+
+
+  }
+
+  const logout = async () => {
+    const response = await axios.get("/api/auth/logout")
+    console.log(response)
+  }
+
   return (
     <AppBar
       position={absolute ? "absolute" : navbarType}
@@ -181,11 +189,11 @@ function DashboardNavbar({ absolute, light, isMini }) {
               <MDInput label="Search here" />
             </MDBox>
             <MDBox color={light ? "white" : "inherit"}>
-              <Link href="/authentication/sign-in/basic" passHref>
-                <IconButton sx={navbarIconButton} size="small" disableRipple>
-                  <Icon sx={iconsStyle}>account_circle</Icon>
-                </IconButton>
-              </Link>
+
+              <IconButton sx={navbarIconButton} size="small" disableRipple onClick={handlerLogout}>
+                <Icon sx={iconsStyle}>account_circle</Icon>
+              </IconButton>
+
               <IconButton
                 size="small"
                 disableRipple

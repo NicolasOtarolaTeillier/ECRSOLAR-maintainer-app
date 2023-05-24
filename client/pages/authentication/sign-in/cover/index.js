@@ -1,19 +1,6 @@
-/**
-=========================================================
-* NextJS Material Dashboard 2 PRO - v2.0.0
-=========================================================
 
-* Product Page: https://www.creative-tim.com/product/nextjs-material-dashboard-pro
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 import Link from "next/link";
 
@@ -32,11 +19,41 @@ import CoverLayout from "/pagesComponents/authentication/components/CoverLayout"
 
 // Images
 import bgImage from "/assets/images/bg-sign-in-cover.jpeg";
+import Router from "next/router";
 
 function Cover() {
   const [rememberMe, setRememberMe] = useState(true);
+  const [credentials, setCredentials] = useState({
+    email: '',
+    password: ''
+  });
 
+
+  // useEffect
+  useEffect(() => {
+    console.log(credentials)
+  }, [credentials])
+
+  // handlers
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
+  const handlerChange = (e) => {
+    console.log(e.target.value, e.target.name)
+    setCredentials({ ...credentials, [e.target.name]: e.target.value })
+  }
+  const handlerSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      
+      const response = await axios.post('/api/auth/login',credentials)
+      console.log('response', response)
+      if(response.status === 200){
+        console.log("response",response)
+        Router.push("/operations/servicesSummary")
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
 
   return (
     <CoverLayout image={bgImage}>
@@ -60,31 +77,29 @@ function Cover() {
           </MDTypography>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
-          <MDBox component="form" role="form"  >
+          <MDBox component="form" role="form" onSubmit={handlerSubmit}>
             <MDBox mb={2}>
               <MDInput
                 type="email"
                 label="Email"
+                name="email"
                 variant="standard"
                 fullWidth
                 placeholder="john@example.com"
                 InputLabelProps={{ shrink: true }}
-                onChange={(e)=>{
-                  console.log('cambió', e.target.value);
-                }}
+                onChange={handlerChange}
               />
             </MDBox>
             <MDBox mb={2}>
               <MDInput
                 type="password"
+                name="password"
                 label="Password"
                 variant="standard"
                 fullWidth
                 placeholder="************"
                 InputLabelProps={{ shrink: true }}
-                onChange={(e)=>{
-                  console.log('cambió la password', e.target.value);
-                }}
+                onChange={handlerChange}
               />
             </MDBox>
             {/* <MDBox display="flex" alignItems="center" ml={-1}>
@@ -100,9 +115,7 @@ function Cover() {
               </MDTypography>
             </MDBox> */}
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="dark" fullWidth onClick={()=>{
-                console.log("hola")}
-                }>
+              <MDButton variant="gradient" color="dark" fullWidth type="submit" >
                 sign in
               </MDButton>
             </MDBox>

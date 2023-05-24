@@ -17,12 +17,29 @@ import Footer from '/examples/Footer'
 
 // Planning Service page components
 import Summary from '../../../pagesComponents/pages/services/summary-service/components/Summary'
+import { Button } from '@mui/material'
+import axios from 'axios'
 
 
 
 function ServiceSummary () {
+  const [dataUser, setDataUser] = useState({
+    email: '',
+    username: ''
+  })
+
+  const getProfile = async () =>{
+    const response = await axios.get('/api/profile');
+    setDataUser({ email: response.data.email, username: response.data.username})
+  }
+ 
   return (
     <DashboardLayout>
+      <Button onClick={getProfile} > asdasdasd</Button>
+      <pre>
+        
+        {JSON.stringify(dataUser,null,2)}
+        </pre>
      
       <MDBox py={0} mb={0} height='100vh'>
         <Grid

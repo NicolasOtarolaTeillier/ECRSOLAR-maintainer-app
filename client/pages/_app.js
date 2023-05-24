@@ -1,18 +1,3 @@
-/**
-=========================================================
-* NextJS Material Dashboard 2 PRO - v2.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/nextjs-material-dashboard-pro
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // apollo client
 import { ApolloProvider } from '@apollo/client'
 import client from '../apollo-client'
@@ -47,14 +32,10 @@ import Configurator from '/examples/Configurator'
 
 // NextJS Material Dashboard 2 PRO themes
 import theme from '/assets/theme'
-import themeRTL from '/assets/theme/theme-rtl'
 
 // NextJS Material Dashboard 2 PRO Dark Mode themes
 import themeDark from '/assets/theme-dark'
-import themeDarkRTL from '/assets/theme-dark/theme-rtl'
 
-// RTL plugins
-import rtlPlugin from 'stylis-plugin-rtl'
 
 // NextJS Material Dashboard 2 PRO routes
 import routes from '/routes'
@@ -73,14 +54,16 @@ import appleIcon from '/assets/images/apple-icon.png'
 import brandWhite from '/assets/images/logo-ct.png'
 import brandDark from '/assets/images/logo-ct-dark.png'
 
+import { SessionProvider } from 'next-auth/react'
+
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createCache({ key: 'css', prepend: true })
 
-function Main ({ Component, pageProps }) {
+function Main({ Component, pageProps }) {
   const [controller, dispatch] = useMaterialUIController()
   const {
     miniSidenav,
-    direction,
+    //  direction,
     layout,
     openConfigurator,
     sidenavColor,
@@ -89,18 +72,8 @@ function Main ({ Component, pageProps }) {
     darkMode
   } = controller
   const [onMouseEnter, setOnMouseEnter] = useState(false)
-  const [rtlCache, setRtlCache] = useState(null)
   const { pathname } = useRouter()
 
-  // Cache for the rtl
-  useMemo(() => {
-    const cacheRtl = createCache({
-      key: 'rtl',
-      stylisPlugins: [rtlPlugin]
-    })
-
-    setRtlCache(cacheRtl)
-  }, [])
 
   // Open sidenav when mouse enter on mini sidenav
   const handleOnMouseEnter = () => {
@@ -122,10 +95,6 @@ function Main ({ Component, pageProps }) {
   const handleConfiguratorOpen = () =>
     setOpenConfigurator(dispatch, !openConfigurator)
 
-  // Setting the dir attribute for the body element
-  useEffect(() => {
-    document.body.setAttribute('dir', direction)
-  }, [direction])
 
   // Setting page scroll to 0 when changing the route
   useEffect(() => {
@@ -160,29 +129,7 @@ function Main ({ Component, pageProps }) {
     </MDBox>
   )
 
-  return direction === 'rtl' ? (
-    <CacheProvider value={rtlCache}>
-      <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
-        <CssBaseline />
-        <Component {...pageProps} />
-        {layout === 'dashboard' && (
-          <>
-            <Sidenav
-              color={sidenavColor}
-              brand={brandIcon}
-              brandName='App ECRSOLAR'
-              routes={routes}
-              onMouseEnter={handleOnMouseEnter}
-              onMouseLeave={handleOnMouseLeave}
-            />
-            <Configurator />
-            {configsButton}
-          </>
-        )}
-        {layout === 'vr' && <Configurator />}
-      </ThemeProvider>
-    </CacheProvider>
-  ) : (
+  return (
     <ThemeProvider theme={darkMode ? themeDark : theme}>
       <CssBaseline />
       <Component {...pageProps} />
@@ -203,30 +150,33 @@ function Main ({ Component, pageProps }) {
       {layout === 'vr' && <Configurator />}
     </ThemeProvider>
   )
+
 }
 
-function MyApp ({
+function MyApp({
   Component,
   pageProps,
   emotionCache = clientSideEmotionCache
 }) {
   return (
-    <ApolloProvider client={client}>
-      <MaterialUIControllerProvider>
-        <CacheProvider value={emotionCache}>
-          <Head>
-            <meta
-              name='viewport'
-              content='width=device-width, initial-scale=1'
-            />
-            <link rel='shortcut icon' href={favicon.src} />
-            <link rel='apple-touch-icon' sizes='76x76' href={appleIcon.src} />
-            <title>App ECRSOLAR</title>
-          </Head>
-          <Main Component={Component} pageProps={pageProps} />
-        </CacheProvider>
-      </MaterialUIControllerProvider>
-    </ApolloProvider>
+    <SessionProvider>
+      <ApolloProvider client={client}>
+        <MaterialUIControllerProvider>
+          <CacheProvider value={emotionCache}>
+            <Head>
+              <meta
+                name='viewport'
+                content='width=device-width, initial-scale=1'
+              />
+              <link rel='shortcut icon' href={favicon.src} />
+              <link rel='apple-touch-icon' sizes='76x76' href={appleIcon.src} />
+              <title>App ECRSOLAR</title>
+            </Head>
+            <Main Component={Component} pageProps={pageProps} />
+          </CacheProvider>
+        </MaterialUIControllerProvider>
+      </ApolloProvider>
+    </SessionProvider>
   )
 }
 
