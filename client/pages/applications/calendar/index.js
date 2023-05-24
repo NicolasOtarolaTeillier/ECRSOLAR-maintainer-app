@@ -36,6 +36,7 @@ import ProductivityChart from "/pagesComponents/applications/calendar/components
 
 // Data
 import calendarEventsData from "/pagesComponents/applications/calendar/data/calendarEventsData";
+import ModalPlanning from "../../../pagesComponents/pages/services/new-service/components/modal";
 
 function Calendar() {
   return (
@@ -47,6 +48,9 @@ function Calendar() {
         </MDBox>
         <Grid container spacing={3}>
           <Grid item xs={12} xl={9} sx={{ height: "max-content" }}>
+          <ModalPlanning>
+
+          </ModalPlanning>
             {useMemo(
               () => (
                 <EventCalendar

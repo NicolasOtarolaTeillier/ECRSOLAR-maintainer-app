@@ -1,151 +1,165 @@
-import { useState } from 'react'
+import { useState } from "react";
 
 // formik components
-import { Formik, Form } from 'formik'
+import { Formik, Form } from "formik";
 
 // @mui material components
-import Grid from '@mui/material/Grid'
-import Card from '@mui/material/Card'
-import Stepper from '@mui/material/Stepper'
-import Step from '@mui/material/Step'
-import StepLabel from '@mui/material/StepLabel'
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
 
 // NextJS Material Dashboard 2 PRO components
-import MDBox from '/components/MDBox'
-import MDButton from '/components/MDButton'
+import MDBox from "/components/MDBox";
+import MDButton from "/components/MDButton";
 
 // NextJS Material Dashboard 2 PRO examples
-import DashboardLayout from '/examples/LayoutContainers/DashboardLayout'
-import DashboardNavbar from '/examples/Navbars/DashboardNavbar'
-import Footer from '/examples/Footer'
+import DashboardLayout from "/examples/LayoutContainers/DashboardLayout";
+import DashboardNavbar from "/examples/Navbars/DashboardNavbar";
+import Footer from "/examples/Footer";
+import PropTypes from 'prop-types'
 
 // Planning Service page components
-import SelectService from '../../../pagesComponents/pages/services/planning-service/components/SelectService'
-import AddStaff from '../../../pagesComponents/pages/services/planning-service/components/AddStaff'
-import AddEquipment from '../../../pagesComponents/pages/services/planning-service/components/AddEquipment'
-import AddCar from '../../../pagesComponents/pages/services/planning-service/components/AddCar'
+import SelectService from "../../../pagesComponents/pages/services/planning-service/components/SelectService";
+import AddStaff from "../../../pagesComponents/pages/services/planning-service/components/AddStaff";
+import AddEquipment from "../../../pagesComponents/pages/services/planning-service/components/AddEquipment";
+import AddCar from "../../../pagesComponents/pages/services/planning-service/components/AddCar";
 
 // Planning Service  layout schemas for form and form feilds
-import validations from '/pagesComponents/pages/services/planning-service/schemas/validations'
-import form from '/pagesComponents/pages/services/planning-service/schemas/form'
-import initialValues from '/pagesComponents/pages/services/planning-service/schemas/initialValues'
+import validations from "/pagesComponents/pages/services/planning-service/schemas/validations";
+import form from "/pagesComponents/pages/services/planning-service/schemas/form";
+import initialValues from "/pagesComponents/pages/services/planning-service/schemas/initialValues";
 
 // apollo
-import { useMutation } from '@apollo/client'
-import { useQuery } from '@apollo/client'
+import { useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 
 // context
-import { useMaterialUIController, setSelectService, setSelectLeader,setSelectCars,setSelectEquipments,setSelectStaffs } from '/context'
+import {
+  useMaterialUIController,
+  setSelectService,
+  setSelectLeader,
+  setSelectCars,
+  setSelectEquipments,
+  setSelectStaffs,
+} from "/context";
 
 // mutation
-import SERVICE_PLANNING from '../../../api/transactions/mutations.js'
+import SERVICE_PLANNING from "../../../api/transactions/mutations.js";
 
 //notifications
-import ApiNotification from '../../../components/ApiNotification'
+import ApiNotification from "../../../components/ApiNotification";
+import ModalPlanning from "../../../pagesComponents/pages/services/new-service/components/modal";
 
-function getSteps () {
+function getSteps() {
   return [
-    '1. Seleccionar Servicio',
-    '2. Asignar Cuadrilla',
-    '3. Asignar Equipamiento',
-    '4. Asignar Vehículo'
-  ]
+    "1. Seleccionar Servicio",
+    "2. Asignar Cuadrilla",
+    "3. Asignar Equipamiento",
+    "4. Asignar Vehículo",
+  ];
 }
 
-function getStepContent (stepIndex, formData) {
+function getStepContent(stepIndex, formData) {
   switch (stepIndex) {
     case 0:
-      return <SelectService formData={formData} />
+      return <SelectService formData={formData} />;
     case 1:
-      return <AddStaff formData={formData} />
+      return <AddStaff formData={formData} />;
     case 2:
-      return <AddEquipment formData={formData} />
+      return <AddEquipment formData={formData} />;
     case 3:
-      return <AddCar formData={formData} />
+      return <AddCar formData={formData} />;
     default:
-      return null
+      return null;
   }
 }
 
-function ServicePlanning () {
+function ServicePlanning() {
   // context
-  const [controller, dispatch] = useMaterialUIController()
-  const { service,leader,cars,equipments,staffs } = controller
+  const [controller, dispatch] = useMaterialUIController();
+  const { service, leader, cars, equipments, staffs } = controller;
 
   // notification
-  const [notification,setNotification] = useState({})
+  const [notification, setNotification] = useState({});
 
   // apollo
-  const [servicePlanning] = useMutation(SERVICE_PLANNING)
+  const [servicePlanning] = useMutation(SERVICE_PLANNING);
 
   // steps
-  const [activeStep, setActiveStep] = useState(0)
-  const currentValidation = validations[activeStep]
-  const steps = getSteps()
-  const isLastStep = activeStep === steps.length - 1
-  const handleBack = () => setActiveStep(activeStep - 1)
-
+  const [activeStep, setActiveStep] = useState(0);
+  const currentValidation = validations[activeStep];
+  const steps = getSteps();
+  const isLastStep = activeStep === steps.length - 1;
+  const handleBack = () => setActiveStep(activeStep - 1);
 
   // form
-  const { formId, formField } = form
+  const { formId, formField } = form;
   const handleSubmit = (values, actions) => {
-    console.log(values)
+    console.log(values);
     if (isLastStep) {
-      submitForm(values, actions)
+      submitForm(values, actions);
     } else {
-      setActiveStep(activeStep + 1)
-      actions.setTouched({})
-      actions.setSubmitting(false)
+      setActiveStep(activeStep + 1);
+      actions.setTouched({});
+      actions.setSubmitting(false);
     }
-  }
+  };
   const submitForm = async (values, actions) => {
-    alert(JSON.stringify(values, null, 2))
+    alert(JSON.stringify(values, null, 2));
     // to-do:  SERVICE_PLANNING
     try {
       const result = await servicePlanning({
-        variables:{
+        variables: {
           service: service,
           leader: leader,
           staffs: staffs,
           equipments: equipments,
           cars: cars,
-          step: 2
-        }
-      })
-    setNotification({message:result, code:'success',title:'Exito al hacer la transaccion'})
-
+          step: 2,
+        },
+      });
+      setNotification({
+        message: result,
+        code: "success",
+        title: "Exito al hacer la transaccion",
+      });
+    } catch (err) {
+      setNotification({
+        message: err,
+        code: "error",
+        title: "Exito al hacer la transacción",
+      });
     }
-    catch (err) {
-      setNotification({message:err, code:'error',title:'Exito al hacer la transacción'})
 
-    }
+    actions.setSubmitting(false);
+  };
 
-
-    actions.setSubmitting(false)
-  }
 
   return (
     <DashboardLayout>
-      <MDBox py={0} mb={10} height='65vh'>
+      <MDBox py={0} mb={10} height="65vh">
         <Grid
           container
-          justifyContent='center'
-          alignItems='center'
-          sx={{ height: '100%', mt: 1 }}
+          justifyContent="center"
+          alignItems="center"
+          sx={{ height: "100%", mt: 1 }}
         >
-          <ApiNotification data={notification}/>
+          <ApiNotification data={notification} />
           <Grid item xs={12} lg={8}>
             <Formik
               initialValues={initialValues}
               validationSchema={currentValidation}
               onSubmit={handleSubmit}
             >
+              
               {({ values, errors, touched, isSubmitting }) => (
-                <Form id={formId} autoComplete='off'>
-                  <Card sx={{ height: '100%' }}>
+                <Form id={formId} autoComplete="off">
+                  <Card sx={{ height: "100%" }}>
                     <MDBox mx={2} mt={-2}>
                       <Stepper activeStep={activeStep} alternativeLabel>
-                        {steps.map(label => (
+                        {steps.map((label) => (
                           <Step key={label}>
                             <StepLabel>{label}</StepLabel>
                           </Step>
@@ -160,20 +174,20 @@ function ServicePlanning () {
                           formField,
                           setActiveStep,
                           activeStep,
-                          errors
+                          errors,
                         })}
                         <MDBox
                           mt={2}
-                          width='100%'
-                          display='flex'
-                          justifyContent='space-between'
+                          width="100%"
+                          display="flex"
+                          justifyContent="space-between"
                         >
                           {activeStep === 0 ? (
                             <MDBox />
                           ) : (
                             <MDButton
-                              variant='gradient'
-                              color='light'
+                              variant="gradient"
+                              color="light"
                               onClick={handleBack}
                             >
                               atrás
@@ -182,11 +196,11 @@ function ServicePlanning () {
                           {activeStep === 0 ? null : (
                             <MDButton
                               disabled={isSubmitting}
-                              type='submit'
-                              variant='gradient'
-                              color={isLastStep ? 'success' : 'dark'}
+                              type="submit"
+                              variant="gradient"
+                              color={isLastStep ? "success" : "dark"}
                             >
-                              {isLastStep ? 'Guardar' : 'siguiente'}
+                              {isLastStep ? "Guardar" : "siguiente"}
                             </MDButton>
                           )}
                         </MDBox>
@@ -196,13 +210,12 @@ function ServicePlanning () {
                 </Form>
               )}
             </Formik>
+
           </Grid>
         </Grid>
       </MDBox>
     </DashboardLayout>
-  )
+  );
 }
 
-
-
-export default ServicePlanning
+export default ServicePlanning;
