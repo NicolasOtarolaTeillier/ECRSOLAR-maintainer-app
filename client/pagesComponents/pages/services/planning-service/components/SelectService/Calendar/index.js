@@ -178,21 +178,22 @@ function Calendar({ formData }) {
                     <Box pl={2}>Viernes: 100%</Box>
                   </Box>
                   <Box mb={2}>
-                    <Typography variant="h6" gutterBottom>
-                      Hallasgos:
-                    </Typography>
-                    <Box display="flex" justifyContent="space-between">
-                      <Box border={1} borderColor="grey.500" borderRadius={1} overflow="hidden" width={250} height={250}>
-                        <Image src={IMAGEN1} alt="Panel roto" objectFit="cover" />
-                      </Box>
-                      <Box border={1} borderColor="grey.500" borderRadius={1} overflow="hidden" width={250} height={250}>
-                        <Image src={IMAGEN2} alt="Panel quemado" objectFit="cover" />
-                      </Box>
-                      <Box border={1} borderColor="grey.500" borderRadius={1} overflow="hidden" width={250} height={250}>
-                        <Image src={IMAGEN3} alt="Panel con malesa" objectFit="cover" />
-                      </Box>
-                    </Box>
-                  </Box>
+  <Typography variant="h6" gutterBottom>
+    Hallasgos:
+  </Typography>
+  <Box display="flex" justifyContent="space-between">
+    <Box position="relative" border={1} borderColor="grey.500" borderRadius={1} overflow="hidden" width={250} height={250} mr={1}>
+      <Image src={IMAGEN1} alt="Panel roto" layout="fill" objectFit="cover" />
+    </Box>
+    <Box position="relative" border={1} borderColor="grey.500" borderRadius={1} overflow="hidden" width={250} height={250} mx={1}>
+      <Image src={IMAGEN2} alt="Panel quemado" layout="fill" objectFit="cover" />
+    </Box>
+    <Box position="relative" border={1} borderColor="grey.500" borderRadius={1} overflow="hidden" width={250} height={250} ml={1}>
+      <Image src={IMAGEN3} alt="Panel con malesa" layout="fill" objectFit="cover" />
+    </Box>
+  </Box>
+</Box>
+
                   <Box mb={2}>
                     <Typography variant="h6" gutterBottom>
                       Proveedores:
