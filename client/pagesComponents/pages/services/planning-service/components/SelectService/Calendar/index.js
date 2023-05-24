@@ -52,9 +52,13 @@ function Calendar({ formData }) {
             name = "error";
         }
         let a = ""
-        if (index === 6){
+        if (index === 5){
           a = " Correctivo Electrico complejo"
           name = "success"
+        }
+        if (index === 6){
+          a = " Correctivo Electrico simple"
+          name = "error"
         }
         return {
           title: service.service_type.name + a,
@@ -112,6 +116,7 @@ function Calendar({ formData }) {
             [dataService, open]
           )}
           {open ? (()=>{
+            console.log(dataService)
             const inicio = `Fecha : ${dataService?.filter(s=>s.id === idService)[0]?.start}`
             const fin = ` - ${dataService?.filter(s=>s.id === idService)[0]?.end}`
             return <>
@@ -119,8 +124,15 @@ function Calendar({ formData }) {
               {inicio} {fin}
             </div>
             <div>
-              
+              Ejecucion: 
             </div>
+            <div>
+              Produccion diaria: 
+            </div>
+            <div>
+              Hallasgos:
+            </div>
+            <div></div>
             </>
           })() : null}
         </Grid>
